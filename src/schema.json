@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "properties": {
+      "@context": {
+          "type": "string"
+      },
+    "identifier": {
+      "type": "string"
+    },
+    "preferredLabel": {
+      "type": "array", 
+      "items": {
+        "type": "object",
+        "properties": {
+            "value": {
+                "type": "string"
+            },
+            "lang": {
+                "type": "string",
+                "enum": [
+                    "NO",
+                    "EN"
+                ]
+            }
+        }
+      }
+    },
+    "alternativeLabel": {
+      "type": "array", 
+      "items": {
+        "type": "object",
+        "properties": {
+            "value": {
+                "type": "string"
+            },
+            "lang": {
+                "type": "string",
+                "enum": [
+                    "NO",
+                    "EN"
+                ]
+            }
+        }
+      }
+    },
+    "narrower": {
+      "type": "array", 
+      "items": {
+        "type": "string"
+      }
+    },
+    "broader": {
+      "type": "string"
+    },
+    "related": {
+      "type": "array", 
+      "items": {
+          "type": "string"
+      }
+    },
+    "definition": {
+      "type": "string"
+    },
+    "inScheme": {
+      "type": "string"
+    },
+    "seeAlso": {
+      "type": "array", 
+      "items": {
+        "type": "string"
+      }
+    },
+    "recurrence": {
+      "type": "string",
+      "enum": [
+        "Never",
+        "Daily",
+        "Weekly",
+        "Monthly"
+      ]
+    },
+    "recurrence_interval": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "preferredLabel", "alternativeLabel", "inScheme"
+  ]
+}

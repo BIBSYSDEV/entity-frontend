@@ -1,0 +1,84 @@
+{
+    "type": "VerticalLayout",
+    "elements": [
+      {
+        "type": "Control",
+        "label": "Identifier",
+        "scope": "#/properties/identifier",
+        "rule": {
+            "effect": "DISABLE",
+            "condition": {
+                "scope": "#/properties/identifier"
+            }
+        }
+
+      },
+      {
+        "type": "VerticalLayout",
+        "elements": [
+            {
+                "type": "Control",
+                "scope": "#/properties/preferredLabel"
+            }
+        ]
+      },
+      {
+        "type": "VerticalLayout",
+        "elements": [
+           {
+             "type": "Control",
+             "scope": "#/properties/alternativeLabel"
+           }
+        ]
+      },
+      {
+        "type": "Control",
+        "label": "Definition",
+        "scope": "#/properties/definition"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/narrower"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/broader"
+      },
+      {
+        "type": "Control",
+        "label": "See also",
+        "scope": "#/properties/seeAlso"
+      },
+      {
+        "type": "Control",
+        "label": "Related",
+        "scope": "#/properties/related"
+      },
+      {
+        "type": "Control",
+        "label": "In scheme",
+        "scope": "#/properties/inScheme"
+      },
+      {
+        "type": "HorizontalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/recurrence"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/recurrence_interval",
+            "rule": {
+                "effect": "HIDE",
+                "condition": {
+                    "type": "LEAF",
+                    "scope": "#/properties/recurrence",
+                    "expectedValue": "Never"
+                }
+            }
+          }
+        ]
+      }
+    ]
+  }

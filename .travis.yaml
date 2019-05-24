@@ -1,0 +1,33 @@
+sudo: required
+
+addons:
+  chrome: stable
+
+language: node_js
+
+matrix:
+  include:
+    - node_js: "6"
+    - node_js: "7"
+    - node_js: "8"
+    - node_js: "9" 
+    - node_js: "10" 
+    - node_js: "11" 
+    - node_js: "12" 
+    - node_js: "13" 
+
+before_install:
+  - dpkg --compare-versions `npm -v` ge 5.8 || npm i -g npm@^5.8
+
+install:
+  - npm ci
+  - lerna bootstrap --hoist --npm-ci-mode
+
+script:
+  - prettier --list-different '**/*.ts'
+  - npm run build
+  - npm run bundle
+  - npm run test-cov
+
+after_success:
+    - 'npm run merge-report && cat coverage/lcov.info | ./node_modules/.bin/coveralls'
