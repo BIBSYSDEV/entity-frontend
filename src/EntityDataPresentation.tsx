@@ -1,9 +1,7 @@
 import React from 'react';
-import { JsonForms } from '@jsonforms/react';
 import Typography from "@material-ui/core/Typography";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
-import EntityToolBar from './EntityToolBar';
 
 const styles = createStyles({
   title: {

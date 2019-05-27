@@ -6,24 +6,12 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import EntityToolBar from './EntityToolBar';
 
 const styles = createStyles({
-  container: {
-    padding: '1em'
-  },
   title: {
     textAlign: 'center',
     padding: '0.25em'
   },
-  dataContent: {
-    display: 'flex',
-    justifyContent: 'center',
-    borderRadius: '0.25em',
-    backgroundColor: '#cecece',
-  },
   registrationform: {
     margin: 'auto'
-  },
-  grow: {
-    flexGrow: 1,
   },
 });
 

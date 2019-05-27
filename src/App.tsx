@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import {getData, JsonFormsState} from '@jsonforms/core';
