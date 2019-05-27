@@ -7,21 +7,21 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
 const styles = createStyles({
-  toolBar: {
-    flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
+    toolBar: {
+        flexGrow: 1,
+    },
+    grow: {
+        flexGrow: 1,
+    },
 });
 
 export interface AppProps extends WithStyles<typeof styles> {
-  registry: string;
-  handleNew: any;
-  handlePersist: any;
+    registry: string;
+    handleNew: any;
+    handlePersist: any;
 }
 
-const EntityToolBar = (props:AppProps) => {
+const EntityToolBar = (props: AppProps) => {
     
     const { classes, registry, handleNew, handlePersist } = props;
 
@@ -40,4 +40,4 @@ const EntityToolBar = (props:AppProps) => {
     );
 }
 
- export default withStyles(styles)(EntityToolBar);
+export default withStyles(styles)(EntityToolBar);

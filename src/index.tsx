@@ -32,10 +32,10 @@ const data = {
 
 const initState: JsonFormsState = {
     jsonforms: {
-      cells: materialCells,
-      renderers: materialRenderers
+        cells: materialCells,
+        renderers: materialRenderers
     }
-  }
+}
 
 const registry = window.location.pathname.substring(1).split("/")[0];
 
@@ -46,9 +46,9 @@ store.dispatch(Actions.init(data, schema, uischema));
 
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App registry={registry}/>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <App registry={registry}/>
+    </Provider>,
+    document.getElementById('root')
 );
 registerServiceWorker();

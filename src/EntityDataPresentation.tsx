@@ -30,7 +30,7 @@ export interface DataProps extends WithStyles<typeof styles> {
     dataAsString: string;    
 }
 
-const EntityDataPresentation = (props:DataProps) => {
+const EntityDataPresentation = (props: DataProps) => {
 
     const { classes, dataAsString } = props;
 
@@ -53,4 +53,4 @@ const EntityDataPresentation = (props:DataProps) => {
 
 }
 
- export default withStyles(styles)(EntityDataPresentation);
+export default withStyles(styles)(EntityDataPresentation);

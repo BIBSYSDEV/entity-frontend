@@ -6,22 +6,22 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import EntityToolBar from './EntityToolBar';
 
 const styles = createStyles({
-  title: {
-    textAlign: 'center',
-    padding: '0.25em'
-  },
-  registrationform: {
-    margin: 'auto'
-  },
+    title: {
+        textAlign: 'center',
+        padding: '0.25em'
+    },
+    registrationform: {
+        margin: 'auto'
+    },
 });
 
 export interface FormProps extends WithStyles<typeof styles> {
-  registry: string;
-  handleNew: any;
-  handlePersist: any;
+    registry: string;
+    handleNew: any;
+    handlePersist: any;
 }
 
-const EntityRegistrationForm = (props:FormProps) => {
+const EntityRegistrationForm = (props: FormProps) => {
 
     const { classes, registry, handleNew, handlePersist } = props;
 
@@ -37,9 +37,9 @@ const EntityRegistrationForm = (props:FormProps) => {
                     handlePersist={handlePersist} 
                 />
             </Typography>
-                <div className={classes.registrationform}>
-                    <JsonForms/>
-                </div>
+            <div className={classes.registrationform}>
+                <JsonForms/>
+            </div>
             <Typography
                 variant={'display1'}
                 className={classes.title}
@@ -56,4 +56,4 @@ const EntityRegistrationForm = (props:FormProps) => {
 
 }
 
- export default withStyles(styles)(EntityRegistrationForm);
+export default withStyles(styles)(EntityRegistrationForm);
