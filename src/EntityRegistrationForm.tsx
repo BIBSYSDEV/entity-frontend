@@ -16,14 +16,14 @@ const styles = createStyles({
 });
 
 export interface FormProps extends WithStyles<typeof styles> {
-    registry: string;
+    registryId: string;
     handleNew: any;
     handlePersist: any;
 }
 
 const EntityRegistrationForm = (props: FormProps) => {
 
-    const { classes, registry, handleNew, handlePersist } = props;
+    const { classes, registryId, handleNew, handlePersist } = props;
 
     return (
         <React.Fragment>
@@ -32,7 +32,7 @@ const EntityRegistrationForm = (props: FormProps) => {
                 className={classes.title}
             >
                 <EntityToolBar 
-                    registry={registry} 
+                    registry={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist} 
                 />
@@ -45,7 +45,7 @@ const EntityRegistrationForm = (props: FormProps) => {
                 className={classes.title}
             >
                 <EntityToolBar 
-                    registry={registry} 
+                    registry={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist} 
                 />

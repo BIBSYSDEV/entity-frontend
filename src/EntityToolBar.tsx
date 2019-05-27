@@ -16,21 +16,21 @@ const styles = createStyles({
 });
 
 export interface AppProps extends WithStyles<typeof styles> {
-    registry: string;
+    registryId: string;
     handleNew: any;
     handlePersist: any;
 }
 
 const EntityToolBar = (props: AppProps) => {
     
-    const { classes, registry, handleNew, handlePersist } = props;
+    const { classes, registryId, handleNew, handlePersist } = props;
 
     return (
         <div className={classes.toolBar}>
             <AppBar position="static" color="default">
                 <Toolbar variant="dense">
                     <Typography className={classes.grow} variant="h6" color="inherit" align="left">
-                    Emneord ({registry})
+                    Emneord ({registryId})
                     </Typography>
                     <Button onClick={handleNew} color="inherit">Ny</Button>
                     <Button onClick={handlePersist} color="inherit">Lagre</Button>

@@ -37,7 +37,15 @@ const initState: JsonFormsState = {
     }
 }
 
-const registry = window.location.pathname.substring(1).split("/")[0];
+const findRegistryIdentifierInPath = () => {
+    return window
+        .location
+        .pathname
+        .substring(1)
+        .split("/")[0];
+}
+
+const registryId = findRegistryIdentifierInPath();
 
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
@@ -47,7 +55,7 @@ store.dispatch(Actions.init(data, schema, uischema));
 
 ReactDOM.render(
     <Provider store={store}>
-        <App registry={registry}/>
+        <App registry={registryId}/>
     </Provider>,
     document.getElementById('root')
 );

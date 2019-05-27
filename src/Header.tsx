@@ -18,7 +18,7 @@ const styles = {
 };
 
 
-const SimpleAppBar = (props: any) => {
+const Header = (props: any) => {
     const { classes } = props;
 
     return (
@@ -35,9 +35,9 @@ const SimpleAppBar = (props: any) => {
     );
 }
 
-SimpleAppBar.propTypes = {
+Header.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleAppBar);
+export default withStyles(styles)(Header);
 

@@ -5,7 +5,7 @@ import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import {getData, JsonFormsState} from '@jsonforms/core';
 import './App.css';
-import SimpleAppBar from "./SimpleAppBar";
+import Header from "./Header";
 import EntityRegistrationForm from './EntityRegistrationForm';
 import EntityDataPresentation from './EntityDataPresentation';
 
@@ -41,12 +41,12 @@ const styles = createStyles({
 
 export interface AppProps extends WithStyles<typeof styles> {
     dataAsString: string;
-    registry: string;
+    registryId: string;
 }
 
 const App = (props: AppProps) => {
     
-    const { classes, dataAsString, registry } = props;
+    const { classes, dataAsString, registryId } = props;
     
     const handleNew = () => { 
         console.log('Nytt emneord'); 
@@ -60,11 +60,11 @@ const App = (props: AppProps) => {
     
     return (
         <div>
-            <SimpleAppBar />
+            <Header />
             <Grid container justify={'center'} spacing={16} className={classes.container}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm
-                        registry={registry}
+                        registry={registryId}
                         handleNew={handleNew}
                         handlePersist={handlePersist}
                     />
