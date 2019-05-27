@@ -1,17 +1,14 @@
 import { connect } from 'react-redux';
-import { JsonForms } from '@jsonforms/react';
-import PropTypes from 'prop-types';
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import createStyles from "@material-ui/core/styles/createStyles";
 import {getData, JsonFormsState} from '@jsonforms/core';
 import './App.css';
-import createStyles from "@material-ui/core/styles/createStyles";
 import SimpleAppBar from "./SimpleAppBar";
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+import EntityRegistrationForm from './EntityRegistrationForm';
+import EntityDataPresentation from './EntityDataPresentation';
 
 const styles = createStyles({
   toolBar: {
@@ -53,30 +50,13 @@ const App = (props:AppProps) => {
     const { classes, dataAsString, registry } = props;
     
     const handleNew = () => { 
-        alert('Nytt emneord');
+        console.log('Nytt emneord'); 
     }
 
     const handlePersist = () => {
         const { dataAsString, registry } = props;
-        alert('registry: ' + registry);
-        alert(dataAsString);
-    }
-    
-    const renderToolBar = (classes:any) => {
-        
-        return (
-            <div className={classes.toolBar}>
-                <AppBar position="static" color="default">
-                    <Toolbar variant="dense">
-                        <Typography className={classes.grow} variant="h6" color="inherit" align="left">
-                        Emneord ({registry})
-                        </Typography>
-                        <Button onClick={handleNew} color="inherit">Ny</Button>
-                        <Button onClick={handlePersist} color="inherit">Lagre</Button>
-                    </Toolbar>
-                </AppBar>
-            </div>
-        );
+        console.log('registry: ' + registry);
+        console.log(dataAsString);
     }
     
     return (
@@ -84,32 +64,16 @@ const App = (props:AppProps) => {
         <SimpleAppBar />
         <Grid container justify={'center'} spacing={16} className={classes.container}>
         <Grid item sm={9}>
-            <Typography
-            variant={'display1'}
-            className={classes.title}
-            >
-            { renderToolBar(classes)}
-            </Typography>
-            <div className={classes.demoform}>
-            <JsonForms/>
-            </div>
-            <Typography
-            variant={'display1'}
-            className={classes.title}
-            >
-            { renderToolBar(classes)}
-            </Typography>
+            <EntityRegistrationForm
+                registry={registry}
+                handleNew={handleNew}
+                handlePersist={handlePersist}
+                />
         </Grid>
         <Grid item sm={9}>
-            <Typography
-            variant={'display1'}
-            className={classes.title}
-            >
-            Data
-            </Typography>
-            <div className={classes.dataContent}>
-            <pre>{dataAsString}</pre>
-            </div>
+            <EntityDataPresentation
+                dataAsString={dataAsString}
+            />                                    
         </Grid>
         </Grid>
     </div>

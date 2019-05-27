@@ -37,10 +37,7 @@ const initState: JsonFormsState = {
     }
   }
 
-const search = window.location.search;
-const params = new URLSearchParams(search);
-const identifier = params.get('identifier');
-const path = window.location.pathname.substring(1).split("/");
+const registry = window.location.pathname.substring(1).split("/")[0];
 
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
@@ -50,7 +47,7 @@ store.dispatch(Actions.init(data, schema, uischema));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App registry={path[0]}/>
+    <App registry={registry}/>
   </Provider>,
   document.getElementById('root')
 );
