@@ -32,15 +32,20 @@ const data = {
 
 const initState: JsonFormsState = {
     jsonforms: {
-      cells: materialCells,
-      renderers: materialRenderers
+        cells: materialCells,
+        renderers: materialRenderers
     }
-  }
+}
 
-const search = window.location.search;
-const params = new URLSearchParams(search);
-const identifier = params.get('identifier');
-const path = window.location.pathname.substring(1).split("/");
+const findRegistryIdentifierInPath = () => {
+    return window
+        .location
+        .pathname
+        .substring(1)
+        .split("/")[0];
+}
+
+const registryId = findRegistryIdentifierInPath();
 
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
@@ -49,9 +54,9 @@ store.dispatch(Actions.init(data, schema, uischema));
 
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App registry={path[0]}/>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <App registryId={registryId}/>
+    </Provider>,
+    document.getElementById('root')
 );
 registerServiceWorker();
