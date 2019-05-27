@@ -55,7 +55,7 @@ store.dispatch(Actions.init(data, schema, uischema));
 
 ReactDOM.render(
     <Provider store={store}>
-        <App registry={registryId}/>
+        <App registryId={registryId}/>
     </Provider>,
     document.getElementById('root')
 );

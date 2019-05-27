@@ -53,8 +53,8 @@ const App = (props: AppProps) => {
     }
 
     const handlePersist = () => {
-        const { dataAsString, registry } = props;
-        console.log('registry: ' + registry);
+        const { dataAsString, registryId } = props;
+        console.log('registry: ' + registryId);
         console.log(dataAsString);
     }
     
@@ -64,7 +64,7 @@ const App = (props: AppProps) => {
             <Grid container justify={'center'} spacing={16} className={classes.container}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm
-                        registry={registryId}
+                        registryId={registryId}
                         handleNew={handleNew}
                         handlePersist={handlePersist}
                     />

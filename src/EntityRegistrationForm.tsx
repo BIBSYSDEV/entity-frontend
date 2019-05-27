@@ -32,7 +32,7 @@ const EntityRegistrationForm = (props: FormProps) => {
                 className={classes.title}
             >
                 <EntityToolBar 
-                    registry={registryId} 
+                    registryId={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist} 
                 />
@@ -45,7 +45,7 @@ const EntityRegistrationForm = (props: FormProps) => {
                 className={classes.title}
             >
                 <EntityToolBar 
-                    registry={registryId} 
+                    registryId={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist} 
                 />
