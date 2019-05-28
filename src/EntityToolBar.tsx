@@ -19,11 +19,18 @@ export interface AppProps extends WithStyles<typeof styles> {
     registryId: string;
     handleNew: any;
     handlePersist: any;
+    setAuthorised: any;
+    resetRegistry: any; 
 }
 
 const EntityToolBar = (props: AppProps) => {
     
-    const { classes, registryId, handleNew, handlePersist } = props;
+    const { classes, registryId, handleNew, handlePersist, setAuthorised, resetRegistry } = props;
+
+    const handleLogout = () => {
+        setAuthorised(false);
+        resetRegistry();
+    }
 
     return (
         <div className={classes.toolBar}>
@@ -32,8 +39,10 @@ const EntityToolBar = (props: AppProps) => {
                     <Typography className={classes.grow} variant="h6" color="inherit" align="left">
                     Emneord ({registryId})
                     </Typography>
-                    <Button onClick={handleNew} color="inherit">Ny</Button>
-                    <Button onClick={handlePersist} color="inherit">Lagre</Button>
+                    <Button onClick={handleNew} color="inherit">New</Button>
+                    <Button onClick={handlePersist} color="inherit">Save</Button>
+                    <Button onClick={resetRegistry} color="inherit">Choose Registry</Button>
+                    <Button onClick={handleLogout} color="inherit">Logout</Button>
                 </Toolbar>
             </AppBar>
         </div>

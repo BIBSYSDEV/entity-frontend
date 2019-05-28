@@ -1,13 +1,10 @@
-import { connect } from 'react-redux';
-import React from 'react';
-import Grid from "@material-ui/core/Grid";
+import React, { useState } from 'react';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
-import {getData, JsonFormsState} from '@jsonforms/core';
 import './App.css';
-import Header from "./Header";
-import EntityRegistrationForm from './EntityRegistrationForm';
-import EntityDataPresentation from './EntityDataPresentation';
+import Login from './Login';
+import EntityRegistrationApp from './EntityRegistrationApp';
+import RegistryPresentation from './RegistryPresentation';
 
 const styles = createStyles({
     toolBar: {
@@ -40,48 +37,41 @@ const styles = createStyles({
 });
 
 export interface AppProps extends WithStyles<typeof styles> {
-    dataAsString: string;
     registryId: string;
 }
 
 const App = (props: AppProps) => {
     
-    const { classes, dataAsString, registryId } = props;
-    
-    const handleNew = () => { 
-        console.log('Nytt emneord'); 
+    const [isAuthorised, setAuthorised] = useState(false);
+    const [user, setUser] = useState(false);
+    const [registryId, setRegistryId] = useState('');
+
+    const resetRegistry = () => {
+        setRegistryId('');
+        console.log('Resetting registry id');
     }
 
-    const handlePersist = () => {
-        const { dataAsString, registryId } = props;
-        console.log('registry: ' + registryId);
-        console.log(dataAsString);
+    let appRender = <Login 
+                        setAuthorised={setAuthorised} 
+                        setUser={setUser} 
+                    />;
+
+    if(isAuthorised) {
+        (!Boolean(registryId)) ?
+        appRender = <RegistryPresentation 
+                        setRegistryId={setRegistryId} 
+                    />:
+        appRender = <EntityRegistrationApp 
+                        registryId={registryId} 
+                        setAuthorised={setAuthorised} 
+                        resetRegistry={resetRegistry} 
+                    />;
     }
-    
-    return (
-        <div>
-            <Header />
-            <Grid container justify={'center'} spacing={16} className={classes.container}>
-                <Grid item sm={9}>
-                    <EntityRegistrationForm
-                        registryId={registryId}
-                        handleNew={handleNew}
-                        handlePersist={handlePersist}
-                    />
-                </Grid>
-                <Grid item sm={9}>
-                    <EntityDataPresentation
-                        dataAsString={dataAsString}
-                    />                                    
-                </Grid>
-            </Grid>
-        </div>
-    );
+
+
+
+    return appRender;
 }
 
-const mapStateToProps = (state: JsonFormsState) => {
-    return { dataAsString: JSON.stringify(getData(state), null, 2) }
-};
-
-export default connect(mapStateToProps)(withStyles(styles)(App));
+export default withStyles(styles)(App);
 
