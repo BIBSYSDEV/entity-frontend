@@ -19,11 +19,12 @@ export interface DataProps extends WithStyles<typeof styles> {
     dataAsString: string;
     setAuthorised: any;
     resetRegistry: any;
+    user: string;
 }
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, dataAsString, registryId, setAuthorised, resetRegistry } = props;
+    const { classes, dataAsString, registryId, setAuthorised, resetRegistry, user } = props;
     
     const handleNew = () => { 
         console.log('Nytt emneord'); 
@@ -43,7 +44,7 @@ const EntityRegistrationApp = (props: DataProps) => {
     
     return (
         <div>
-            <Header spin={spin} />
+            <Header spin={spin} user={user}/>
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm

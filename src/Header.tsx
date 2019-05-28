@@ -27,10 +27,11 @@ const styles = createStyles({
 
 export interface HeaderProps extends WithStyles<typeof styles> {
     spin: boolean;
+    user: string;
 }
 
 const Header = (props: HeaderProps) => {
-    const { classes, spin } = props;
+    const { classes, spin, user } = props;
 
     return (
         <div className={classes.root}>
@@ -42,6 +43,9 @@ const Header = (props: HeaderProps) => {
                     } 
                     <Typography className={classes.title} variant="h4" color="inherit" align="center">
                         Emneregister demo
+                    </Typography>
+                    <Typography variant="h6">
+                        {user}
                     </Typography>
                 </Toolbar>
             </AppBar>

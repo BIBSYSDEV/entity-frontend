@@ -13,15 +13,16 @@ const styles = createStyles({
 
 export interface DataProps extends WithStyles<typeof styles> {
     setRegistryId: object;
+    user: string;
 }
 
 const RegistryPresentation = (props: DataProps) => {
 
-    const { classes, setRegistryId } = props;
+    const { classes, setRegistryId, user } = props;
     
     return (
         <div>
-            <Header spin={false} />
+            <Header spin={false} user={user}/>
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
                     <RegistryList setRegistryId={setRegistryId} />

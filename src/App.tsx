@@ -43,7 +43,7 @@ export interface AppProps extends WithStyles<typeof styles> {
 const App = (props: AppProps) => {
     
     const [isAuthorised, setAuthorised] = useState(false);
-    const [user, setUser] = useState(false);
+    const [user, setUser] = useState('');
     const [registryId, setRegistryId] = useState('');
 
     const resetRegistry = () => {
@@ -53,19 +53,22 @@ const App = (props: AppProps) => {
 
     let appRender = <Login 
                         setAuthorised={setAuthorised} 
-                        setUser={setUser} 
+                        setUser={setUser}
+                        user={''} 
                     />;
 
     if(isAuthorised) {
         (!Boolean(registryId)) ?
-        appRender = <RegistryPresentation 
-                        setRegistryId={setRegistryId} 
-                    />:
-        appRender = <EntityRegistrationApp 
-                        registryId={registryId} 
-                        setAuthorised={setAuthorised} 
-                        resetRegistry={resetRegistry} 
-                    />;
+            appRender = <RegistryPresentation 
+                            setRegistryId={setRegistryId}
+                            user={user} 
+                        />:
+            appRender = <EntityRegistrationApp 
+                            registryId={registryId} 
+                            setAuthorised={setAuthorised} 
+                            resetRegistry={resetRegistry} 
+                            user={user} 
+                        />;
     }
 
 

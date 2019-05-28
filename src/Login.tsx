@@ -37,6 +37,7 @@ const styles = createStyles({
 export interface LoginProps extends WithStyles<typeof styles> {
     setAuthorised: any;
     setUser: any;
+    user: string;
 }
 
 const Login = (props: LoginProps) => {
@@ -44,7 +45,7 @@ const Login = (props: LoginProps) => {
     const [password, setPassword] = useState('');
     const [isLoading, setLoading] = useState(false);
 
-    const { classes, setAuthorised, setUser } = props;
+    const { classes, setAuthorised, setUser, user } = props;
 
     let userInput = '';
 
@@ -78,7 +79,7 @@ const Login = (props: LoginProps) => {
 
     return (
         <div>
-            <Header spin={spin}/>
+            <Header spin={spin} user={user}/>
             <Container component='main' maxWidth='xs'>
                 <CssBaseline />
                 <div className={classes.paper}>
