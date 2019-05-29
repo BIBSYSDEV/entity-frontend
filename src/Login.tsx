@@ -23,6 +23,7 @@ const styles = createStyles({
     },
     avatar: {
         margin: '0.1em',
+        backgroundColor: 'red',
     },
     form: {
         width: '100%', 
