@@ -41,7 +41,7 @@ const EntityToolBar = (props: AppProps) => {
                     </Typography>
                     <Button onClick={handleNew} color="inherit">New</Button>
                     <Button onClick={handlePersist} color="inherit">Save</Button>
-                    <Button onClick={resetRegistry} color="inherit">Choose Registry</Button>
+                    <Button onClick={resetRegistry} color="inherit">Registry</Button>
                     <Button onClick={handleLogout} color="inherit">Logout</Button>
                 </Toolbar>
             </AppBar>

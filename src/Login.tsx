@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// import './Login.css';
-// import { Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -43,18 +42,18 @@ export interface LoginProps extends WithStyles<typeof styles> {
 const Login = (props: LoginProps) => {
 
     const [password, setPassword] = useState('');
+    const [userInput, setUserInput] = useState('');
     const [isLoading, setLoading] = useState(false);
 
     const { classes, setAuthorised, setUser, user } = props;
 
-    let userInput = '';
-
     const validateForm = () => {
-        return userInput.length > 0 && password.length > 0;
+        return Boolean(userInput) && Boolean(password);
     }
 
     const handleUserChange = (event: any) => {
-        setUser(event.target.value);
+        console.log(event.target.value);
+        setUserInput(event.target.value);
     }
 
     const handlePasswordChange = (event: any) => {
@@ -62,17 +61,19 @@ const Login = (props: LoginProps) => {
     }
 
     const handleSubmit = async (event: any) => {
-    event.preventDefault();
+        event.preventDefault();
 
-    setLoading(true);
+        setLoading(true);
 
-    // try {
-        // await Auth.signIn(userInput, password);
-        // console.log('Logged in');
-        setAuthorised(true);
-    // } catch (e) {
-    //     alert(e.message);
-    // }
+        try {
+            await Auth.signIn(userInput, password);
+            console.log('Logged in as');
+            console.log(userInput);
+            setAuthorised(true);
+            setUser(userInput);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const spin = true;
@@ -95,7 +96,7 @@ const Login = (props: LoginProps) => {
                             margin='normal'
                             required
                             fullWidth
-                            id='email'
+                            id='userInput'
                             label='Email Address'
                             name='email'
                             autoComplete='email'
@@ -120,7 +121,7 @@ const Login = (props: LoginProps) => {
                             variant='contained'
                             color='primary'
                             className={classes.submit}
-                            disabled={validateForm()}
+                            disabled={!validateForm()}
                             onClick={handleSubmit}
                         >
                             Sign In
