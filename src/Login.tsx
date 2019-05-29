@@ -30,6 +30,9 @@ const styles = createStyles({
     },
     submit: {
         margin: '0.1em',
+    },
+    error: {
+        color: 'red',
     }
 });
 
@@ -43,7 +46,7 @@ const Login = (props: LoginProps) => {
 
     const [password, setPassword] = useState('');
     const [userInput, setUserInput] = useState('');
-    const [isLoading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const { classes, setAuthorised, setUser, user } = props;
 
@@ -52,7 +55,6 @@ const Login = (props: LoginProps) => {
     }
 
     const handleUserChange = (event: any) => {
-        console.log(event.target.value);
         setUserInput(event.target.value);
     }
 
@@ -63,9 +65,8 @@ const Login = (props: LoginProps) => {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
-        setLoading(true);
-
         try {
+            setErrorMessage('')
             await Auth.signIn(userInput, password);
             console.log('Logged in as');
             console.log(userInput);
@@ -73,6 +74,7 @@ const Login = (props: LoginProps) => {
             setUser(userInput);
         } catch (e) {
             console.log(e);
+            setErrorMessage(e.message);
         }
     }
 
@@ -97,9 +99,9 @@ const Login = (props: LoginProps) => {
                             required
                             fullWidth
                             id='userInput'
-                            label='Email Address'
-                            name='email'
-                            autoComplete='email'
+                            label='User name'
+                            name='user'
+                            autoComplete='user name'
                             autoFocus
                             onChange={handleUserChange}
                         />
@@ -128,6 +130,11 @@ const Login = (props: LoginProps) => {
                         </Button>
                     </form>
                 </div>
+                <div>
+                    <Typography className={classes.error}>
+                        {errorMessage}
+                    </Typography>
+                </div> 
             </Container>
             </div>
 
