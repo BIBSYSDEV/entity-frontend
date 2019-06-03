@@ -57,28 +57,13 @@
       {
         "type": "Control",
         "label": "In scheme",
-        "scope": "#/properties/inScheme"
-      },
-      {
-        "type": "HorizontalLayout",
-        "elements": [
-          {
-            "type": "Control",
-            "scope": "#/properties/recurrence"
-          },
-          {
-            "type": "Control",
-            "scope": "#/properties/recurrence_interval",
-            "rule": {
-                "effect": "HIDE",
-                "condition": {
-                    "type": "LEAF",
-                    "scope": "#/properties/recurrence",
-                    "expectedValue": "Never"
-                }
+        "scope": "#/properties/inScheme",
+        "rule": {
+            "effect": "DISABLE",
+            "condition": {
+                "scope": "#/properties/identifier"
             }
-          }
-        ]
+        }
       }
     ]
   }

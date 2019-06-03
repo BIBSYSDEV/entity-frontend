@@ -16,35 +16,58 @@ const styles = createStyles({
 
 export interface DataProps extends WithStyles<typeof styles> {
     registryId: string;    
-    dataAsString: string;
-    setAuthorised: any;
-    resetRegistry: any;
+    setRegistryId(registryId: string): void;
     user: string;
+    data: object;
+    setChangePassword(changePassword: boolean): void;
+    setAuthorised(authorised: string): void;
+    chooseRegistry(): void;
 }
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, dataAsString, registryId, setAuthorised, resetRegistry, user } = props;
+    const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId } = props;
     
-    const handleNew = () => { 
-        console.log('Nytt emneord'); 
+    const handleNew = () => {
+        // new 
     }
 
-    const [ spin, setSpin] = useState(false);
+    const [ spinner, setSpinner] = useState(false);
 
     const handlePersist = () => {
-        const { dataAsString, registryId } = props;
-        setSpin(true);
-        console.log('registry: ' + registryId);
-        console.log(dataAsString);
+        setSpinner(true);
         setTimeout(() => {
-            setSpin(false);
+            setSpinner(false);
         }, 5000);
     }
-    
+
+    const findEntityIdentifierInPath = () => {
+        const pathElements: string[] = window
+            .location
+            .pathname
+            .substring(1)
+            .split("/");
+        return pathElements.length > 1 ? 
+            pathElements[1] :
+            '';
+    }
+    const identifier = findEntityIdentifierInPath();
+
+    const findRegistryIdentifierInPath = () => {
+        return window
+            .location
+            .pathname
+            .substring(1)
+            .split("/")[0];
+    }
+    setRegistryId(findRegistryIdentifierInPath());
+
+
+    (data as any)["identifier"] = Boolean(identifier) ? identifier : (data as any)["identifier"];
+
     return (
         <div>
-            <Header spin={spin} user={user}/>
+            <Header spinner={spinner} user={user} setChangePassword={setChangePassword}/>
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm
@@ -52,12 +75,12 @@ const EntityRegistrationApp = (props: DataProps) => {
                         handleNew={handleNew}
                         handlePersist={handlePersist}
                         setAuthorised={setAuthorised}
-                        resetRegistry={resetRegistry}
+                        chooseRegistry={chooseRegistry}
                     />
                 </Grid>
                 <Grid item sm={9}>
                     <EntityDataPresentation
-                        dataAsString={dataAsString}
+                        dataAsString={JSON.stringify(data)}
                     />                                    
                 </Grid>
             </Grid>
@@ -67,7 +90,7 @@ const EntityRegistrationApp = (props: DataProps) => {
 }
 
 const mapStateToProps = (state: JsonFormsState) => {
-    return { dataAsString: JSON.stringify(getData(state), null, 2) }
+    return { data: getData(state) }
 };
 
-export default  connect(mapStateToProps)(withStyles(styles)(EntityRegistrationApp));
+export default connect(mapStateToProps)(withStyles(styles)(EntityRegistrationApp));

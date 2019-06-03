@@ -12,17 +12,33 @@ const styles = createStyles({
 });
 
 export interface DataProps extends WithStyles<typeof styles> {
-    setRegistryId: object;
     user: string;
+    setRegistryId(registryId: string): void;
+    setChangePassword(changePassword: boolean): void;
 }
 
 const RegistryPresentation = (props: DataProps) => {
 
-    const { classes, setRegistryId, user } = props;
+    const { classes, setRegistryId, user, setChangePassword } = props;
+
+    const findRegistryIdentifierInPath = () => {
+        return window
+            .location
+            .pathname
+            .substring(1)
+            .split("/")[0];
+    }
+
+    const registryName = findRegistryIdentifierInPath();
+    setRegistryId(registryName);
     
     return (
         <div>
-            <Header spin={false} user={user}/>
+            <Header 
+                spinner={false} 
+                user={user} 
+                setChangePassword={setChangePassword}
+            />
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
                     <RegistryList setRegistryId={setRegistryId} />

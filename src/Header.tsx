@@ -5,6 +5,7 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import logo from './Unit ikon farge.png';
+import { Button } from '@material-ui/core';
 
 const styles = createStyles({
     root: {
@@ -16,28 +17,38 @@ const styles = createStyles({
         marginLeft: '10em',
     },
     logoStill: {
-          height: '80px',
-          animation: '',
+        height: '80px',
+        animation: '',
     },
     logoSpin: {
-          height: '80px',
-          animation: 'App-logo-spin infinite 4s linear',
+        height: '80px',
+        animation: 'App-logo-spin infinite 4s linear',
     },
 });
 
 export interface HeaderProps extends WithStyles<typeof styles> {
-    spin: boolean;
+    spinner: boolean;
     user: string;
+    setChangePassword(changePassword: boolean): void;
 }
 
 const Header = (props: HeaderProps) => {
-    const { classes, spin, user } = props;
+    const { classes, spinner, user,setChangePassword } = props;
 
+    const applyChangePassword = () => {
+        setChangePassword(true);
+    }
+
+    const showChangePasswordButton = () => {
+        const buttonRender = (!Boolean(user)) ? '' : <Button onClick={applyChangePassword}>Change Password</Button>; 
+        return  (buttonRender);
+    }
+ 
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Toolbar variant="dense">
-                    {spin ? 
+                    {spinner ? 
                         <img src={logo} className={classes.logoSpin} alt="logo"/> : 
                         <img src={logo} className={classes.logoStill} alt="logo"/> 
                     } 
@@ -46,6 +57,7 @@ const Header = (props: HeaderProps) => {
                     </Typography>
                     <Typography variant="h6">
                         {user}
+                        {showChangePasswordButton()} 
                     </Typography>
                 </Toolbar>
             </AppBar>

@@ -10,18 +10,16 @@ const styles = createStyles({
 });
 
 export interface DataProps extends WithStyles<typeof styles> {
-    setRegistryId: any;
+    setRegistryId(registryId: string): void;
 }
 
 const RegistryList = (props: DataProps) => {
 
     const { setRegistryId } = props;
 
-    const readRegistries: Array<string> =  ['HumOrd', 'TekOrd'];
+    const readRegistries: string[] =  ['HUMORD', 'TEKORD'];
 
-    const setRegistryIdentifier: any = (id: string, event: MouseEvent) => {
-        console.log('id:');
-        console.log(id);
+    const setRegistryIdentifier: any = (id: string) => {
         if(Boolean(id)){
             setRegistryId(id);
         }
@@ -29,7 +27,7 @@ const RegistryList = (props: DataProps) => {
 
     const listItems: any = readRegistries.map((registry: string) =>
         <li key={registry}>
-            <Button onClick = {(e: any) => setRegistryIdentifier(registry, e)}>{registry}</Button>
+            <Button onClick = {() => setRegistryIdentifier(registry)}>{registry}</Button>
         </li> 
     )
 

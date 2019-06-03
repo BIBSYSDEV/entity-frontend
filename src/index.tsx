@@ -18,27 +18,28 @@ const data = {
     preferredLabel: [
         {
             value: "prefLabel",
-            lang: "EN",
+            lang: "English",
         }
     ],
     alternativeLabel: [
         {
             value: "altLabel",
-            lang: "EN",
+            lang: "English",
         }
     ],
     related: ["related"],
     definition: "definition",
     seeAlso: ["seeAlso"],
+    inScheme: "schema",
 };
 
 Amplify.configure({
-  Auth: {
-    mandatorySignIn: true,
-    region: config.cognito.REGION,
-    userPoolId: config.cognito.USER_POOL_ID,
-    userPoolWebClientId: config.cognito.APP_CLIENT_ID
-  },
+    Auth: {
+        mandatorySignIn: true,
+        region: config.cognito.REGION,
+        userPoolId: config.cognito.USER_POOL_ID,
+        userPoolWebClientId: config.cognito.APP_CLIENT_ID
+    },
 });
 
 const initState: JsonFormsState = {
@@ -48,25 +49,14 @@ const initState: JsonFormsState = {
     }
 }
 
-const findRegistryIdentifierInPath = () => {
-    return window
-        .location
-        .pathname
-        .substring(1)
-        .split("/")[0];
-}
-
-const registryId = findRegistryIdentifierInPath();
-
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
 
 store.dispatch(Actions.init(data, schema, uischema));
 
-
 ReactDOM.render(
     <Provider store={store}>
-        <App registryId={registryId}/>
+        <App/>
     </Provider>,
     document.getElementById('root')
 );

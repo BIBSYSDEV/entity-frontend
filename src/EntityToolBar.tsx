@@ -17,19 +17,19 @@ const styles = createStyles({
 
 export interface AppProps extends WithStyles<typeof styles> {
     registryId: string;
-    handleNew: any;
-    handlePersist: any;
-    setAuthorised: any;
-    resetRegistry: any; 
+    handleNew(): void;
+    handlePersist(): void;
+    setAuthorised(authorised: string): void;
+    chooseRegistry(): void; 
 }
 
 const EntityToolBar = (props: AppProps) => {
     
-    const { classes, registryId, handleNew, handlePersist, setAuthorised, resetRegistry } = props;
+    const { classes, registryId, handleNew, handlePersist, setAuthorised, chooseRegistry } = props;
 
     const handleLogout = () => {
-        setAuthorised(false);
-        resetRegistry();
+        setAuthorised('false');
+        chooseRegistry();
     }
 
     return (
@@ -41,7 +41,7 @@ const EntityToolBar = (props: AppProps) => {
                     </Typography>
                     <Button onClick={handleNew} color="inherit">New</Button>
                     <Button onClick={handlePersist} color="inherit">Save</Button>
-                    <Button onClick={resetRegistry} color="inherit">Registry</Button>
+                    <Button onClick={chooseRegistry} color="inherit">Registry</Button>
                     <Button onClick={handleLogout} color="inherit">Logout</Button>
                 </Toolbar>
             </AppBar>

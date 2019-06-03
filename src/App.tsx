@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import './App.css';
 import Login from './Login';
 import EntityRegistrationApp from './EntityRegistrationApp';
 import RegistryPresentation from './RegistryPresentation';
+import ChangePassword from './ChangePassword';
 
 const styles = createStyles({
     toolBar: {
@@ -36,39 +37,61 @@ const styles = createStyles({
 
 });
 
-export interface AppProps extends WithStyles<typeof styles> {
-    registryId: string;
-}
-
-const App = (props: AppProps) => {
+const App = () => {
     
-    const [isAuthorised, setAuthorised] = useState(false);
-    const [user, setUser] = useState('');
-    const [registryId, setRegistryId] = useState('');
+    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem('authorised') || '');
 
-    const resetRegistry = () => {
+    React.useEffect(() => {
+        sessionStorage.setItem('authorised', isAuthorised);
+    }, [isAuthorised])
+
+    const [user, setUser] = useState(sessionStorage.getItem('user') || '');
+
+    React.useEffect(() => {
+        sessionStorage.setItem('user', user);
+    }, [user])
+
+    const [registryId, setRegistryId] = useState(sessionStorage.getItem('registry') || '');
+
+    React.useEffect(() => {
+        sessionStorage.setItem('registry', registryId);
+    }, [registryId])
+
+    const [changePassword, setChangePassword] = useState(false);
+
+    const chooseRegistry = () => {
         setRegistryId('');
-        console.log('Resetting registry id');
     }
 
     let appRender = <Login 
-                        setAuthorised={setAuthorised} 
-                        setUser={setUser}
-                        user={''} 
-                    />;
+        setAuthorised={setAuthorised} 
+        setUser={setUser}
+        user={''}
+        setChangePassword={setChangePassword} 
+    />;
 
-    if(isAuthorised) {
-        (!Boolean(registryId)) ?
+    if(changePassword){
+        appRender = <ChangePassword
+            user={user}
+            setChangePassword={setChangePassword}
+        />
+    }
+
+    if(isAuthorised && !changePassword) {
+        (!Boolean(registryId) || !Boolean) ?
             appRender = <RegistryPresentation 
-                            setRegistryId={setRegistryId}
-                            user={user} 
-                        />:
+                setRegistryId={setRegistryId}
+                user={user}
+                setChangePassword={setChangePassword} 
+            /> :
             appRender = <EntityRegistrationApp 
-                            registryId={registryId} 
-                            setAuthorised={setAuthorised} 
-                            resetRegistry={resetRegistry} 
-                            user={user} 
-                        />;
+                registryId={registryId}
+                setRegistryId={setRegistryId} 
+                setAuthorised={setAuthorised} 
+                chooseRegistry={chooseRegistry} 
+                user={user}
+                setChangePassword={setChangePassword}
+            />;
     }
 
 

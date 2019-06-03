@@ -39,49 +39,63 @@ const styles = createStyles({
 
 export interface LoginProps extends WithStyles<typeof styles> {
     user: string;
-    setAuthorised(input: string): void;
-    setChangePassword(input: boolean): void;
-    setUser(input: string): void;
+    setChangePassword(changePassword: boolean): void;
 }
 
-const Login = (props: LoginProps) => {
+const ChangePassword = (props: LoginProps) => {
 
-    const [password, setPassword] = useState('');
-    const [userInput, setUserInput] = useState('');
-    const [errorMessage, setErrorMessageDisplay] = useState('');
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const { classes, setAuthorised, setUser, user, setChangePassword } = props;
+    const { classes, user, setChangePassword } = props;
+
+    const validateNewPassword = (newPassword: string) => {
+        return newPassword.length > 12;
+    }
 
     const validateForm = () => {
-        return Boolean(userInput) && Boolean(password);
+        return Boolean(oldPassword) && Boolean(newPassword) && Boolean(repeatPassword) && (newPassword === repeatPassword) && validateNewPassword(newPassword);
     }
 
-    const handleUserChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUserInput(event.target.value);
+    const handleOldPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setOldPassword(event.target.value);
     }
 
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
+    const handleNewPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNewPassword(event.target.value);
+    }
+
+    const handleRepeatPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRepeatPassword(event.target.value);
     }
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        setErrorMessageDisplay('')
         try {
-            await Auth.signIn(userInput, password)
+            setErrorMessage('')
+            await Auth.signIn(user, oldPassword)
                 .then(userObject => {
-                    if(userObject.challengeName === 'NEW_PASSWORD_REQUIRED'){
-                        setChangePassword(true);
-                        setPassword(password);
-                    }
+                    Auth.completeNewPassword(
+                        userObject,        // the Cognito User Object
+                        newPassword,       // the new password
+                        {}
+                    ).then(() => {
+                    // at this time the user is logged in if no MFA required
+                    }).catch(e => {
+                        setErrorMessage(e.message);
+                    });
+                }).catch(e => {
+                    setErrorMessage(e.message);
                 });
-            setAuthorised('true');
-            setUser(userInput);
+            setChangePassword(false);
         } catch (e) {
-            setErrorMessageDisplay(e.message);
+            setErrorMessage(e.message);
         }
     }
+
 
     const spinner = true;
 
@@ -103,24 +117,37 @@ const Login = (props: LoginProps) => {
                             margin='normal'
                             required
                             fullWidth
-                            id='userInput'
-                            label='User name'
-                            name='user'
-                            autoComplete='user name'
+                            id='oldPassword'
+                            label='Old password'
+                            type='password'
+                            name='oldPassword'
+                            autoComplete='old password'
                             autoFocus
-                            onChange={handleUserChange}
+                            onChange={handleOldPasswordChange}
                         />
                         <TextField
                             variant='outlined'
                             margin='normal'
                             required
                             fullWidth
-                            name='password'
-                            label='Password'
+                            name='newPassword'
+                            label='New password'
                             type='password'
-                            id='password'
-                            autoComplete='current-password'
-                            onChange={handlePasswordChange}
+                            id='newPassword'
+                            autoComplete='new password'
+                            onChange={handleNewPasswordChange}
+                        />
+                        <TextField
+                            variant='outlined'
+                            margin='normal'
+                            required
+                            fullWidth
+                            name='repeatPassword'
+                            label='Repeat new password'
+                            type='password'
+                            id='repeatPassword'
+                            autoComplete='repeat new password'
+                            onChange={handleRepeatPasswordChange}
                         />
                         <Button
                             type='submit'
@@ -146,4 +173,4 @@ const Login = (props: LoginProps) => {
     );
 }
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(ChangePassword);
