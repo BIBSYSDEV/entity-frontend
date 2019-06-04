@@ -42,6 +42,7 @@ export interface LoginProps extends WithStyles<typeof styles> {
     setAuthorised(input: string): void;
     setChangePassword(input: boolean): void;
     setUser(input: string): void;
+    setRegistries(input: string): void;
 }
 
 const Login = (props: LoginProps) => {
@@ -50,7 +51,7 @@ const Login = (props: LoginProps) => {
     const [userInput, setUserInput] = useState('');
     const [errorMessage, setErrorMessageDisplay] = useState('');
 
-    const { classes, setAuthorised, setUser, user, setChangePassword } = props;
+    const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries } = props;
 
     const validateForm = () => {
         return Boolean(userInput) && Boolean(password);
@@ -64,6 +65,10 @@ const Login = (props: LoginProps) => {
         setPassword(event.target.value);
     }
 
+    const fetchCognitoUserGroups = (userObject: any) => {
+        return JSON.stringify(userObject.signInUserSession.accessToken.payload['cognito:groups']);
+    }
+
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
@@ -71,6 +76,7 @@ const Login = (props: LoginProps) => {
         try {
             await Auth.signIn(userInput, password)
                 .then(userObject => {
+                    setRegistries(fetchCognitoUserGroups(userObject));
                     if(userObject.challengeName === 'NEW_PASSWORD_REQUIRED'){
                         setChangePassword(true);
                         setPassword(password);

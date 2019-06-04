@@ -11,13 +11,17 @@ const styles = createStyles({
 
 export interface DataProps extends WithStyles<typeof styles> {
     setRegistryId(registryId: string): void;
+    registries: string;
 }
+
 
 const RegistryList = (props: DataProps) => {
 
-    const { setRegistryId } = props;
+    const { setRegistryId, registries } = props;
 
-    const readRegistries: string[] =  ['HUMORD', 'TEKORD'];
+    const fetchedRegistries: string[] =  JSON.parse(registries);
+
+    console.log(fetchedRegistries);
 
     const setRegistryIdentifier: any = (id: string) => {
         if(Boolean(id)){
@@ -25,7 +29,7 @@ const RegistryList = (props: DataProps) => {
         }
     };
 
-    const listItems: any = readRegistries.map((registry: string) =>
+    const listItems: any = fetchedRegistries.map((registry: string) =>
         <li key={registry}>
             <Button onClick = {() => setRegistryIdentifier(registry)}>{registry}</Button>
         </li> 

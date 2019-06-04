@@ -15,11 +15,12 @@ export interface DataProps extends WithStyles<typeof styles> {
     user: string;
     setRegistryId(registryId: string): void;
     setChangePassword(changePassword: boolean): void;
+    registries:string;
 }
 
 const RegistryPresentation = (props: DataProps) => {
 
-    const { classes, setRegistryId, user, setChangePassword } = props;
+    const { classes, setRegistryId, user, setChangePassword, registries } = props;
 
     const findRegistryIdentifierInPath = () => {
         return window
@@ -30,7 +31,9 @@ const RegistryPresentation = (props: DataProps) => {
     }
 
     const registryName = findRegistryIdentifierInPath();
-    setRegistryId(registryName);
+    if(Boolean(registryName) && JSON.parse(registries).includes(registryName)) {
+        setRegistryId(registryName);
+    }
     
     return (
         <div>
@@ -41,7 +44,10 @@ const RegistryPresentation = (props: DataProps) => {
             />
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
-                    <RegistryList setRegistryId={setRegistryId} />
+                    <RegistryList 
+                        setRegistryId={setRegistryId} 
+                        registries={registries} 
+                    />
                 </Grid>
             </Grid>
         </div>

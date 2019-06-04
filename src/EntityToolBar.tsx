@@ -28,7 +28,7 @@ const EntityToolBar = (props: AppProps) => {
     const { classes, registryId, handleNew, handlePersist, setAuthorised, chooseRegistry } = props;
 
     const handleLogout = () => {
-        setAuthorised('false');
+        setAuthorised('');
         chooseRegistry();
     }
 

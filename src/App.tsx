@@ -45,6 +45,11 @@ const App = () => {
         sessionStorage.setItem('authorised', isAuthorised);
     }, [isAuthorised])
 
+    const [registries, setRegistries] = useState(sessionStorage.getItem('registries') || '');
+    React.useEffect(() => {
+        sessionStorage.setItem('registries', registries);
+    }, [registries])
+
     const [user, setUser] = useState(sessionStorage.getItem('user') || '');
 
     React.useEffect(() => {
@@ -68,6 +73,7 @@ const App = () => {
         setUser={setUser}
         user={''}
         setChangePassword={setChangePassword} 
+        setRegistries={setRegistries}
     />;
 
     if(changePassword){
@@ -77,19 +83,24 @@ const App = () => {
         />
     }
 
-    if(isAuthorised && !changePassword) {
+    console.log(isAuthorised);
+    console.log(Boolean(isAuthorised));
+
+    if(Boolean(isAuthorised) && !changePassword) {
         (!Boolean(registryId) || !Boolean) ?
             appRender = <RegistryPresentation 
                 setRegistryId={setRegistryId}
                 user={user}
-                setChangePassword={setChangePassword} 
+                setChangePassword={setChangePassword}
+                registries={registries} 
             /> :
             appRender = <EntityRegistrationApp 
                 registryId={registryId}
+                user={user}
+                registries={registries}
                 setRegistryId={setRegistryId} 
                 setAuthorised={setAuthorised} 
                 chooseRegistry={chooseRegistry} 
-                user={user}
                 setChangePassword={setChangePassword}
             />;
     }

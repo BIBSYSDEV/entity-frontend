@@ -16,9 +16,10 @@ const styles = createStyles({
 
 export interface DataProps extends WithStyles<typeof styles> {
     registryId: string;    
-    setRegistryId(registryId: string): void;
     user: string;
     data: object;
+    registries: string;
+    setRegistryId(registryId: string): void;
     setChangePassword(changePassword: boolean): void;
     setAuthorised(authorised: string): void;
     chooseRegistry(): void;
@@ -26,7 +27,7 @@ export interface DataProps extends WithStyles<typeof styles> {
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId } = props;
+    const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId, registries } = props;
     
     const handleNew = () => {
         // new 
@@ -52,6 +53,9 @@ const EntityRegistrationApp = (props: DataProps) => {
             '';
     }
     const identifier = findEntityIdentifierInPath();
+    if(Boolean(identifier)){
+        (data as any)["identifier"] = Boolean(identifier) ? identifier : (data as any)["identifier"];
+    }
 
     const findRegistryIdentifierInPath = () => {
         return window
@@ -60,10 +64,13 @@ const EntityRegistrationApp = (props: DataProps) => {
             .substring(1)
             .split("/")[0];
     }
-    setRegistryId(findRegistryIdentifierInPath());
 
+    const registryName = findRegistryIdentifierInPath();
+    
+    if(Boolean(registryName) && JSON.parse(registries).includes(registryName)){
+        setRegistryId(registryName);
+    }
 
-    (data as any)["identifier"] = Boolean(identifier) ? identifier : (data as any)["identifier"];
 
     return (
         <div>
