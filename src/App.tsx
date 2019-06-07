@@ -6,7 +6,6 @@ import Login from './Login';
 import EntityRegistrationApp from './EntityRegistrationApp';
 import RegistryPresentation from './RegistryPresentation';
 import ChangePassword from './ChangePassword';
-import { withAuthenticator } from 'aws-amplify-react';
 import Amplify from '@aws-amplify/core';
 import config from './config';
 
@@ -74,42 +73,42 @@ const App = () => {
         setRegistryId('');
     }
 
-    // let appRender = <Login 
-    //     setAuthorised={setAuthorised} 
-    //     setUser={setUser}
-    //     user={''}
-    //     setChangePassword={setChangePassword} 
-    //     setRegistries={setRegistries}
-    // />;
+    let appRender = <Login 
+        setAuthorised={setAuthorised} 
+        setUser={setUser}
+        user={''}
+        setChangePassword={setChangePassword} 
+        setRegistries={setRegistries}
+    />;
 
-    // let appRender = <ChangePassword
-    //         user={user}
-    //         setChangePassword={setChangePassword}
-    //     />
+    if(changePassword){
+        appRender = <ChangePassword
+            user={user}
+            setChangePassword={setChangePassword}
+        />
+    }
 
-    // // if(Boolean(isAuthorised) && !changePassword) {
-    // if(!changePassword) {
-    //     (!Boolean(registryId) || !Boolean) ?
-    //         appRender = <RegistryPresentation 
-    //             setRegistryId={setRegistryId}
-    //             user={user}
-    //             setChangePassword={setChangePassword}
-    //             registries={registries} 
-    //         /> :
-        let    appRender = <EntityRegistrationApp 
-                registryId={registryId}
-                user={user}
-                registries={registries}
-                setRegistryId={setRegistryId} 
-                setAuthorised={setAuthorised} 
-                chooseRegistry={chooseRegistry} 
-                setChangePassword={setChangePassword}
-            />;
-    // }
-
-
+    if(Boolean(isAuthorised) && !changePassword) {
+        (!Boolean(registryId) || !Boolean) ?
+        appRender = <RegistryPresentation 
+            setRegistryId={setRegistryId}
+            user={user}
+            setChangePassword={setChangePassword}
+            registries={registries} 
+        /> :
+        appRender = <EntityRegistrationApp 
+            registryId={registryId}
+            user={user}
+            registries={registries}
+            setRegistryId={setRegistryId} 
+            setAuthorised={setAuthorised} 
+            chooseRegistry={chooseRegistry} 
+            setChangePassword={setChangePassword}
+        />;
+    }
 
     return appRender;
 }
-export default withAuthenticator(withStyles(styles)(App), false);
+
+export default withStyles(styles)(App);
 

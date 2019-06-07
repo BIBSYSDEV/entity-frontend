@@ -87,7 +87,7 @@ const EntityRegistrationApp = (props: DataProps) => {
                 </Grid>
                 <Grid item sm={9}>
                     <EntityDataPresentation
-                        dataAsString={JSON.stringify(data)}
+                        dataAsString={JSON.stringify(data, null, 2)}
                     />                                    
                 </Grid>
             </Grid>
