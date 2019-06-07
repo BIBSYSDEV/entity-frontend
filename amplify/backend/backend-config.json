@@ -1,8 +1,0 @@
-{
-	"auth": {
-		"entityfrontend1d5ffefa": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation"
-		}
-	}
-}
