@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Auth } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +10,7 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
+import { AWS } from '@aws-amplify/core';
 
 const styles = createStyles({
     body: {
@@ -65,23 +66,35 @@ const Login = (props: LoginProps) => {
         setPassword(event.target.value);
     }
 
-    const fetchCognitoUserGroups = (userObject: any) => {
-        return JSON.stringify(userObject.signInUserSession.accessToken.payload['cognito:groups']);
+    const fetchCognitoUserGroups: any = (userObject: any) => {
+        return userObject.signInUserSession.accessToken.payload['cognito:groups'];
+    }
+
+    const fetchRegistries = () => {
+        return API.get('entity', '/registry', {});
     }
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        setErrorMessageDisplay('')
+        setErrorMessageDisplay('');
         try {
+            let registries = await fetchRegistries();
             await Auth.signIn(userInput, password)
-                .then(userObject => {
-                    setRegistries(fetchCognitoUserGroups(userObject));
-                    if(userObject.challengeName === 'NEW_PASSWORD_REQUIRED'){
+                .then(user => {
+                    setRegistries(JSON.stringify(registries));
+                    if(user.challengeName === 'NEW_PASSWORD_REQUIRED'){
                         setChangePassword(true);
                         setPassword(password);
                     }
-                });
+			});
+
+            await Auth.currentAuthenticatedUser().then(user => {
+                console.log(user);
+            });
+            await Auth.currentCredentials().then(credentials => {
+                console.log(credentials);
+            });
             setAuthorised('true');
             setUser(userInput);
         } catch (e) {

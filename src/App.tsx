@@ -6,6 +6,10 @@ import Login from './Login';
 import EntityRegistrationApp from './EntityRegistrationApp';
 import RegistryPresentation from './RegistryPresentation';
 import ChangePassword from './ChangePassword';
+import { withAuthenticator } from 'aws-amplify-react';
+import Amplify from '@aws-amplify/core';
+import config from './config';
+
 
 const styles = createStyles({
     toolBar: {
@@ -36,6 +40,8 @@ const styles = createStyles({
     }
 
 });
+
+Amplify.configure(config);
 
 const App = () => {
     
@@ -68,33 +74,29 @@ const App = () => {
         setRegistryId('');
     }
 
-    let appRender = <Login 
-        setAuthorised={setAuthorised} 
-        setUser={setUser}
-        user={''}
-        setChangePassword={setChangePassword} 
-        setRegistries={setRegistries}
-    />;
+    // let appRender = <Login 
+    //     setAuthorised={setAuthorised} 
+    //     setUser={setUser}
+    //     user={''}
+    //     setChangePassword={setChangePassword} 
+    //     setRegistries={setRegistries}
+    // />;
 
-    if(changePassword){
-        appRender = <ChangePassword
-            user={user}
-            setChangePassword={setChangePassword}
-        />
-    }
+    // let appRender = <ChangePassword
+    //         user={user}
+    //         setChangePassword={setChangePassword}
+    //     />
 
-    console.log(isAuthorised);
-    console.log(Boolean(isAuthorised));
-
-    if(Boolean(isAuthorised) && !changePassword) {
-        (!Boolean(registryId) || !Boolean) ?
-            appRender = <RegistryPresentation 
-                setRegistryId={setRegistryId}
-                user={user}
-                setChangePassword={setChangePassword}
-                registries={registries} 
-            /> :
-            appRender = <EntityRegistrationApp 
+    // // if(Boolean(isAuthorised) && !changePassword) {
+    // if(!changePassword) {
+    //     (!Boolean(registryId) || !Boolean) ?
+    //         appRender = <RegistryPresentation 
+    //             setRegistryId={setRegistryId}
+    //             user={user}
+    //             setChangePassword={setChangePassword}
+    //             registries={registries} 
+    //         /> :
+        let    appRender = <EntityRegistrationApp 
                 registryId={registryId}
                 user={user}
                 registries={registries}
@@ -103,12 +105,11 @@ const App = () => {
                 chooseRegistry={chooseRegistry} 
                 setChangePassword={setChangePassword}
             />;
-    }
+    // }
 
 
 
     return appRender;
 }
-
-export default withStyles(styles)(App);
+export default withAuthenticator(withStyles(styles)(App), false);
 

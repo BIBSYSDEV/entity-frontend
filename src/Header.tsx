@@ -40,7 +40,7 @@ const Header = (props: HeaderProps) => {
     }
 
     const showChangePasswordButton = () => {
-        const buttonRender = (!Boolean(user)) ? '' : <Button onClick={applyChangePassword}>Change Password</Button>; 
+        const buttonRender = (Boolean(user)) ? <Button onClick={applyChangePassword}>Change Password</Button> : ''; 
         return  (buttonRender);
     }
  

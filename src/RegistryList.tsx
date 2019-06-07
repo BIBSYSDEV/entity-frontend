@@ -2,6 +2,7 @@ import React from 'react';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import Button from "@material-ui/core/Button";
+import API from '@aws-amplify/api';
 
 const styles = createStyles({
     container: {
@@ -19,9 +20,12 @@ const RegistryList = (props: DataProps) => {
 
     const { setRegistryId, registries } = props;
 
-    const fetchedRegistries: string[] =  JSON.parse(registries);
+    const fetchRegistries = async () => {
+        return await API.get('entity', '/registry', {});
+    }
 
-    console.log(fetchedRegistries);
+    // let fetchedRegistries = await fetchRegistries();
+    let fetchedRegistries = ["TEKORD", "HUMORD"];
 
     const setRegistryIdentifier: any = (id: string) => {
         if(Boolean(id)){

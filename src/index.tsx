@@ -11,6 +11,8 @@ import { Actions, jsonformsReducer, JsonFormsState } from '@jsonforms/core';
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
 import Amplify from 'aws-amplify';
 import config from './config';
+import { AWS } from '@aws-amplify/core';
+
 
 const data = {
     "@context": "something",
@@ -33,14 +35,32 @@ const data = {
     inScheme: "schema",
 };
 
+const credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: config.cognito.IDENTITY_POOL_ID
+});
+
+AWS.config.credentials = credentials; 
+AWS.config.region = config.cognito.REGION;
+
 Amplify.configure({
     Auth: {
-        mandatorySignIn: true,
         region: config.cognito.REGION,
         userPoolId: config.cognito.USER_POOL_ID,
-        userPoolWebClientId: config.cognito.APP_CLIENT_ID
+        userPoolWebClientId: config.cognito.APP_CLIENT_ID,
+        identityPoolId: config.cognito.IDENTITY_POOL_ID,
+        mandatorySignIn: true,
     },
+    API: {
+        endpoints: [
+            {
+                name: "entity",
+                endpoint: config.apiGateway.URL,
+                region: config.apiGateway.REGION
+            },
+        ]
+    }
 });
+
 
 const initState: JsonFormsState = {
     jsonforms: {
