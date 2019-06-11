@@ -18,8 +18,9 @@
             "lang": {
                 "type": "string",
                 "enum": [
-                    "NO",
-                    "EN"
+                    "Bokmål",
+                    "Nynorsk",
+                    "English"
                 ]
             }
         }
@@ -36,8 +37,9 @@
             "lang": {
                 "type": "string",
                 "enum": [
-                    "NO",
-                    "EN"
+                    "Bokmål",
+                    "Nynorsk",
+                    "English"
                 ]
             }
         }

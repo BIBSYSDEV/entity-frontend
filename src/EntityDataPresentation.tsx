@@ -41,7 +41,7 @@ const EntityDataPresentation = (props: DataProps) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-                <Typography variant={'display1'} className={classes.title}>Data</Typography>
+                <Typography variant={'h4'} className={classes.title}>Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <div className={classes.dataContent}>

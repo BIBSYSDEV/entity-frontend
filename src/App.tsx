@@ -1,13 +1,11 @@
-import { connect } from 'react-redux';
-import React from 'react';
-import Grid from "@material-ui/core/Grid";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import React, { useState } from 'react';
+import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
-import {getData, JsonFormsState} from '@jsonforms/core';
 import './App.css';
-import Header from "./Header";
-import EntityRegistrationForm from './EntityRegistrationForm';
-import EntityDataPresentation from './EntityDataPresentation';
+import Login from './Login';
+import EntityRegistrationApp from './EntityRegistrationApp';
+import RegistryPresentation from './RegistryPresentation';
+import ChangePassword from './ChangePassword';
 
 const styles = createStyles({
     toolBar: {
@@ -39,49 +37,67 @@ const styles = createStyles({
 
 });
 
-export interface AppProps extends WithStyles<typeof styles> {
-    dataAsString: string;
-    registryId: string;
-}
+const App = () => {
+    
+    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem('authorised') || '');
 
-const App = (props: AppProps) => {
-    
-    const { classes, dataAsString, registryId } = props;
-    
-    const handleNew = () => { 
-        console.log('Nytt emneord'); 
+    React.useEffect(() => {
+        sessionStorage.setItem('authorised', isAuthorised);
+    }, [isAuthorised])
+
+    const [user, setUser] = useState(sessionStorage.getItem('user') || '');
+
+    React.useEffect(() => {
+        sessionStorage.setItem('user', user);
+    }, [user])
+
+    const [registryId, setRegistryId] = useState(sessionStorage.getItem('registry') || '');
+
+    React.useEffect(() => {
+        sessionStorage.setItem('registry', registryId);
+    }, [registryId])
+
+    const [changePassword, setChangePassword] = useState(false);
+
+    const chooseRegistry = () => {
+        setRegistryId('');
     }
 
-    const handlePersist = () => {
-        const { dataAsString, registryId } = props;
-        console.log('registry: ' + registryId);
-        console.log(dataAsString);
+    let appRender = <Login 
+        setAuthorised={setAuthorised} 
+        setUser={setUser}
+        user={''}
+        setChangePassword={setChangePassword} 
+    />;
+
+    if(changePassword){
+        appRender = <ChangePassword
+            user={user}
+            setChangePassword={setChangePassword}
+        />
     }
-    
-    return (
-        <div>
-            <Header />
-            <Grid container justify={'center'} spacing={16} className={classes.container}>
-                <Grid item sm={9}>
-                    <EntityRegistrationForm
-                        registryId={registryId}
-                        handleNew={handleNew}
-                        handlePersist={handlePersist}
-                    />
-                </Grid>
-                <Grid item sm={9}>
-                    <EntityDataPresentation
-                        dataAsString={dataAsString}
-                    />                                    
-                </Grid>
-            </Grid>
-        </div>
-    );
+
+    if(isAuthorised && !changePassword) {
+        (!Boolean(registryId) || !Boolean) ?
+            appRender = <RegistryPresentation 
+                setRegistryId={setRegistryId}
+                user={user}
+                setChangePassword={setChangePassword} 
+            /> :
+            appRender = <EntityRegistrationApp 
+                registryId={registryId}
+                setRegistryId={setRegistryId} 
+                setAuthorised={setAuthorised} 
+                chooseRegistry={chooseRegistry} 
+                user={user}
+                setChangePassword={setChangePassword}
+            />;
+    }
+
+
+
+    return appRender;
 }
 
-const mapStateToProps = (state: JsonFormsState) => {
-    return { dataAsString: JSON.stringify(getData(state), null, 2) }
-};
-
-export default connect(mapStateToProps)(withStyles(styles)(App));
+export default withStyles(styles)(App);
 
