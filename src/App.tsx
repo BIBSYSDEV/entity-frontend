@@ -94,8 +94,6 @@ const App = () => {
             />;
     }
 
-
-
     return appRender;
 }
 
