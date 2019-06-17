@@ -10,7 +10,8 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
-import { AWS } from '@aws-amplify/core';
+import AWS from 'aws-sdk';
+import SecretsManager from 'aws-sdk/clients/secretsmanager';
 
 const styles = createStyles({
     body: {
@@ -70,6 +71,7 @@ const Login = (props: LoginProps) => {
         return userObject.signInUserSession.accessToken.payload['cognito:groups'];
     }
 
+
     const fetchRegistries = () => {
         return API.get('entity', '/registry', {});
     }
@@ -94,7 +96,22 @@ const Login = (props: LoginProps) => {
             });
             await Auth.currentCredentials().then(credentials => {
                 console.log(credentials);
+                const options: object = {
+                    apiVersion: '2017-10-17',
+                    credentials: Auth.essentialCredentials(credentials),
+                };
+                const secretsManager = new SecretsManager(options)
+                secretsManager.getSecretValue({
+                    SecretId: 'entity_frontend',
+                    VersionStage: 'AWSCURRENT'
+                }, (err, data) => {
+                    console.log('Error:');
+                    console.log(err);
+                    console.log('Data:');
+                    console.log(JSON.parse(data.SecretString as string)['HUMORD']);
+                });
             });
+            
             setAuthorised('true');
             setUser(userInput);
         } catch (e) {
