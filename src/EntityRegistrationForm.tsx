@@ -19,13 +19,12 @@ export interface FormProps extends WithStyles<typeof styles> {
     registryId: string;
     handleNew(): void;
     handlePersist(): void;
-    setAuthorised(authorised: string): void;
     chooseRegistry(): void;
 }
 
 const EntityRegistrationForm = (props: FormProps) => {
 
-    const { classes, registryId, handleNew, handlePersist, setAuthorised, chooseRegistry } = props;
+    const { classes, registryId, handleNew, handlePersist, chooseRegistry } = props;
 
     return (
         <React.Fragment>

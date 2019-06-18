@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Auth, API } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,7 +10,6 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
-import SecretsManager from 'aws-sdk/clients/secretsmanager';
 import { fetchRegistries } from './utils';
 
 const styles = createStyles({
@@ -87,23 +86,6 @@ const Login = (props: LoginProps) => {
 
             await Auth.currentAuthenticatedUser().then(user => {
                 console.log(user);
-            });
-            await Auth.currentCredentials().then(credentials => {
-                console.log(credentials);
-                const options: object = {
-                    apiVersion: '2017-10-17',
-                    credentials: Auth.essentialCredentials(credentials),
-                };
-                const secretsManager = new SecretsManager(options)
-                secretsManager.getSecretValue({
-                    SecretId: 'entity_frontend',
-                    VersionStage: 'AWSCURRENT'
-                }, (err, data) => {
-                    console.log('Error:');
-                    console.log(err);
-                    console.log('Data:');
-                    console.log(JSON.parse(data.SecretString as string)['HUMORD']);
-                });
             });
             
             setAuthorised('true');

@@ -4,7 +4,7 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import Header from './Header';
 import { Grid } from '@material-ui/core';
 import RegistryList from './RegistryList';
-import { findRegistryIdentifierInPath } from './utils';
+import { findRegistryIdentifierInPath, fetchApiKey } from './utils';
 
 const styles = createStyles({
     container: {
@@ -19,14 +19,16 @@ export interface DataProps extends WithStyles<typeof styles> {
     registries:string;
     setAuthorised(authorised: string): void;
     chooseRegistry(): void;
+    setApiKey(apiKey: string): void;
 }
 
 const RegistryPresentation = (props: DataProps) => {
 
-    const { classes, setRegistryId, user, setChangePassword, registries, setAuthorised, chooseRegistry } = props;
+    const { classes, setRegistryId, user, setChangePassword, registries, setAuthorised, chooseRegistry, setApiKey } = props;
 
     const registryName = findRegistryIdentifierInPath();
     if(Boolean(registryName) && JSON.parse(registries).includes(registryName)) {
+        fetchApiKey(registryName, setApiKey);
         setRegistryId(registryName);
     }
     
@@ -44,6 +46,7 @@ const RegistryPresentation = (props: DataProps) => {
                     <RegistryList 
                         setRegistryId={setRegistryId} 
                         registries={registries} 
+                        setApiKey={setApiKey}
                     />
                 </Grid>
             </Grid>

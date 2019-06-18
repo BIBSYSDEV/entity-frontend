@@ -67,6 +67,13 @@ const App = () => {
         sessionStorage.setItem('registry', registryId);
     }, [registryId])
 
+    const [apiKey, setApiKey] = useState(sessionStorage.getItem('apiKey') || '');
+
+    React.useEffect(() => {
+        sessionStorage.setItem('apiKey', apiKey);
+    }, [apiKey])
+    
+    
     const [changePassword, setChangePassword] = useState(false);
 
     const chooseRegistry = () => {
@@ -100,6 +107,7 @@ const App = () => {
             registries={registries}
             setAuthorised={setAuthorised}
             chooseRegistry={chooseRegistry}
+            setApiKey={setApiKey}
         /> :
         appRender = <EntityRegistrationApp 
             registryId={registryId}

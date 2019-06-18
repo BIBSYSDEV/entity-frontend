@@ -69,7 +69,6 @@ const EntityRegistrationApp = (props: DataProps) => {
                         registryId={registryId}
                         handleNew={handleNew}
                         handlePersist={handlePersist}
-                        setAuthorised={setAuthorised}
                         chooseRegistry={chooseRegistry}
                     />
                 </Grid>
