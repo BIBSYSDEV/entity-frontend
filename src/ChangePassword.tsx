@@ -35,14 +35,14 @@ const styles = createStyles({
     }
 });
 
-export interface LoginProps extends WithStyles<typeof styles> {
+export interface ChangePasswordProps extends WithStyles<typeof styles> {
     user: string;
     setChangePassword(changePassword: boolean): void;
     setAuthorised(authorised: string): void;
     chooseRegistry(): void;
 }
 
-const ChangePassword = (props: LoginProps) => {
+const ChangePassword = (props: ChangePasswordProps): any => {
 
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -51,43 +51,43 @@ const ChangePassword = (props: LoginProps) => {
 
     const { classes, user, setChangePassword, setAuthorised, chooseRegistry } = props;
 
-    const validateNewPassword = (newPassword: string) => {
+    const validateNewPassword = (newPassword: string): boolean => {
         return newPassword.length > 12;
     }
 
-    const validateForm = () => {
+    const validateForm = (): boolean => {
         return Boolean(oldPassword) && Boolean(newPassword) && Boolean(repeatPassword) && (newPassword === repeatPassword) && validateNewPassword(newPassword);
     }
 
-    const handleOldPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleOldPasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setOldPassword(event.target.value);
     }
 
-    const handleNewPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleNewPasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setNewPassword(event.target.value);
     }
 
-    const handleRepeatPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleRepeatPasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setRepeatPassword(event.target.value);
     }
 
-    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>): Promise<any> => {
         event.preventDefault();
 
         try {
             setErrorMessage('')
             await Auth.signIn(user, oldPassword)
-                .then(userObject => {
+                .then((userObject): void => {
                     Auth.completeNewPassword(
                         userObject,        // the Cognito User Object
                         newPassword,       // the new password
                         {}
-                    ).then(() => {
+                    ).then((): void => {
                     // at this time the user is logged in if no MFA required
-                    }).catch(e => {
+                    }).catch((e): void => {
                         setErrorMessage(e.message);
                     });
-                }).catch(e => {
+                }).catch((e): void => {
                     setErrorMessage(e.message);
                 });
             setChangePassword(false);
@@ -96,7 +96,7 @@ const ChangePassword = (props: LoginProps) => {
         }
     }
 
-    const handleCancel = () => {
+    const handleCancel = (): void => {
         setChangePassword(false);
     }
 

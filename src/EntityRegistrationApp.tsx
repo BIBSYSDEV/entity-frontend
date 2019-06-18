@@ -26,26 +26,26 @@ export interface DataProps extends WithStyles<typeof styles> {
     chooseRegistry(): void;
 }
 
-const EntityRegistrationApp = (props: DataProps) => {
+const EntityRegistrationApp = (props: DataProps): any => {
 
     const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId, registries } = props;
     
-    const handleNew = () => {
+    const handleNew = (): void => {
         // new 
     }
 
     const [ spinner, setSpinner] = useState(false);
 
-    const handlePersist = () => {
+    const handlePersist = (): void => {
         setSpinner(true);
-        setTimeout(() => {
+        setTimeout((): void => {
             setSpinner(false);
         }, 5000);
     }
 
     const identifier = findEntityIdentifierInPath();
     if(Boolean(identifier)){
-        (data as any)["identifier"] = Boolean(identifier) ? identifier : (data as any)["identifier"];
+        (data as any)['identifier'] = Boolean(identifier) ? identifier : (data as any)['identifier'];
     }
     const registryName = findRegistryIdentifierInPath();
     
@@ -83,7 +83,7 @@ const EntityRegistrationApp = (props: DataProps) => {
 
 }
 
-const mapStateToProps = (state: JsonFormsState) => {
+const mapStateToProps = (state: JsonFormsState): any => {
     return { data: getData(state) }
 };
 

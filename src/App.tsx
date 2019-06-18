@@ -42,41 +42,41 @@ const styles = createStyles({
 
 Amplify.configure(config);
 
-const App = () => {
+const App = (): any => {
     
     const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem('authorised') || '');
 
-    React.useEffect(() => {
+    React.useEffect((): void => {
         sessionStorage.setItem('authorised', isAuthorised);
     }, [isAuthorised])
 
     const [registries, setRegistries] = useState(sessionStorage.getItem('registries') || '');
-    React.useEffect(() => {
+    React.useEffect((): void => {
         sessionStorage.setItem('registries', registries);
     }, [registries])
 
     const [user, setUser] = useState(sessionStorage.getItem('user') || '');
 
-    React.useEffect(() => {
+    React.useEffect((): void => {
         sessionStorage.setItem('user', user);
     }, [user])
 
     const [registryId, setRegistryId] = useState(sessionStorage.getItem('registry') || '');
 
-    React.useEffect(() => {
+    React.useEffect((): void => {
         sessionStorage.setItem('registry', registryId);
     }, [registryId])
 
     const [apiKey, setApiKey] = useState(sessionStorage.getItem('apiKey') || '');
 
-    React.useEffect(() => {
+    React.useEffect((): void => {
         sessionStorage.setItem('apiKey', apiKey);
     }, [apiKey])
     
     
     const [changePassword, setChangePassword] = useState(false);
 
-    const chooseRegistry = () => {
+    const chooseRegistry = (): void => {
         setRegistryId('');
     }
 
@@ -128,9 +128,9 @@ const App = () => {
     }
 
     if(Boolean(isAuthorised) && !changePassword) {
-         pageSelected = (!Boolean(registryId)) ?
-                     registryPresentationPage :
-                     entityRegistrationPage;
+        pageSelected = (!Boolean(registryId)) ?
+            registryPresentationPage :
+            entityRegistrationPage;
     }
 
     return pageSelected;
