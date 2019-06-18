@@ -99,7 +99,7 @@ const App = () => {
     }
 
     if(Boolean(isAuthorised) && !changePassword) {
-        (!Boolean(registryId) || !Boolean) ?
+        (!Boolean(registryId)) ?
         appRender = <RegistryPresentation 
             setRegistryId={setRegistryId}
             user={user}
