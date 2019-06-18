@@ -1,19 +1,19 @@
 import { API, Auth } from 'aws-amplify';
 import SecretsManager from 'aws-sdk/clients/secretsmanager';
 
-export const fetchCognitoUserGroups: any = (userObject: any) => {
-        return userObject.signInUserSession.accessToken.payload['cognito:groups'];
+export const fetchCognitoUserGroups = (userObject: any): string[] => {
+    return userObject.signInUserSession.accessToken.payload['cognito:groups'];
 }
 
-export const fetchRegistries = async () => {
+export const fetchRegistries = (): string[] => {
     let registries: string[] = [];
-    await API.get('entity', '/registry', {}).then(data => {
-        registries = (data as Array<string>);
+    API.get('entity', '/registry', {}).then((data): object => {
+        registries = (data as string[]);
     });
     return registries;
 }
 
-export const findRegistryIdentifierInPath = () => {
+export const findRegistryIdentifierInPath = (): string => {
     return window
         .location
         .pathname
@@ -21,7 +21,7 @@ export const findRegistryIdentifierInPath = () => {
         .split("/")[0];
 }
 
-export const findEntityIdentifierInPath = () => {
+export const findEntityIdentifierInPath = (): string => {
     const pathElements: string[] = window
         .location
         .pathname
@@ -32,8 +32,8 @@ export const findEntityIdentifierInPath = () => {
         '';
 }
 
-export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) => void) => {
-    Auth.currentCredentials().then(credentials => {
+export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) => void): void => {
+    Auth.currentCredentials().then((credentials): any => {
         const options: object = {
             apiVersion: '2017-10-17',
             credentials: Auth.essentialCredentials(credentials),
@@ -42,7 +42,7 @@ export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) =>
         secretsManager.getSecretValue({
             SecretId: 'entity_frontend',
             VersionStage: 'AWSCURRENT'
-        }, (err, data) => {
+        }, (err, data): void => {
             setApiKey(JSON.parse(data.SecretString as string)[registryName]);
         });
     });

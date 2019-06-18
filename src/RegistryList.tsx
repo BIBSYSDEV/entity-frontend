@@ -17,23 +17,23 @@ export interface DataProps extends WithStyles<typeof styles> {
 }
 
 
-const RegistryList = (props: DataProps) => {
+const RegistryList = (props: DataProps): any => {
 
     const { setRegistryId, registries, setApiKey } = props;
 
-    const setRegistryIdentifier: any = (id: string) => {
+    const setRegistryIdentifier: any = (id: string): void => {
         if(Boolean(id)){
             setRegistryId(id);
             fetchApiKey(id, setApiKey);
-            }
+        }
     };
 
-    const renderListItems = () => {
-        return JSON.parse(registries).map((registry: string) =>
-        <li key={registry}>
-            <Button onClick = {() => setRegistryIdentifier(registry)}>{registry}</Button>
-        </li>); 
-    ;}
+    const renderListItems = (): object => {
+        return JSON.parse(registries).map((registry: string): object =>
+            <li key={registry}>
+                <Button onClick = {(): void => setRegistryIdentifier(registry)}>{registry}</Button>
+            </li>); 
+    };
 
     const listItems = useRef(renderListItems());
 

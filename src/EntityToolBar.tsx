@@ -22,7 +22,7 @@ export interface AppProps extends WithStyles<typeof styles> {
     chooseRegistry(): void; 
 }
 
-const EntityToolBar = (props: AppProps) => {
+const EntityToolBar = (props: AppProps): any => {
     
     const { classes, registryId, handleNew, handlePersist, chooseRegistry } = props;
 

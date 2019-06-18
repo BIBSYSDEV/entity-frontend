@@ -47,27 +47,28 @@ export interface LoginProps extends WithStyles<typeof styles> {
     chooseRegistry(): void;
 }
 
-const Login = (props: LoginProps) => {
+const Login = (props: LoginProps): any => {
 
     const [password, setPassword] = useState('');
     const [userInput, setUserInput] = useState('');
     const [errorMessage, setErrorMessageDisplay] = useState('');
-
+    const [spinner, setSpinning] = useState(false);
+    
     const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries, chooseRegistry } = props;
 
-    const validateForm = () => {
+    const validateForm = (): any => {
         return Boolean(userInput) && Boolean(password);
     }
 
-    const handleUserChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUserChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setUserInput(event.target.value);
     }
 
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>): void => {
         event.preventDefault();
 
         setSpinning(true);
@@ -76,18 +77,13 @@ const Login = (props: LoginProps) => {
         try {
             let registries = await fetchRegistries();
             await Auth.signIn(userInput, password)
-                .then(user => {
+                .then((user): void => {
                     setRegistries(JSON.stringify(registries));
                     if(user.challengeName === 'NEW_PASSWORD_REQUIRED'){
                         setChangePassword(true);
                         setPassword(password);
                     }
-			});
-
-            await Auth.currentAuthenticatedUser().then(user => {
-                console.log(user);
-            });
-            
+                });
             setAuthorised('true');
             setUser(userInput);
         } catch (e) {
@@ -96,8 +92,6 @@ const Login = (props: LoginProps) => {
         }
         setSpinning(false);
     }
-
-    const [spinner, setSpinning] = useState(false);
 
     return (
         <div>

@@ -16,13 +16,13 @@ export interface DataProps extends WithStyles<typeof styles> {
     user: string;
     setRegistryId(registryId: string): void;
     setChangePassword(changePassword: boolean): void;
-    registries:string;
+    registries: string;
     setAuthorised(authorised: string): void;
     chooseRegistry(): void;
     setApiKey(apiKey: string): void;
 }
 
-const RegistryPresentation = (props: DataProps) => {
+const RegistryPresentation = (props: DataProps): any => {
 
     const { classes, setRegistryId, user, setChangePassword, registries, setAuthorised, chooseRegistry, setApiKey } = props;
 

@@ -34,26 +34,26 @@ export interface HeaderProps extends WithStyles<typeof styles> {
     chooseRegistry(): void; 
 }
 
-const Header = (props: HeaderProps) => {
+const Header = (props: HeaderProps): any => {
     const { classes, spinner, user,setChangePassword, setAuthorised, chooseRegistry } = props;
 
-    const applyChangePassword = () => {
+    const handleLogout = (): void => {
+        setAuthorised('');
+        chooseRegistry();
+    }
+
+    const applyChangePassword = (): void => {
         setChangePassword(true);
     }
 
-    const showChangePasswordButton = () => {
+    const showChangePasswordButton = (): any => {
         const buttonRender = (Boolean(user)) ? <Button onClick={applyChangePassword}>Change Password</Button> : ''; 
         return  (buttonRender);
     }
  
-    const showLogoutButton = () => {
+    const showLogoutButton = (): any => {
         const buttonRender = (Boolean(user)) ? <Button onClick={handleLogout} color="inherit">Logout</Button> : ''; 
         return  (buttonRender);
-    }
-
-    const handleLogout = () => {
-        setAuthorised('');
-        chooseRegistry();
     }
     
     return (

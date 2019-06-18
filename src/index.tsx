@@ -12,7 +12,7 @@ import { materialCells, materialRenderers } from '@jsonforms/material-renderers'
 import Amplify from 'aws-amplify';
 import config from './config';
 import AWS from 'aws-sdk';
-import awsmobile from './aws-exports.js';
+import awsmobile from './aws-exports';
 
 
 const data = {

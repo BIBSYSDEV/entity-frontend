@@ -22,7 +22,7 @@ export interface FormProps extends WithStyles<typeof styles> {
     chooseRegistry(): void;
 }
 
-const EntityRegistrationForm = (props: FormProps) => {
+const EntityRegistrationForm = (props: FormProps): any => {
 
     const { classes, registryId, handleNew, handlePersist, chooseRegistry } = props;
 
