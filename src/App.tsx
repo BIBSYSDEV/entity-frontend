@@ -80,27 +80,29 @@ const App = () => {
         setRegistryId('');
     }
 
-    let appRender = <Login 
-        setAuthorised={setAuthorised} 
-        setUser={setUser}
-        user={''}
-        setChangePassword={setChangePassword} 
-        setRegistries={setRegistries}
-        chooseRegistry={chooseRegistry}
-    />;
-
-    if(changePassword){
-        appRender = <ChangePassword
+    
+    const loginPage = () => {
+        return <Login 
+            setAuthorised={setAuthorised} 
+            setUser={setUser}
+            user={''}
+            setChangePassword={setChangePassword} 
+            setRegistries={setRegistries}
+            chooseRegistry={chooseRegistry}
+        />;
+    }
+    
+    const changePasswordPage = () => {
+        return <ChangePassword
             user={user}
             setChangePassword={setChangePassword}
             setAuthorised={setAuthorised}
             chooseRegistry={chooseRegistry}
         />
     }
-
-    if(Boolean(isAuthorised) && !changePassword) {
-        (!Boolean(registryId)) ?
-        appRender = <RegistryPresentation 
+    
+    const registryPresentationPage = () => {
+        return <RegistryPresentation 
             setRegistryId={setRegistryId}
             user={user}
             setChangePassword={setChangePassword}
@@ -108,8 +110,11 @@ const App = () => {
             setAuthorised={setAuthorised}
             chooseRegistry={chooseRegistry}
             setApiKey={setApiKey}
-        /> :
-        appRender = <EntityRegistrationApp 
+        />
+    }
+    
+    const entityRegistrationPage = () => {
+        return <EntityRegistrationApp 
             registryId={registryId}
             user={user}
             registries={registries}
@@ -117,7 +122,19 @@ const App = () => {
             setAuthorised={setAuthorised} 
             chooseRegistry={chooseRegistry} 
             setChangePassword={setChangePassword}
-        />;
+        />
+    };
+    
+    let appRender = loginPage();
+
+    if(changePassword){
+        appRender = changePasswordPage();
+    }
+
+    if(Boolean(isAuthorised) && !changePassword) {
+         appRender = (!Boolean(registryId)) ?
+                     registryPresentationPage() :
+                     entityRegistrationPage();
     }
 
     return appRender;
