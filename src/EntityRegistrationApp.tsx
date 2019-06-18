@@ -7,6 +7,7 @@ import EntityRegistrationForm from './EntityRegistrationForm';
 import EntityDataPresentation from './EntityDataPresentation';
 import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
+import { findRegistryIdentifierInPath, findEntityIdentifierInPath } from './utils';
 
 const styles = createStyles({
     container: {
@@ -42,29 +43,10 @@ const EntityRegistrationApp = (props: DataProps) => {
         }, 5000);
     }
 
-    const findEntityIdentifierInPath = () => {
-        const pathElements: string[] = window
-            .location
-            .pathname
-            .substring(1)
-            .split("/");
-        return pathElements.length > 1 ? 
-            pathElements[1] :
-            '';
-    }
     const identifier = findEntityIdentifierInPath();
     if(Boolean(identifier)){
         (data as any)["identifier"] = Boolean(identifier) ? identifier : (data as any)["identifier"];
     }
-
-    const findRegistryIdentifierInPath = () => {
-        return window
-            .location
-            .pathname
-            .substring(1)
-            .split("/")[0];
-    }
-
     const registryName = findRegistryIdentifierInPath();
     
     if(Boolean(registryName) && JSON.parse(registries).includes(registryName)){

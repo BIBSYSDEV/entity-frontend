@@ -4,6 +4,7 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import Header from './Header';
 import { Grid } from '@material-ui/core';
 import RegistryList from './RegistryList';
+import { findRegistryIdentifierInPath } from './utils';
 
 const styles = createStyles({
     container: {
@@ -23,14 +24,6 @@ export interface DataProps extends WithStyles<typeof styles> {
 const RegistryPresentation = (props: DataProps) => {
 
     const { classes, setRegistryId, user, setChangePassword, registries, setAuthorised, chooseRegistry } = props;
-
-    const findRegistryIdentifierInPath = () => {
-        return window
-            .location
-            .pathname
-            .substring(1)
-            .split("/")[0];
-    }
 
     const registryName = findRegistryIdentifierInPath();
     if(Boolean(registryName) && JSON.parse(registries).includes(registryName)) {

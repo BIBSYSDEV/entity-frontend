@@ -11,6 +11,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
 import SecretsManager from 'aws-sdk/clients/secretsmanager';
+import { fetchRegistries } from './utils';
 
 const styles = createStyles({
     body: {
@@ -58,21 +59,13 @@ const Login = (props: LoginProps) => {
     const validateForm = () => {
         return Boolean(userInput) && Boolean(password);
     }
-    
+
     const handleUserChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput(event.target.value);
     }
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
-    }
-
-    const fetchCognitoUserGroups: any = (userObject: any) => {
-        return userObject.signInUserSession.accessToken.payload['cognito:groups'];
-    }
-
-    const fetchRegistries = () => {
-        return API.get('entity', '/registry', {});
     }
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
