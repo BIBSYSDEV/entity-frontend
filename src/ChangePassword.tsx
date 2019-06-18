@@ -38,6 +38,8 @@ const styles = createStyles({
 export interface LoginProps extends WithStyles<typeof styles> {
     user: string;
     setChangePassword(changePassword: boolean): void;
+    setAuthorised(authorised: string): void;
+    chooseRegistry(): void;
 }
 
 const ChangePassword = (props: LoginProps) => {
@@ -47,7 +49,7 @@ const ChangePassword = (props: LoginProps) => {
     const [repeatPassword, setRepeatPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const { classes, user, setChangePassword } = props;
+    const { classes, user, setChangePassword, setAuthorised, chooseRegistry } = props;
 
     const validateNewPassword = (newPassword: string) => {
         return newPassword.length > 12;
@@ -102,7 +104,13 @@ const ChangePassword = (props: LoginProps) => {
 
     return (
         <div>
-            <Header spinner={spinner} user={user} setChangePassword={setChangePassword}/>
+            <Header 
+                spinner={spinner} 
+                user={user} 
+                setChangePassword={setChangePassword} 
+                setAuthorised={setAuthorised}
+                chooseRegistry={chooseRegistry}
+            />
             <Container component='main' maxWidth='xs'>
                 <CssBaseline />
                 <div className={classes.paper}>

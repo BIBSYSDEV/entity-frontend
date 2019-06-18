@@ -79,12 +79,15 @@ const App = () => {
         user={''}
         setChangePassword={setChangePassword} 
         setRegistries={setRegistries}
+        chooseRegistry={chooseRegistry}
     />;
 
     if(changePassword){
         appRender = <ChangePassword
             user={user}
             setChangePassword={setChangePassword}
+            setAuthorised={setAuthorised}
+            chooseRegistry={chooseRegistry}
         />
     }
 
@@ -94,7 +97,9 @@ const App = () => {
             setRegistryId={setRegistryId}
             user={user}
             setChangePassword={setChangePassword}
-            registries={registries} 
+            registries={registries}
+            setAuthorised={setAuthorised}
+            chooseRegistry={chooseRegistry}
         /> :
         appRender = <EntityRegistrationApp 
             registryId={registryId}

@@ -37,7 +37,6 @@ const EntityRegistrationForm = (props: FormProps) => {
                     registryId={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist}
-                    setAuthorised={setAuthorised} 
                     chooseRegistry={chooseRegistry} 
                 />
             </Typography>
@@ -52,8 +51,7 @@ const EntityRegistrationForm = (props: FormProps) => {
                     registryId={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist}
-                    setAuthorised={setAuthorised} 
-                    chooseRegistry={chooseRegistry} 
+                    chooseRegistry={chooseRegistry}
                 />
             </Typography>
         </React.Fragment>

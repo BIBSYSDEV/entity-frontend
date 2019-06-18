@@ -30,10 +30,12 @@ export interface HeaderProps extends WithStyles<typeof styles> {
     spinner: boolean;
     user: string;
     setChangePassword(changePassword: boolean): void;
+    setAuthorised(authorised: string): void;
+    chooseRegistry(): void; 
 }
 
 const Header = (props: HeaderProps) => {
-    const { classes, spinner, user,setChangePassword } = props;
+    const { classes, spinner, user,setChangePassword, setAuthorised, chooseRegistry } = props;
 
     const applyChangePassword = () => {
         setChangePassword(true);
@@ -44,6 +46,16 @@ const Header = (props: HeaderProps) => {
         return  (buttonRender);
     }
  
+    const showLogoutButton = () => {
+        const buttonRender = (Boolean(user)) ? <Button onClick={handleLogout} color="inherit">Logout</Button> : ''; 
+        return  (buttonRender);
+    }
+
+    const handleLogout = () => {
+        setAuthorised('');
+        chooseRegistry();
+    }
+    
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
@@ -58,6 +70,7 @@ const Header = (props: HeaderProps) => {
                     <Typography variant="h6">
                         {user}
                         {showChangePasswordButton()} 
+                        {showLogoutButton()} 
                     </Typography>
                 </Toolbar>
             </AppBar>

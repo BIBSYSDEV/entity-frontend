@@ -10,7 +10,6 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
-import AWS from 'aws-sdk';
 import SecretsManager from 'aws-sdk/clients/secretsmanager';
 
 const styles = createStyles({
@@ -45,6 +44,7 @@ export interface LoginProps extends WithStyles<typeof styles> {
     setChangePassword(input: boolean): void;
     setUser(input: string): void;
     setRegistries(input: string): void;
+    chooseRegistry(): void;
 }
 
 const Login = (props: LoginProps) => {
@@ -53,12 +53,12 @@ const Login = (props: LoginProps) => {
     const [userInput, setUserInput] = useState('');
     const [errorMessage, setErrorMessageDisplay] = useState('');
 
-    const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries } = props;
+    const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries, chooseRegistry } = props;
 
     const validateForm = () => {
         return Boolean(userInput) && Boolean(password);
     }
-
+    
     const handleUserChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput(event.target.value);
     }
@@ -71,7 +71,6 @@ const Login = (props: LoginProps) => {
         return userObject.signInUserSession.accessToken.payload['cognito:groups'];
     }
 
-
     const fetchRegistries = () => {
         return API.get('entity', '/registry', {});
     }
@@ -79,6 +78,8 @@ const Login = (props: LoginProps) => {
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
+        setSpinning(true);
+        
         setErrorMessageDisplay('');
         try {
             let registries = await fetchRegistries();
@@ -116,14 +117,22 @@ const Login = (props: LoginProps) => {
             setUser(userInput);
         } catch (e) {
             setErrorMessageDisplay(e.message);
+            setSpinning(false);
         }
+        setSpinning(false);
     }
 
-    const spinner = true;
+    const [spinner, setSpinning] = useState(false);
 
     return (
         <div>
-            <Header spinner={spinner} user={user} setChangePassword={setChangePassword}/>
+            <Header 
+                spinner={spinner} 
+                user={user} 
+                setChangePassword={setChangePassword}
+                setAuthorised={setAuthorised}
+                chooseRegistry={chooseRegistry}
+            />
             <Container component='main' maxWidth='xs'>
                 <CssBaseline />
                 <div className={classes.paper}>

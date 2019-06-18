@@ -74,7 +74,13 @@ const EntityRegistrationApp = (props: DataProps) => {
 
     return (
         <div>
-            <Header spinner={spinner} user={user} setChangePassword={setChangePassword}/>
+            <Header 
+                spinner={spinner} 
+                user={user} 
+                setChangePassword={setChangePassword}
+                setAuthorised={setAuthorised}
+                chooseRegistry={chooseRegistry}
+            />
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm
