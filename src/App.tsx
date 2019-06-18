@@ -121,19 +121,19 @@ const App = () => {
             setChangePassword={setChangePassword}
         />;
     
-    let appRender = loginPage;
+    let pageSelected = loginPage;
 
     if(changePassword){
-        appRender = changePasswordPage;
+        pageSelected = changePasswordPage;
     }
 
     if(Boolean(isAuthorised) && !changePassword) {
-         appRender = (!Boolean(registryId)) ?
+         pageSelected = (!Boolean(registryId)) ?
                      registryPresentationPage :
                      entityRegistrationPage;
     }
 
-    return appRender;
+    return pageSelected;
 }
 
 export default withStyles(styles)(App);
