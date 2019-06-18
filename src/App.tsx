@@ -81,8 +81,8 @@ const App = () => {
     }
 
     
-    const loginPage = () => {
-        return <Login 
+    const loginPage = 
+        <Login 
             setAuthorised={setAuthorised} 
             setUser={setUser}
             user={''}
@@ -90,19 +90,17 @@ const App = () => {
             setRegistries={setRegistries}
             chooseRegistry={chooseRegistry}
         />;
-    }
     
-    const changePasswordPage = () => {
-        return <ChangePassword
+    const changePasswordPage = 
+        <ChangePassword
             user={user}
             setChangePassword={setChangePassword}
             setAuthorised={setAuthorised}
             chooseRegistry={chooseRegistry}
-        />
-    }
+        />;
     
-    const registryPresentationPage = () => {
-        return <RegistryPresentation 
+    const registryPresentationPage = 
+        <RegistryPresentation 
             setRegistryId={setRegistryId}
             user={user}
             setChangePassword={setChangePassword}
@@ -110,11 +108,10 @@ const App = () => {
             setAuthorised={setAuthorised}
             chooseRegistry={chooseRegistry}
             setApiKey={setApiKey}
-        />
-    }
+        />;
     
-    const entityRegistrationPage = () => {
-        return <EntityRegistrationApp 
+    const entityRegistrationPage = 
+        <EntityRegistrationApp 
             registryId={registryId}
             user={user}
             registries={registries}
@@ -122,19 +119,18 @@ const App = () => {
             setAuthorised={setAuthorised} 
             chooseRegistry={chooseRegistry} 
             setChangePassword={setChangePassword}
-        />
-    };
+        />;
     
-    let appRender = loginPage();
+    let appRender = loginPage;
 
     if(changePassword){
-        appRender = changePasswordPage();
+        appRender = changePasswordPage;
     }
 
     if(Boolean(isAuthorised) && !changePassword) {
          appRender = (!Boolean(registryId)) ?
-                     registryPresentationPage() :
-                     entityRegistrationPage();
+                     registryPresentationPage :
+                     entityRegistrationPage;
     }
 
     return appRender;
