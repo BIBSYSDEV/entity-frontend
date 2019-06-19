@@ -8,6 +8,7 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
+import { EMPTY } from './constants';
 
 const styles = createStyles({
     body: {
@@ -44,10 +45,10 @@ export interface ChangePasswordProps extends WithStyles<typeof styles> {
 
 const ChangePassword = (props: ChangePasswordProps): any => {
 
-    const [oldPassword, setOldPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [oldPassword, setOldPassword] = useState(EMPTY);
+    const [newPassword, setNewPassword] = useState(EMPTY);
+    const [repeatPassword, setRepeatPassword] = useState(EMPTY);
+    const [errorMessage, setErrorMessage] = useState(EMPTY);
 
     const { classes, user, setChangePassword, setAuthorised, chooseRegistry } = props;
 
@@ -75,7 +76,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
         event.preventDefault();
 
         try {
-            setErrorMessage('')
+            setErrorMessage(EMPTY)
             Auth.currentAuthenticatedUser()
                 .then(user => {
                     return Auth.changePassword(user, oldPassword, newPassword);

@@ -11,6 +11,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
 import { fetchRegistries } from './utils';
+import { EMPTY } from './constants';
 
 const styles = createStyles({
     body: {
@@ -49,9 +50,9 @@ export interface LoginProps extends WithStyles<typeof styles> {
 
 const Login = (props: LoginProps): any => {
 
-    const [password, setPassword] = useState('');
-    const [userInput, setUserInput] = useState('');
-    const [errorMessage, setErrorMessageDisplay] = useState('');
+    const [password, setPassword] = useState(EMPTY);
+    const [userInput, setUserInput] = useState(EMPTY);
+    const [errorMessage, setErrorMessageDisplay] = useState(EMPTY);
     const [spinner, setSpinning] = useState(false);
     
     const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries, chooseRegistry } = props;
@@ -73,7 +74,7 @@ const Login = (props: LoginProps): any => {
 
         setSpinning(true);
         
-        setErrorMessageDisplay('');
+        setErrorMessageDisplay(EMPTY);
         try {
             let registries = await fetchRegistries();
             await Auth.signIn(userInput, password)

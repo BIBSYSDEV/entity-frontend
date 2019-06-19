@@ -8,7 +8,7 @@ import RegistryPresentation from './RegistryPresentation';
 import ChangePassword from './ChangePassword';
 import Amplify from '@aws-amplify/core';
 import config from './config';
-
+import { EMPTY } from './constants';
 
 const styles = createStyles({
     toolBar: {
@@ -44,30 +44,30 @@ Amplify.configure(config);
 
 const App = (): any => {
     
-    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem('authorised') || '');
+    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem('authorised') || EMPTY);
 
     React.useEffect((): void => {
         sessionStorage.setItem('authorised', isAuthorised);
     }, [isAuthorised])
 
-    const [registries, setRegistries] = useState(sessionStorage.getItem('registries') || '');
+    const [registries, setRegistries] = useState(sessionStorage.getItem('registries') || EMPTY);
     React.useEffect((): void => {
         sessionStorage.setItem('registries', registries);
     }, [registries])
 
-    const [user, setUser] = useState(sessionStorage.getItem('user') || '');
+    const [user, setUser] = useState(sessionStorage.getItem('user') || EMPTY);
 
     React.useEffect((): void => {
         sessionStorage.setItem('user', user);
     }, [user])
 
-    const [registryId, setRegistryId] = useState(sessionStorage.getItem('registry') || '');
+    const [registryId, setRegistryId] = useState(sessionStorage.getItem('registry') || EMPTY);
 
     React.useEffect((): void => {
         sessionStorage.setItem('registry', registryId);
     }, [registryId])
 
-    const [apiKey, setApiKey] = useState(sessionStorage.getItem('apiKey') || '');
+    const [apiKey, setApiKey] = useState(sessionStorage.getItem('apiKey') || EMPTY);
 
     React.useEffect((): void => {
         sessionStorage.setItem('apiKey', apiKey);
@@ -77,7 +77,7 @@ const App = (): any => {
     const [changePassword, setChangePassword] = useState(false);
 
     const chooseRegistry = (): void => {
-        setRegistryId('');
+        setRegistryId(EMPTY);
     }
 
     
@@ -85,7 +85,7 @@ const App = (): any => {
         <Login 
             setAuthorised={setAuthorised} 
             setUser={setUser}
-            user={''}
+            user={EMPTY}
             setChangePassword={setChangePassword} 
             setRegistries={setRegistries}
             chooseRegistry={chooseRegistry}
