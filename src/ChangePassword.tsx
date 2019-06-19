@@ -80,25 +80,12 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 .then(user => {
                     return Auth.changePassword(user, oldPassword, newPassword);
                 })
-                .then(data => console.log(data))
-                .catch(err => console.log(err));
-//            await Auth.signIn(user, oldPassword)
-//                .then((userObject): void => {
-//                    console.log(userObject);
-//                    userObject.getCurrentSession();
-//                    Auth.completeNewPassword(
-//                        userObject,        // the Cognito User Object
-//                        newPassword,       // the new password
-//                        {}
-//                    ).then((): void => {
-//                        console.log('change password')
-//                    // at this time the user is logged in if no MFA required
-//                    }).catch((e): void => {
-//                        setErrorMessage(e.message);
-//                    });
-//                }).catch((e): void => {
-//                    setErrorMessage(e.message);
-//                });
+                .then((data) => {
+                })
+                .catch((err) => {
+                    setErrorMessage(err);
+                });
+
             setChangePassword(false);
         } catch (e) {
             setErrorMessage(e.message);
