@@ -5,9 +5,9 @@ export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];
 }
 
-export const fetchRegistries = (): string[] => {
+export const fetchRegistries = async () => {
     let registries: string[] = [];
-    API.get('entity', '/registry', {}).then((data): object => {
+    await API.get('entity', '/registry', {}).then((data): void => {
         registries = (data as string[]);
     });
     return registries;

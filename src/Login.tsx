@@ -68,7 +68,7 @@ const Login = (props: LoginProps): any => {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>): void => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         setSpinning(true);

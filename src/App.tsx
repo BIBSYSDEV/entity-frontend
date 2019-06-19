@@ -116,9 +116,9 @@ const App = (): any => {
             user={user}
             registries={registries}
             setRegistryId={setRegistryId} 
+            setChangePassword={setChangePassword}
             setAuthorised={setAuthorised} 
             chooseRegistry={chooseRegistry} 
-            setChangePassword={setChangePassword}
         />;
     
     let pageSelected = loginPage;

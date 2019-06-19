@@ -26,7 +26,7 @@ export interface DataProps extends WithStyles<typeof styles> {
     chooseRegistry(): void;
 }
 
-const EntityRegistrationApp = (props: DataProps): any => {
+const EntityRegistrationApp = (props: DataProps) => {
 
     const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId, registries } = props;
     
@@ -83,7 +83,7 @@ const EntityRegistrationApp = (props: DataProps): any => {
 
 }
 
-const mapStateToProps = (state: JsonFormsState): any => {
+const mapStateToProps = (state: JsonFormsState) => {
     return { data: getData(state) }
 };
 
