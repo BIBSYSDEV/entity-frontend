@@ -8,6 +8,7 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
+import { EMPTY } from './constants';
 
 const styles = createStyles({
     body: {
@@ -44,10 +45,10 @@ export interface ChangePasswordProps extends WithStyles<typeof styles> {
 
 const ChangePassword = (props: ChangePasswordProps): any => {
 
-    const [oldPassword, setOldPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [oldPassword, setOldPassword] = useState(EMPTY);
+    const [newPassword, setNewPassword] = useState(EMPTY);
+    const [repeatPassword, setRepeatPassword] = useState(EMPTY);
+    const [errorMessage, setErrorMessage] = useState(EMPTY);
 
     const { classes, user, setChangePassword, setAuthorised, chooseRegistry } = props;
 
@@ -75,30 +76,17 @@ const ChangePassword = (props: ChangePasswordProps): any => {
         event.preventDefault();
 
         try {
-            setErrorMessage('')
+            setErrorMessage(EMPTY)
             Auth.currentAuthenticatedUser()
                 .then(user => {
                     return Auth.changePassword(user, oldPassword, newPassword);
                 })
-                .then(data => console.log(data))
-                .catch(err => console.log(err));
-//            await Auth.signIn(user, oldPassword)
-//                .then((userObject): void => {
-//                    console.log(userObject);
-//                    userObject.getCurrentSession();
-//                    Auth.completeNewPassword(
-//                        userObject,        // the Cognito User Object
-//                        newPassword,       // the new password
-//                        {}
-//                    ).then((): void => {
-//                        console.log('change password')
-//                    // at this time the user is logged in if no MFA required
-//                    }).catch((e): void => {
-//                        setErrorMessage(e.message);
-//                    });
-//                }).catch((e): void => {
-//                    setErrorMessage(e.message);
-//                });
+                .then((data) => {
+                })
+                .catch((err) => {
+                    setErrorMessage(err);
+                });
+
             setChangePassword(false);
         } catch (e) {
             setErrorMessage(e.message);

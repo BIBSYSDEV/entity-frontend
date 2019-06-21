@@ -1,5 +1,6 @@
 import { API, Auth } from 'aws-amplify';
 import SecretsManager from 'aws-sdk/clients/secretsmanager';
+import { EMPTY } from './constants';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];
@@ -29,7 +30,7 @@ export const findEntityIdentifierInPath = (): string => {
         .split("/");
     return pathElements.length > 1 ? 
         pathElements[1] :
-        '';
+        EMPTY;
 }
 
 export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) => void): void => {

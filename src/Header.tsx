@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import logo from './Unit ikon farge.png';
 import { Button } from '@material-ui/core';
+import { EMPTY } from '/constants';
 
 const styles = createStyles({
     root: {
@@ -38,7 +39,7 @@ const Header = (props: HeaderProps): any => {
     const { classes, spinner, user,setChangePassword, setAuthorised, chooseRegistry } = props;
 
     const handleLogout = (): void => {
-        setAuthorised('');
+        setAuthorised(EMPTY);
         chooseRegistry();
     }
 
@@ -47,12 +48,12 @@ const Header = (props: HeaderProps): any => {
     }
 
     const showChangePasswordButton = (): any => {
-        const buttonRender = (Boolean(user)) ? <Button onClick={applyChangePassword}>Change Password</Button> : ''; 
+        const buttonRender = (Boolean(user)) ? <Button onClick={applyChangePassword}>Change Password</Button> : EMPTY; 
         return  (buttonRender);
     }
  
     const showLogoutButton = (): any => {
-        const buttonRender = (Boolean(user)) ? <Button onClick={handleLogout} color="inherit">Logout</Button> : ''; 
+        const buttonRender = (Boolean(user)) ? <Button onClick={handleLogout} color="inherit">Logout</Button> : EMPTY; 
         return  (buttonRender);
     }
     
