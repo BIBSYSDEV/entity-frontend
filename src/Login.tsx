@@ -10,6 +10,7 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
+import { fetchRegistries } from './utils';
 
 const styles = createStyles({
     body: {
@@ -42,36 +43,43 @@ export interface LoginProps extends WithStyles<typeof styles> {
     setAuthorised(input: string): void;
     setChangePassword(input: boolean): void;
     setUser(input: string): void;
+    setRegistries(input: string): void;
+    chooseRegistry(): void;
 }
 
-const Login = (props: LoginProps) => {
+const Login = (props: LoginProps): any => {
 
     const [password, setPassword] = useState('');
     const [userInput, setUserInput] = useState('');
     const [errorMessage, setErrorMessageDisplay] = useState('');
+    const [spinner, setSpinning] = useState(false);
+    
+    const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries, chooseRegistry } = props;
 
-    const { classes, setAuthorised, setUser, user, setChangePassword } = props;
-
-    const validateForm = () => {
+    const validateForm = (): any => {
         return Boolean(userInput) && Boolean(password);
     }
 
-    const handleUserChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUserChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setUserInput(event.target.value);
     }
 
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setPassword(event.target.value);
     }
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        setErrorMessageDisplay('')
+        setSpinning(true);
+        
+        setErrorMessageDisplay('');
         try {
+            let registries = await fetchRegistries();
             await Auth.signIn(userInput, password)
-                .then(userObject => {
-                    if(userObject.challengeName === 'NEW_PASSWORD_REQUIRED'){
+                .then((user): void => {
+                    setRegistries(JSON.stringify(registries));
+                    if(user.challengeName === 'NEW_PASSWORD_REQUIRED'){
                         setChangePassword(true);
                         setPassword(password);
                     }
@@ -80,14 +88,20 @@ const Login = (props: LoginProps) => {
             setUser(userInput);
         } catch (e) {
             setErrorMessageDisplay(e.message);
+            setSpinning(false);
         }
+        setSpinning(false);
     }
-
-    const spinner = true;
 
     return (
         <div>
-            <Header spinner={spinner} user={user} setChangePassword={setChangePassword}/>
+            <Header 
+                spinner={spinner} 
+                user={user} 
+                setChangePassword={setChangePassword}
+                setAuthorised={setAuthorised}
+                chooseRegistry={chooseRegistry}
+            />
             <Container component='main' maxWidth='xs'>
                 <CssBaseline />
                 <div className={classes.paper}>

@@ -30,20 +30,32 @@ export interface HeaderProps extends WithStyles<typeof styles> {
     spinner: boolean;
     user: string;
     setChangePassword(changePassword: boolean): void;
+    setAuthorised(authorised: string): void;
+    chooseRegistry(): void; 
 }
 
-const Header = (props: HeaderProps) => {
-    const { classes, spinner, user,setChangePassword } = props;
+const Header = (props: HeaderProps): any => {
+    const { classes, spinner, user,setChangePassword, setAuthorised, chooseRegistry } = props;
 
-    const applyChangePassword = () => {
+    const handleLogout = (): void => {
+        setAuthorised('');
+        chooseRegistry();
+    }
+
+    const applyChangePassword = (): void => {
         setChangePassword(true);
     }
 
-    const showChangePasswordButton = () => {
-        const buttonRender = (!Boolean(user)) ? '' : <Button onClick={applyChangePassword}>Change Password</Button>; 
+    const showChangePasswordButton = (): any => {
+        const buttonRender = (Boolean(user)) ? <Button onClick={applyChangePassword}>Change Password</Button> : ''; 
         return  (buttonRender);
     }
  
+    const showLogoutButton = (): any => {
+        const buttonRender = (Boolean(user)) ? <Button onClick={handleLogout} color="inherit">Logout</Button> : ''; 
+        return  (buttonRender);
+    }
+    
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
@@ -58,6 +70,7 @@ const Header = (props: HeaderProps) => {
                     <Typography variant="h6">
                         {user}
                         {showChangePasswordButton()} 
+                        {showLogoutButton()} 
                     </Typography>
                 </Toolbar>
             </AppBar>

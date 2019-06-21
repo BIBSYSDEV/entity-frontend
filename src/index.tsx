@@ -11,6 +11,9 @@ import { Actions, jsonformsReducer, JsonFormsState } from '@jsonforms/core';
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
 import Amplify from 'aws-amplify';
 import config from './config';
+import AWS from 'aws-sdk';
+import awsmobile from './aws-exports';
+
 
 const data = {
     "@context": "something",
@@ -33,14 +36,22 @@ const data = {
     inScheme: "schema",
 };
 
+AWS.config.update({region: config.cognito.REGION});
+
+Amplify.configure(awsmobile);
+
 Amplify.configure({
-    Auth: {
-        mandatorySignIn: true,
-        region: config.cognito.REGION,
-        userPoolId: config.cognito.USER_POOL_ID,
-        userPoolWebClientId: config.cognito.APP_CLIENT_ID
-    },
+    API: {
+        endpoints: [
+            {
+                name: "entity",
+                endpoint: config.apiGateway.URL,
+                region: config.apiGateway.REGION
+            },
+        ]
+    }
 });
+
 
 const initState: JsonFormsState = {
     jsonforms: {
@@ -60,4 +71,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
-registerServiceWorker();

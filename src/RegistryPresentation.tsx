@@ -4,6 +4,7 @@ import createStyles from "@material-ui/core/styles/createStyles";
 import Header from './Header';
 import { Grid } from '@material-ui/core';
 import RegistryList from './RegistryList';
+import { findRegistryIdentifierInPath, fetchApiKey } from './utils';
 
 const styles = createStyles({
     container: {
@@ -15,22 +16,21 @@ export interface DataProps extends WithStyles<typeof styles> {
     user: string;
     setRegistryId(registryId: string): void;
     setChangePassword(changePassword: boolean): void;
+    registries: string;
+    setAuthorised(authorised: string): void;
+    chooseRegistry(): void;
+    setApiKey(apiKey: string): void;
 }
 
-const RegistryPresentation = (props: DataProps) => {
+const RegistryPresentation = (props: DataProps): any => {
 
-    const { classes, setRegistryId, user, setChangePassword } = props;
-
-    const findRegistryIdentifierInPath = () => {
-        return window
-            .location
-            .pathname
-            .substring(1)
-            .split("/")[0];
-    }
+    const { classes, setRegistryId, user, setChangePassword, registries, setAuthorised, chooseRegistry, setApiKey } = props;
 
     const registryName = findRegistryIdentifierInPath();
-    setRegistryId(registryName);
+    if(Boolean(registryName) && JSON.parse(registries).includes(registryName)) {
+        fetchApiKey(registryName, setApiKey);
+        setRegistryId(registryName);
+    }
     
     return (
         <div>
@@ -38,10 +38,16 @@ const RegistryPresentation = (props: DataProps) => {
                 spinner={false} 
                 user={user} 
                 setChangePassword={setChangePassword}
+                setAuthorised={setAuthorised}
+                chooseRegistry={chooseRegistry}
             />
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
-                    <RegistryList setRegistryId={setRegistryId} />
+                    <RegistryList 
+                        setRegistryId={setRegistryId} 
+                        registries={registries} 
+                        setApiKey={setApiKey}
+                    />
                 </Grid>
             </Grid>
         </div>

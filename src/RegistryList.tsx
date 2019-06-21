@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import Button from "@material-ui/core/Button";
+import { fetchApiKey } from './utils';
 
 const styles = createStyles({
     container: {
@@ -11,28 +12,33 @@ const styles = createStyles({
 
 export interface DataProps extends WithStyles<typeof styles> {
     setRegistryId(registryId: string): void;
+    registries: string;
+    setApiKey(apiKey: string): void;
 }
 
-const RegistryList = (props: DataProps) => {
 
-    const { setRegistryId } = props;
+const RegistryList = (props: DataProps): any => {
 
-    const readRegistries: string[] =  ['HUMORD', 'TEKORD'];
+    const { setRegistryId, registries, setApiKey } = props;
 
-    const setRegistryIdentifier: any = (id: string) => {
+    const setRegistryIdentifier: any = (id: string): void => {
         if(Boolean(id)){
             setRegistryId(id);
+            fetchApiKey(id, setApiKey);
         }
     };
 
-    const listItems: any = readRegistries.map((registry: string) =>
-        <li key={registry}>
-            <Button onClick = {() => setRegistryIdentifier(registry)}>{registry}</Button>
-        </li> 
-    )
+    const renderListItems = (): object => {
+        return JSON.parse(registries).map((registry: string): object =>
+            <li key={registry}>
+                <Button onClick = {(): void => setRegistryIdentifier(registry)}>{registry}</Button>
+            </li>); 
+    };
+
+    const listItems = useRef(renderListItems());
 
     return (
-        <ul>{listItems}</ul>
+        <ul>{listItems.current}</ul>
     );
 }
 

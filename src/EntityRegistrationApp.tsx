@@ -7,6 +7,7 @@ import EntityRegistrationForm from './EntityRegistrationForm';
 import EntityDataPresentation from './EntityDataPresentation';
 import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
+import { findRegistryIdentifierInPath, findEntityIdentifierInPath } from './utils';
 
 const styles = createStyles({
     container: {
@@ -16,9 +17,10 @@ const styles = createStyles({
 
 export interface DataProps extends WithStyles<typeof styles> {
     registryId: string;    
-    setRegistryId(registryId: string): void;
     user: string;
     data: object;
+    registries: string;
+    setRegistryId(registryId: string): void;
     setChangePassword(changePassword: boolean): void;
     setAuthorised(authorised: string): void;
     chooseRegistry(): void;
@@ -26,61 +28,53 @@ export interface DataProps extends WithStyles<typeof styles> {
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId } = props;
+    const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId, registries } = props;
     
-    const handleNew = () => {
+    const handleNew = (): void => {
         // new 
     }
 
     const [ spinner, setSpinner] = useState(false);
 
-    const handlePersist = () => {
+    const handlePersist = (): void => {
         setSpinner(true);
-        setTimeout(() => {
+        setTimeout((): void => {
             setSpinner(false);
         }, 5000);
     }
 
-    const findEntityIdentifierInPath = () => {
-        const pathElements: string[] = window
-            .location
-            .pathname
-            .substring(1)
-            .split("/");
-        return pathElements.length > 1 ? 
-            pathElements[1] :
-            '';
-    }
     const identifier = findEntityIdentifierInPath();
-
-    const findRegistryIdentifierInPath = () => {
-        return window
-            .location
-            .pathname
-            .substring(1)
-            .split("/")[0];
+    if(Boolean(identifier)){
+        (data as any)['identifier'] = Boolean(identifier) ? identifier : (data as any)['identifier'];
     }
-    setRegistryId(findRegistryIdentifierInPath());
+    const registryName = findRegistryIdentifierInPath();
+    
+    if(Boolean(registryName) && JSON.parse(registries).includes(registryName)){
+        setRegistryId(registryName);
+    }
 
-
-    (data as any)["identifier"] = Boolean(identifier) ? identifier : (data as any)["identifier"];
 
     return (
         <div>
-            <Header spinner={spinner} user={user} setChangePassword={setChangePassword}/>
+            <Header 
+                spinner={spinner} 
+                user={user} 
+                setChangePassword={setChangePassword}
+                setAuthorised={setAuthorised}
+                chooseRegistry={chooseRegistry}
+            />
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm
                         registryId={registryId}
                         handleNew={handleNew}
                         handlePersist={handlePersist}
-                        setAuthorised={setAuthorised}
                         chooseRegistry={chooseRegistry}
                     />
                 </Grid>
                 <Grid item sm={9}>
                     <EntityDataPresentation
-                        dataAsString={JSON.stringify(data)}
+                        dataAsString={JSON.stringify(data, null, 2)}
                     />                                    
                 </Grid>
             </Grid>
