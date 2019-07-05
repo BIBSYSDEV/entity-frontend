@@ -2,20 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import { combineReducers, createStore, Reducer, AnyAction } from 'redux';
 import { Provider } from 'react-redux';
 import schema from './schema.json';
 import uischema from './uischema.json';
-import { Actions, jsonformsReducer, JsonFormsState } from '@jsonforms/core';
+import { jsonformsReducer, JsonFormsState } from '@jsonforms/core';
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
 import Amplify from 'aws-amplify';
 import config from './config';
 import AWS from 'aws-sdk';
 import awsmobile from './aws-exports';
+import { initialiseStore, createRegistryUri } from './utils';
+import { findEntityIdentifierInPath, findRegistryIdentifierInPath } from './utils';
 
-
-const data = {
+let data = {
     "@context": "something",
     identifier: "12345",
     preferredLabel: [
@@ -63,11 +63,26 @@ const initState: JsonFormsState = {
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
 
-store.dispatch(Actions.init(data, schema, uischema));
+const registryName = findRegistryIdentifierInPath();
+const identifier = findEntityIdentifierInPath();
+if(Boolean(identifier)){
+    data.identifier = identifier;
+    data.preferredLabel[0].value = "prefLabel-" + registryName;
+}
+
+const newEntity = (registryName: string): void => {
+    (data as any) = { inScheme: createRegistryUri(registryName) }; // Correct uri in here
+    initialiseStore(store.dispatch, data, schema, uischema);
+}
+
+initialiseStore(store.dispatch, data, schema, uischema);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
+        <App 
+            newEntity={newEntity}
+            data={data}
+        />
     </Provider>,
     document.getElementById('root')
 );

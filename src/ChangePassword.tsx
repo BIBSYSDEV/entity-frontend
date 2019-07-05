@@ -77,15 +77,47 @@ const ChangePassword = (props: ChangePasswordProps): any => {
 
         try {
             setErrorMessage(EMPTY)
-            Auth.currentAuthenticatedUser()
-                .then(user => {
-                    return Auth.changePassword(user, oldPassword, newPassword);
-                })
-                .then((data) => {
-                })
-                .catch((err) => {
-                    setErrorMessage(err);
-                });
+            
+            Auth.signIn(user, oldPassword)
+            .then(userObject => {
+                if (userObject.challengeName === 'NEW_PASSWORD_REQUIRED') {
+                    Auth.completeNewPassword(
+                        userObject,        // the Cognito User Object
+                        newPassword,       // the new password
+                        // OPTIONAL, the required attributes
+                        {}
+                    ).then(userData => {
+                        // at this time the user is logged in if no MFA required
+                        Auth.currentAuthenticatedUser()
+                        .then(user => {
+                            setChangePassword(false);
+                            return Auth.changePassword(user, oldPassword, newPassword);
+                        })
+                        .then((data) => {
+                        })
+                        .catch((err) => {
+                            setErrorMessage(err);
+                        });
+                        console.log(userData);
+                    }).catch(e => {
+                      console.log(e);
+                      setErrorMessage(e)
+                    });
+                } else {
+                    Auth.currentAuthenticatedUser()
+                    .then(user => {
+                        setChangePassword(false);
+                        return Auth.changePassword(user, oldPassword, newPassword);
+                    })
+                    .then((data) => {
+                    })
+                    .catch((err) => {
+                        setErrorMessage(err);
+                    });
+                }
+            }).catch(e => {
+                console.log(e);
+            });
 
             setChangePassword(false);
         } catch (e) {

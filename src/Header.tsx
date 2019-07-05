@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import logo from './Unit ikon farge.png';
 import { Button } from '@material-ui/core';
-import { EMPTY } from '/constants';
+import { EMPTY } from './constants';
 
 const styles = createStyles({
     root: {
