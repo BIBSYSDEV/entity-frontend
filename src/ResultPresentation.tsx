@@ -29,13 +29,34 @@ const styles = createStyles({
 const resultPresentationConfig: any = {
   title: ['preferredLabel', 'alternativeLabel', 'id'],
   visibleAttributes:  {
-                          'preferredLabel': 'textArray',
-                          'definition': 'text',
-                          'alternativeLabel': 'textArray',
-                          'broader': 'link',
-                          'narrower': 'link',
-                          'seeAlso': 'link',
-                          'related': 'link',
+                          'preferredLabel': {
+                              type: 'textArray',
+                              label: 'Preferred label:',
+                          },
+                          'definition': { 
+                              type: 'text',
+                              label: 'Definition:',
+                          },
+                          'alternativeLabel': {
+                              type: 'textArray',
+                              label: 'Alternative label:',
+                          },
+                          'broader': {
+                              type: 'link',
+                              label: 'Broader:',
+                          },
+                          'narrower': {
+                              type: 'link',
+                              label: 'Narrower:',
+                          },
+                          'seeAlso': {
+                              type: 'link',
+                              label: 'See also:',
+                          },
+                          'related': {
+                              type: 'link',
+                              label: 'Related:',
+                          },
                       },
 };
 
@@ -55,14 +76,15 @@ const ResultPresentation = (props: ResultProps): any => {
     const renderLink = (key: string, value: any): any => {
         return  <Typography>
                     <Typography>
-                        <InputLabel shrink>{key}</InputLabel> <Typography><Link href={value}>{value}</Link></Typography>
+                        <InputLabel shrink>{key}</InputLabel> 
+                        <Typography><Link href={value}>{value}</Link></Typography>
                     </Typography>
                 </Typography>;
     };
 
     const renderSingleLine = (key: string, value: any): any => {
         return (<Typography>
-                <InputLabel shrink>{key}</InputLabel> 
+                    <InputLabel shrink>{key}</InputLabel> 
                     <Typography>{(Boolean(value.value) ? value.value + " (" + value.lang + ")" : value)}</Typography>
                 </Typography>);
     }
@@ -85,10 +107,10 @@ const ResultPresentation = (props: ResultProps): any => {
     
     const renderAttribute = (key: string, attribute: any): string => {
         if(Boolean(resultPresentationConfig.visibleAttributes[key])){
-            if(resultPresentationConfig.visibleAttributes[key] === 'link'){
-                return renderLink(key, attribute);
+            if(resultPresentationConfig.visibleAttributes[key].type === 'link'){
+                return renderLink(resultPresentationConfig.visibleAttributes[key].label, attribute);
             } else {
-                return renderText(key, attribute);
+                return renderText(resultPresentationConfig.visibleAttributes[key].label, attribute);
             }
         } else{
             return '';
