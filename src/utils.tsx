@@ -4,6 +4,7 @@ import { EMPTY } from './constants';
 import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
 import uischema from './uischema.json';
+import uuidv4 from 'uuid';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];
@@ -58,19 +59,28 @@ export const initialiseStore = (dispatch: any, data: any, schema: any, uischema:
 };
 
 export const readEntity = async (registryName: string, entityId: string, apiKey: string) => {
-    return await API.get('entity', "/registry" + registryName + "/entity/" + entityId, {headers: {'api-key': apiKey}});
+    return await API.get('entity', "/registry/" + registryName + "/entity/" + entityId, {headers: {'api-key': apiKey}});
 }
 
-export const writeEntity = async (registryName: string, entityId: string, apiKey: string, entity: string)  => {
+export const writeEntity = async (registryName: string, entityId: string, apiKey: string, entity: any)  => {
+    
+    entity.modified = new Date().toDateString();
+    console.log(entity.modified)
+    const bodyObject: any = {
+            body: entity
+    }
+    
     if(Boolean(entityId)){
-        return await API.put('entity', "/registry" + registryName + "/entity/" + entityId, {
+        return await API.put('entity', "/registry/" + registryName + "/entity/" + entityId, {
                 headers: {'api-key': apiKey}, 
-                body: entity
+                body: JSON.stringify(bodyObject)
             });
-    }else {
-        return await API.post('entity', "/registry" + registryName + "/entity/", {
+    } else {
+            bodyObject.body.identifier = uuidv4();
+            console.log(JSON.stringify(bodyObject));
+        return await API.post('entity', "/registry/" + registryName + "/entity/", {
                 headers: {'api-key': apiKey}, 
-                body: entity
+                body: JSON.stringify(bodyObject)
             });
     }
 }

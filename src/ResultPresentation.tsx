@@ -75,10 +75,13 @@ const ResultPresentation = (props: ResultProps): any => {
     
     const renderLink = (key: string, value: any): any => {
         return  <Typography>
-                    <Typography>
-                        <InputLabel shrink>{key}</InputLabel> 
+                    <InputLabel shrink>{key}</InputLabel> 
+                    {(Array.isArray(value)) ? 
+                        (value as any[]).map((element: string) => {
+                            return (<Typography><Link href={element}>{element}</Link></Typography>);
+                        }) : 
                         <Typography><Link href={value}>{value}</Link></Typography>
-                    </Typography>
+                    }
                 </Typography>;
     };
 
@@ -124,7 +127,7 @@ const ResultPresentation = (props: ResultProps): any => {
 
     return (<Box>
             <ListItem  button onClick={handleClick} key={result.id}>
-                <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={result.id} />
+                <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={(result as any).identifier} />
             </ListItem>
             <Collapse in={open} timeout='auto' unmountOnExit>
                 <Card className={classes.card}>

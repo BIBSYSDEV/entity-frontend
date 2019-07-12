@@ -15,25 +15,7 @@ import awsmobile from './aws-exports';
 import { initialiseStore, createRegistryUri } from './utils';
 import { findEntityIdentifierInPath, findRegistryIdentifierInPath } from './utils';
 
-let data = {
-    "@context": "something",
-    identifier: "12345",
-    preferredLabel: [
-        {
-            value: "prefLabel",
-            lang: "English",
-        }
-    ],
-    alternativeLabel: [
-        {
-            value: "altLabel",
-            lang: "English",
-        }
-    ],
-    related: ["related"],
-    definition: "definition",
-    seeAlso: ["seeAlso"],
-    inScheme: "schema",
+let data: any = {
 };
 
 AWS.config.update({region: config.cognito.REGION});
@@ -66,8 +48,7 @@ const store = createStore(rootReducer, initState);
 const registryName = findRegistryIdentifierInPath();
 const identifier = findEntityIdentifierInPath();
 if(Boolean(identifier)){
-    data.identifier = identifier;
-    data.preferredLabel[0].value = "prefLabel-" + registryName;
+    data['identifier'] = identifier;
 }
 
 const newEntity = (registryName: string): void => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
 import Header from './Header';
 import { Grid, Tabs, Tab } from '@material-ui/core';
 import EntityRegistrationForm from './EntityRegistrationForm';
@@ -42,7 +42,7 @@ const EntityRegistrationApp = (props: DataProps) => {
 
     const handlePersist = (): void => {
         setSpinner(true);
-        const result = writeEntity(registryId, (data as any)['identifier'], apiKey, JSON.stringify(data));
+        const result = writeEntity(registryId, (data as any)['identifier'], apiKey, data);
         console.log(result);
         setSpinner(false);
     }

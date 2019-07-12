@@ -9,7 +9,6 @@ import ChangePassword from './ChangePassword';
 import Amplify from '@aws-amplify/core';
 import config from './config';
 import { EMPTY } from './constants';
-import Search from './Search';
 
 const styles = createStyles({
     toolBar: {
