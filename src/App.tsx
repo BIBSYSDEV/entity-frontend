@@ -117,7 +117,7 @@ const App = (props: AppProps): any => {
             setApiKey={setApiKey}
         />;
     
-    const entityRegistrationPage = 
+    const entityRegistrationPage =
         <EntityRegistrationApp 
             registryId={registryId}
             user={user}
@@ -141,7 +141,7 @@ const App = (props: AppProps): any => {
                 entityRegistrationPage;
         }
     }
-    return pageSelected;
+    return (pageSelected)
 }
 
 export default withStyles(styles)(App);

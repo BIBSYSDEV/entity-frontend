@@ -27,37 +27,37 @@ const styles = createStyles({
 });
 
 const resultPresentationConfig: any = {
-  title: ['preferredLabel', 'alternativeLabel', 'id'],
-  visibleAttributes:  {
-                          'preferredLabel': {
-                              type: 'textArray',
-                              label: 'Preferred label:',
-                          },
-                          'definition': { 
-                              type: 'text',
-                              label: 'Definition:',
-                          },
-                          'alternativeLabel': {
-                              type: 'textArray',
-                              label: 'Alternative label:',
-                          },
-                          'broader': {
-                              type: 'link',
-                              label: 'Broader:',
-                          },
-                          'narrower': {
-                              type: 'link',
-                              label: 'Narrower:',
-                          },
-                          'seeAlso': {
-                              type: 'link',
-                              label: 'See also:',
-                          },
-                          'related': {
-                              type: 'link',
-                              label: 'Related:',
-                          },
-                      },
+    title: ['preferredLabel', 'alternativeLabel', 'id'],
+    visibleAttributes:  {
+        'preferredLabel': {
+            type: 'textArray',
+            label: 'Preferred label:',
+        },
+        'definition': { 
+            type: 'text',
+            label: 'Definition:',
+        },
+        'alternativeLabel': {
+            type: 'textArray',
+            label: 'Alternative label:',
+        },
+        'broader': {
+            type: 'link',
+            label: 'Broader:',
+        },
+        'narrower': {
+            type: 'link',
+            label: 'Narrower:',
+        },
+        'seeAlso': {
+            type: 'link',
+            label: 'See also:',
+        },
+        'related': {
+            type: 'link',
+            label: 'Related:',
+        },
+    },
 };
 
 export interface ResultProps extends WithStyles<typeof styles> {
@@ -70,26 +70,26 @@ const ResultPresentation = (props: ResultProps): any => {
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
-      setOpen(!open);
+        setOpen(!open);
     };
     
     const renderLink = (key: string, value: any): any => {
-        return  <Typography>
-                    <InputLabel shrink>{key}</InputLabel> 
-                    {(Array.isArray(value)) ? 
-                        (value as any[]).map((element: string) => {
-                            return (<Typography><Link href={element}>{element}</Link></Typography>);
-                        }) : 
-                        <Typography><Link href={value}>{value}</Link></Typography>
-                    }
-                </Typography>;
+        return (<Typography>
+            <InputLabel shrink>{key}</InputLabel> 
+            {(Array.isArray(value)) ? 
+                (value as any[]).map((element: string) => {
+                    return (<Typography><Link href={element}>{element}</Link></Typography>);
+                }) : 
+                <Typography><Link href={value}>{value}</Link></Typography>
+            }
+        </Typography>);
     };
 
     const renderSingleLine = (key: string, value: any): any => {
         return (<Typography>
-                    <InputLabel shrink>{key}</InputLabel> 
-                    <Typography>{(Boolean(value.value) ? value.value + " (" + value.lang + ")" : value)}</Typography>
-                </Typography>);
+            <InputLabel shrink>{key}</InputLabel> 
+            <Typography>{(Boolean(value.value) ? value.value + " (" + value.lang + ")" : value)}</Typography>
+        </Typography>);
     }
     
     const renderText = (key: string, value: any): any => {
@@ -122,21 +122,21 @@ const ResultPresentation = (props: ResultProps): any => {
     
     const attributes = Object.keys(result).map((key: string) => {
         const attribute = (result as any)[key];
-            return (renderAttribute(key, attribute)); 
+        return (renderAttribute(key, attribute)); 
     });
 
     return (<Box>
-            <ListItem  button onClick={handleClick} key={result.id}>
-                <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={(result as any).identifier} />
-            </ListItem>
-            <Collapse in={open} timeout='auto' unmountOnExit>
-                <Card className={classes.card}>
-                    <CardContent>
-                        {attributes}
-                    </CardContent>
-                </Card>
-            </Collapse>
-            </Box>);
+        <ListItem  button onClick={handleClick} key={result.id}>
+            <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={(result as any).identifier} />
+        </ListItem>
+        <Collapse in={open} timeout='auto' unmountOnExit>
+            <Card className={classes.card}>
+                <CardContent>
+                    {attributes}
+                </CardContent>
+            </Card>
+        </Collapse>
+    </Box>);
     
 //    return ();
 }

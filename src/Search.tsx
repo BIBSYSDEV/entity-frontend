@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import SearchHeader from './SearchHeader';
 import SearchResults from './SearchResults';
@@ -8,8 +8,6 @@ import { ResultType } from './SearchResults';
 const styles = createStyles({
 });
 
-export interface SearchProps extends WithStyles<typeof styles> {
-}
 
 let testData: object[] = [
     {identifier: "HUME00001", preferredLabel: [{ lang:"NB", value: "Humaniora"}], dato: "1994-03-21"},
@@ -37,7 +35,7 @@ let testData: object[] = [
 
 const EMPTY_SEARCH_RESULTS: ResultType[] = new Array<ResultType>(); 
 
-const Search = (props: SearchProps): any => {
+const Search = (): any => {
     
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     

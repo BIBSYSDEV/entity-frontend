@@ -28,10 +28,11 @@ const SearchResults = (props: SearchResultProps): any => {
     
     const renderSearchResults = () => {
         const presentation = searchResults.map((result: ResultType) => {
-            return (<List       
-                    component="nav"
-                    aria-labelledby="nested-list-subheader"><ResultPresentation result={result} />
-                   </List>) 
+            return (<List 
+                key={result.id}
+                component="nav"
+                aria-labelledby="nested-list-subheader"><ResultPresentation result={result} />
+            </List>) 
         });
         
         return (<ul>{presentation}</ul>);

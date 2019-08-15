@@ -55,7 +55,7 @@ const EntityRegistrationApp = (props: DataProps) => {
 
     const handleChange = (event: any, newValue: any) => {
         setTabValue(newValue);
-      }
+    }
 
     return (
         <div>

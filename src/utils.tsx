@@ -68,7 +68,7 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
     
     entity.modified = new Date().toDateString();
     const bodyObject: any = {
-            body: entity
+        body: entity
     }
     
     console.log(entityId);
@@ -77,15 +77,15 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
         const id = entityId.split('/').pop();
         bodyObject.id = id;
         return await API.put('entity', "/registry/" + registryName + "/entity/" + id, {
-                headers: {'api-key': apiKey}, 
-                body:  bodyObject 
-            });
+            headers: {'api-key': apiKey}, 
+            body:  bodyObject 
+        });
     } else {
-            bodyObject.id = uuidv4();
+        bodyObject.id = uuidv4();
         return await API.post('entity', "/registry/" + registryName + "/entity/", {
-                headers: {'api-key': apiKey}, 
-                body:  bodyObject 
-            });
+            headers: {'api-key': apiKey}, 
+            body:  bodyObject 
+        });
     }
 }
 
