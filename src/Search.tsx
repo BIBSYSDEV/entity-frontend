@@ -42,8 +42,12 @@ const Search = (props: SearchProps): any => {
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
     const search = (searchValue: string): ResultType[] => {
-        setSearchResults((testData as ResultType[]));
-        return (testData as ResultType[]);
+        if(searchValue.startsWith('identifier=')){
+            setSearchResults([testData[0]] as ResultType[]);
+        } else {
+            setSearchResults((testData as ResultType[]));
+        }
+        return (searchResults as ResultType[]);
     }
     
     return (

@@ -42,9 +42,9 @@ const EntityRegistrationApp = (props: DataProps) => {
 
     const handlePersist = (): void => {
         setSpinner(true);
-        const result = writeEntity(registryId, (data as any)['identifier'], apiKey, data);
-        console.log(result);
-        setSpinner(false);
+        writeEntity(registryId, (data as any)['@id'], apiKey, data).then(() => {
+            setSpinner(false);
+        })
     }
 
     const registryName = findRegistryIdentifierInPath();

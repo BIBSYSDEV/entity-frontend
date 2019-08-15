@@ -43,13 +43,25 @@ const styles = createStyles({
 export interface AppProps {
     newEntity(registryName: string): void;
     data: any;
+    setRegistryName(registryName: string): void;
+    storeApiKey(apiKey: string): void;
 } 
 
 Amplify.configure(config);
 
 const App = (props: AppProps): any => {
 
-    const { newEntity, data } = props;
+    const { newEntity, setRegistryName, storeApiKey } = props;
+    const [registryId, setRegistryId] = useState(sessionStorage.getItem('registryId') || EMPTY);
+    useEffect((): void => {
+        setRegistryName(registryId);
+    }, [registryId])
+
+    const [apiKey, setApiKey] = useState(sessionStorage.getItem('apiKey') || EMPTY);
+    useEffect((): void => {
+        storeApiKey(apiKey);
+    }, [registryId])
+
     const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem('authorised') || EMPTY);
 
     useEffect((): void => {
@@ -66,19 +78,9 @@ const App = (props: AppProps): any => {
     useEffect((): void => {
         sessionStorage.setItem('user', user);
     }, [user])
-
-    const [registryId, setRegistryId] = useState(sessionStorage.getItem('registry') || EMPTY);
-
-    useEffect((): void => {
-        sessionStorage.setItem('registry', registryId);
-    }, [registryId])
-
-    const [apiKey, setApiKey] = useState(sessionStorage.getItem('apiKey') || EMPTY);
-
-    useEffect((): void => {
-        sessionStorage.setItem('apiKey', apiKey);
-    }, [apiKey])
     
+
+
     
     const [changePassword, setChangePassword] = useState(false);
 
