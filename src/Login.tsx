@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -46,6 +47,7 @@ export interface LoginProps extends WithStyles<typeof styles> {
     setUser(input: string): void;
     setRegistries(input: string): void;
     chooseRegistry(): void;
+    location: string;
 }
 
 const Login = (props: LoginProps): any => {
@@ -55,8 +57,10 @@ const Login = (props: LoginProps): any => {
     const [errorMessage, setErrorMessageDisplay] = useState(EMPTY);
     const [spinner, setSpinning] = useState(false);
     
-    const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries, chooseRegistry } = props;
-
+    const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries, chooseRegistry, location } = props;
+    
+    var isAuthorised = false;
+    
     const validateForm = (): any => {
         return Boolean(userInput) && Boolean(password);
     }
@@ -69,7 +73,7 @@ const Login = (props: LoginProps): any => {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>, history: any) => {
         event.preventDefault();
 
         setSpinning(true);
@@ -80,20 +84,38 @@ const Login = (props: LoginProps): any => {
             await Auth.signIn(userInput, password)
                 .then((user): void => {
                     setRegistries(JSON.stringify(registries));
-                    if(user.challengeName === 'NEW_PASSWORD_REQUIRED'){
+                    if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
                         setChangePassword(true);
                         setPassword(password);
                     }
                 });
             setAuthorised('true');
+            console.log('pushing to history');
+            history.push(location.toLowerCase() === "/login" ? "/" : location);
             setUser(userInput);
         } catch (e) {
             setErrorMessageDisplay(e.message);
             setSpinning(false);
         }
         setSpinning(false);
-    }
+    };
 
+    const AuthButton = withRouter(
+            ({history}: any) => (<Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+                disabled={!validateForm()}
+                onClick={(event: any) => {
+                    handleSubmit(event, history);
+                }}
+            >Sign In</Button>)
+
+        );
+
+    
     return (
         <div>
             <Header 
@@ -137,17 +159,9 @@ const Login = (props: LoginProps): any => {
                             autoComplete='current-password'
                             onChange={handlePasswordChange}
                         />
-                        <Button
-                            type='submit'
-                            fullWidth
-                            variant='contained'
-                            color='primary'
-                            className={classes.submit}
-                            disabled={!validateForm()}
-                            onClick={handleSubmit}
-                        >
+                        <AuthButton>
                             Sign In
-                        </Button>
+                        </AuthButton>
                     </form>
                 </div>
                 <div>

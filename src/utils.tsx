@@ -4,7 +4,6 @@ import { EMPTY } from './constants';
 import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
 import uuidv4 from 'uuid';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];

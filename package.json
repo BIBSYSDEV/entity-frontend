@@ -23,7 +23,7 @@
     "aws-amplify-react": "^2.3.10",
     "aws-sdk": "^2.492.0",
     "jss": "^10.0.0-alpha.22",
-    "react": "^16.8.4",
+    "react": "^16.9.0",
     "react-dom": "^16.8.4",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
