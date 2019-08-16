@@ -90,7 +90,6 @@ const Login = (props: LoginProps): any => {
                     }
                 });
             setAuthorised('true');
-            console.log('pushing to history');
             history.push(location.toLowerCase() === "/login" ? "/" : location);
             setUser(userInput);
         } catch (e) {
