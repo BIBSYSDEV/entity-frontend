@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import './App.css';
@@ -8,7 +8,7 @@ import RegistryPresentation from './RegistryPresentation';
 import ChangePassword from './ChangePassword';
 import Amplify from '@aws-amplify/core';
 import config from './config';
-import { EMPTY } from './constants';
+import { EMPTY, REGISTRY_ID, API_KEY, AUTHORISED, REGISTRIES, USER } from './constants';
 
 const styles = createStyles({
     toolBar: {
@@ -40,39 +40,47 @@ const styles = createStyles({
 
 });
 
+export interface AppProps {
+    newEntity(registryName: string): void;
+    data: any;
+    setRegistryName(registryName: string): void;
+    storeApiKey(apiKey: string): void;
+} 
+
 Amplify.configure(config);
 
-const App = (): any => {
-    
-    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem('authorised') || EMPTY);
+const App = (props: AppProps): any => {
 
-    React.useEffect((): void => {
+    const { newEntity, setRegistryName, storeApiKey } = props;
+    const [registryId, setRegistryId] = useState(sessionStorage.getItem(REGISTRY_ID) || EMPTY);
+    useEffect((): void => {
+        setRegistryName(registryId);
+    }, [registryId])
+
+    const [apiKey, setApiKey] = useState(sessionStorage.getItem(API_KEY) || EMPTY);
+    useEffect((): void => {
+        storeApiKey(apiKey);
+    }, [registryId])
+
+    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem(AUTHORISED) || EMPTY);
+
+    useEffect((): void => {
         sessionStorage.setItem('authorised', isAuthorised);
     }, [isAuthorised])
 
-    const [registries, setRegistries] = useState(sessionStorage.getItem('registries') || EMPTY);
-    React.useEffect((): void => {
+    const [registries, setRegistries] = useState(sessionStorage.getItem(REGISTRIES) || EMPTY);
+    useEffect((): void => {
         sessionStorage.setItem('registries', registries);
     }, [registries])
 
-    const [user, setUser] = useState(sessionStorage.getItem('user') || EMPTY);
+    const [user, setUser] = useState(sessionStorage.getItem(USER) as string || EMPTY);
 
-    React.useEffect((): void => {
+    useEffect((): void => {
         sessionStorage.setItem('user', user);
     }, [user])
-
-    const [registryId, setRegistryId] = useState(sessionStorage.getItem('registry') || EMPTY);
-
-    React.useEffect((): void => {
-        sessionStorage.setItem('registry', registryId);
-    }, [registryId])
-
-    const [apiKey, setApiKey] = useState(sessionStorage.getItem('apiKey') || EMPTY);
-
-    React.useEffect((): void => {
-        sessionStorage.setItem('apiKey', apiKey);
-    }, [apiKey])
     
+
+
     
     const [changePassword, setChangePassword] = useState(false);
 
@@ -80,7 +88,6 @@ const App = (): any => {
         setRegistryId(EMPTY);
     }
 
-    
     const loginPage = 
         <Login 
             setAuthorised={setAuthorised} 
@@ -110,7 +117,7 @@ const App = (): any => {
             setApiKey={setApiKey}
         />;
     
-    const entityRegistrationPage = 
+    const entityRegistrationPage =
         <EntityRegistrationApp 
             registryId={registryId}
             user={user}
@@ -118,22 +125,23 @@ const App = (): any => {
             setRegistryId={setRegistryId} 
             setChangePassword={setChangePassword}
             setAuthorised={setAuthorised} 
-            chooseRegistry={chooseRegistry} 
+            chooseRegistry={chooseRegistry}
+            newEntity={newEntity}
+            apiKey={apiKey}
         />;
     
     let pageSelected = loginPage;
 
-    if(changePassword){
+    if (changePassword) {
         pageSelected = changePasswordPage;
+    } else {
+        if(Boolean(isAuthorised)) {
+            pageSelected = (!Boolean(registryId)) ?
+                registryPresentationPage :
+                entityRegistrationPage;
+        }
     }
-
-    if(Boolean(isAuthorised) && !changePassword) {
-        pageSelected = (!Boolean(registryId)) ?
-            registryPresentationPage :
-            entityRegistrationPage;
-    }
-
-    return pageSelected;
+    return (pageSelected)
 }
 
 export default withStyles(styles)(App);
