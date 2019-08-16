@@ -40,7 +40,7 @@ const Search = (): any => {
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
     const search = (searchValue: string): ResultType[] => {
-        if(searchValue.startsWith('identifier=')){
+        if (searchValue.startsWith('identifier=')) {
             setSearchResults([testData[0]] as ResultType[]);
         } else {
             setSearchResults((testData as ResultType[]));

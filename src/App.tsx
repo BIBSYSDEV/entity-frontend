@@ -8,7 +8,7 @@ import RegistryPresentation from './RegistryPresentation';
 import ChangePassword from './ChangePassword';
 import Amplify from '@aws-amplify/core';
 import config from './config';
-import { EMPTY } from './constants';
+import { EMPTY, REGISTRY_ID, API_KEY, AUTHORISED, REGISTRIES, USER } from './constants';
 
 const styles = createStyles({
     toolBar: {
@@ -52,28 +52,28 @@ Amplify.configure(config);
 const App = (props: AppProps): any => {
 
     const { newEntity, setRegistryName, storeApiKey } = props;
-    const [registryId, setRegistryId] = useState(sessionStorage.getItem('registryId') || EMPTY);
+    const [registryId, setRegistryId] = useState(sessionStorage.getItem(REGISTRY_ID) || EMPTY);
     useEffect((): void => {
         setRegistryName(registryId);
     }, [registryId])
 
-    const [apiKey, setApiKey] = useState(sessionStorage.getItem('apiKey') || EMPTY);
+    const [apiKey, setApiKey] = useState(sessionStorage.getItem(API_KEY) || EMPTY);
     useEffect((): void => {
         storeApiKey(apiKey);
     }, [registryId])
 
-    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem('authorised') || EMPTY);
+    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem(AUTHORISED) || EMPTY);
 
     useEffect((): void => {
         sessionStorage.setItem('authorised', isAuthorised);
     }, [isAuthorised])
 
-    const [registries, setRegistries] = useState(sessionStorage.getItem('registries') || EMPTY);
+    const [registries, setRegistries] = useState(sessionStorage.getItem(REGISTRIES) || EMPTY);
     useEffect((): void => {
         sessionStorage.setItem('registries', registries);
     }, [registries])
 
-    const [user, setUser] = useState(sessionStorage.getItem('user') as string || EMPTY);
+    const [user, setUser] = useState(sessionStorage.getItem(USER) as string || EMPTY);
 
     useEffect((): void => {
         sessionStorage.setItem('user', user);
@@ -132,9 +132,9 @@ const App = (props: AppProps): any => {
     
     let pageSelected = loginPage;
 
-    if(changePassword) {
+    if (changePassword) {
         pageSelected = changePasswordPage;
-    }else {
+    } else {
         if(Boolean(isAuthorised)) {
             pageSelected = (!Boolean(registryId)) ?
                 registryPresentationPage :

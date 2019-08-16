@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Link from '@material-ui/core/Link';
 import InputLabel from '@material-ui/core/InputLabel';
 import Box from '@material-ui/core/Box';
+import { FIRST_ELEMENT } from './constants';
 
 const styles = createStyles({
     root: {
@@ -109,13 +110,13 @@ const ResultPresentation = (props: ResultProps): any => {
     };
     
     const renderAttribute = (key: string, attribute: any): string => {
-        if(Boolean(resultPresentationConfig.visibleAttributes[key])){
-            if(resultPresentationConfig.visibleAttributes[key].type === 'link'){
+        if (Boolean(resultPresentationConfig.visibleAttributes[key])) {
+            if (resultPresentationConfig.visibleAttributes[key].type === 'link') {
                 return renderLink(resultPresentationConfig.visibleAttributes[key].label, attribute);
             } else {
                 return renderText(resultPresentationConfig.visibleAttributes[key].label, attribute);
             }
-        } else{
+        } else {
             return '';
         }
     };
@@ -127,7 +128,7 @@ const ResultPresentation = (props: ResultProps): any => {
 
     return (<Box>
         <ListItem  button onClick={handleClick} key={result.id}>
-            <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={(result as any).identifier} />
+            <ListItemText primary={(result as any)['preferredLabel'][FIRST_ELEMENT]['value']} secondary={(result as any).identifier} />
         </ListItem>
         <Collapse in={open} timeout='auto' unmountOnExit>
             <Card className={classes.card}>

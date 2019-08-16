@@ -3,6 +3,7 @@ import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import ResultPresentation from './ResultPresentation';
 import List from '@material-ui/core/List';
+import { EMPTY } from './constants';
 
 const styles = createStyles({
     toolBar: {
@@ -39,7 +40,7 @@ const SearchResults = (props: SearchResultProps): any => {
                 
     }
     
-    return (Boolean(searchResults) && (searchResults as ResultType[]).length > 0) ? renderSearchResults() : '';
+    return (Boolean(searchResults) && (searchResults as ResultType[]).length > 0) ? renderSearchResults() : EMPTY;
 }
 
 export default withStyles(styles)(SearchResults);
