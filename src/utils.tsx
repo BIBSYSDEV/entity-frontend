@@ -1,6 +1,5 @@
 import { API, Auth } from 'aws-amplify';
 import SecretsManager from 'aws-sdk/clients/secretsmanager';
-import { EMPTY } from './constants';
 import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
 import uuidv4 from 'uuid';
@@ -15,25 +14,6 @@ export const fetchRegistries = async () => {
         registries = (data as string[]);
     });
     return registries;
-};
-
-export const findRegistryIdentifierInPath = (): string => {
-    return window
-        .location
-        .pathname
-        .substring(1)
-        .split("/")[0];
-};
-
-export const findEntityIdentifierInPath = (): string => {
-    const pathElements: string[] = window
-        .location
-        .pathname
-        .substring(1)
-        .split("/");
-    return pathElements.length > 1 ? 
-        pathElements[1] :
-        EMPTY;
 };
 
 export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) => void): void => {

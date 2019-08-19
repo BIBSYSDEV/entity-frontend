@@ -81,7 +81,7 @@ const App = (props: AppProps): any => {
         if (isAuthorised) {
             setIsAuthorised('true');
         } else {
-            setIsAuthorised('false');
+            setIsAuthorised('');
             setUser(EMPTY);
         }
     }
@@ -89,24 +89,13 @@ const App = (props: AppProps): any => {
     return <Router>
         <div>
             <Switch>
-                <Route path="/login" render={(routeProps: any) => (<Login 
+                <Route exact path="/login" render={(routeProps: any) => (<Login 
                     setAuthorised={setAuthorised} 
                     setUser={setUser}
                     user={EMPTY}
                     setRegistries={setRegistries}
                     location={routeProps.location}
                 />)}/>
-                <Route path="/ChangePassword" render={(routeProps:any) =>
-                    isAuthorised ? (
-                            <ChangePassword
-                                user={user}
-                                setAuthorised={setAuthorised}
-                                history={routeProps.history}
-                            />
-                        ) : (
-                            <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
-                        )
-                    }/>
                 <Route exact path="/" render={(routeProps:any) => 
                         isAuthorised ? (
                             <RegistryPresentation 
@@ -114,6 +103,17 @@ const App = (props: AppProps): any => {
                                 registries={registries}
                                 setAuthorised={setAuthorised}
                                 setApiKey={setApiKey}
+                            />
+                        ) : (
+                            <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
+                        )
+                    }/>
+                <Route path="/ChangePassword" render={(routeProps:any) =>
+                    isAuthorised ? (
+                            <ChangePassword
+                                user={user}
+                                setAuthorised={setAuthorised}
+                                history={routeProps.history}
                             />
                         ) : (
                             <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />

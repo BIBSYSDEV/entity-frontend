@@ -73,7 +73,7 @@ const Login = (props: LoginProps): any => {
         event.preventDefault();
 
         setSpinning(true);
-        
+        console.log(history)
         setErrorMessageDisplay(EMPTY);
         try {
             let registries = await fetchRegistries();
@@ -86,8 +86,7 @@ const Login = (props: LoginProps): any => {
                     }
                 });
             setAuthorised(true);
-            const from = location.state.from.pathname;
-            history.push(from.toLowerCase() === "/login" ? "/" : from);
+            history.push("/");
             setUser(userInput);
         } catch (e) {
             setErrorMessageDisplay(e.message);

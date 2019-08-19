@@ -49,12 +49,12 @@ const Search = (props: SearchProps): any => {
     
     const search = (searchValue: string): ResultType[] => {
         if(searchValue.startsWith('identifier=')){
-            setSearchResults([testData[0]] as ResultType[]);
-        } else {
             setSearchResults((testData as ResultType[]));
         }
         return (searchResults as ResultType[]);
     }
+
+    
     
     const spinner = false;
     
