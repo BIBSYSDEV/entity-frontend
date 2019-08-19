@@ -42,10 +42,9 @@ const styles = createStyles({
 
 export interface LoginProps extends WithStyles<typeof styles> {
     user: string;
-    setAuthorised(input: string): void;
+    setAuthorised(input: boolean): void;
     setUser(input: string): void;
     setRegistries(input: string): void;
-    chooseRegistry(): void;
     location: any;
 }
 
@@ -56,9 +55,7 @@ const Login = (props: LoginProps): any => {
     const [errorMessage, setErrorMessageDisplay] = useState(EMPTY);
     const [spinner, setSpinning] = useState(false);
     
-    const { classes, setAuthorised, setUser, user, setRegistries, chooseRegistry, location } = props;
-    
-    var isAuthorised = false;
+    const { classes, setAuthorised, setUser, user, setRegistries, location } = props;
     
     const validateForm = (): any => {
         return Boolean(userInput) && Boolean(password);
@@ -88,7 +85,7 @@ const Login = (props: LoginProps): any => {
                         history.push("/ChangePassword");
                     }
                 });
-            setAuthorised('true');
+            setAuthorised(true);
             const from = location.state.from.pathname;
             history.push(from.toLowerCase() === "/login" ? "/" : from);
             setUser(userInput);
@@ -121,7 +118,6 @@ const Login = (props: LoginProps): any => {
                 spinner={spinner} 
                 user={user} 
                 setAuthorised={setAuthorised}
-                chooseRegistry={chooseRegistry}
             />
             <Container component='main' maxWidth='xs'>
                 <CssBaseline />

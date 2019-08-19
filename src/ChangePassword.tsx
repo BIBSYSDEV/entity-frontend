@@ -39,9 +39,8 @@ const styles = createStyles({
 
 export interface ChangePasswordProps extends WithStyles<typeof styles> {
     user: string;
-    setAuthorised(authorised: string): void;
-    chooseRegistry(): void;
-    location: any;
+    setAuthorised(authorised: boolean): void;
+    history: any;
 }
 
 const ChangePassword = (props: ChangePasswordProps): any => {
@@ -51,8 +50,10 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     const [repeatPassword, setRepeatPassword] = useState(EMPTY);
     const [errorMessage, setErrorMessage] = useState(EMPTY);
 
-    const { classes, user, setAuthorised, chooseRegistry, location } = props;
+    const { classes, user, setAuthorised, history } = props;
 
+    console.log(history);
+    
     const validateNewPassword = (newPassword: string): boolean => {
         return newPassword.length > 12;
     }
@@ -76,6 +77,8 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>, history: any): Promise<any> => {
         event.preventDefault();
 
+        console.log('handleSubmit');
+        
         try {
             setErrorMessage(EMPTY)
             
@@ -106,7 +109,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 } else {
                     Auth.currentAuthenticatedUser()
                     .then(user => {
-                        goBack(history);
+                        history.goBack();
                         return Auth.changePassword(user, oldPassword, newPassword);
                     })
                     .then((data) => {
@@ -119,14 +122,12 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 console.log(e);
             });
 
-            goBack(history);
+            history.goBack();
         } catch (e) {
             setErrorMessage(e.message);
         }
     }
 
-    const goBack = (history: any) => history.push(location.state.from.location);
-    
     const spinner = true;
 
     const SubmitButton = withRouter(
@@ -143,18 +144,17 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                     : <div />
                     ));
     
-    const CancelButton = withRouter(
-            ({history}: any) => (
-                    Boolean(user) ?
-                    <Button 
-                        type='submit'
-                        fullWidth
-                        variant='contained'
-                        color='primary'
-                        className={classes.submit}
-                        onClick={goBack(history)}>Cancel</Button>
-                    : <div />
-                    )); 
+    const CancelButton = () =>  
+            (
+                Boolean(user) ?
+                <Button 
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                    className={classes.submit}
+                    onClick={() => history.goBack()}>Cancel</Button>
+                : <div />
+            ); 
 
     
     return (
@@ -163,7 +163,6 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 spinner={spinner} 
                 user={user} 
                 setAuthorised={setAuthorised}
-                chooseRegistry={chooseRegistry}
             />
             <Container component='main' maxWidth='xs'>
                 <CssBaseline />

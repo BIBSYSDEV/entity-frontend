@@ -19,12 +19,11 @@ export interface FormProps extends WithStyles<typeof styles> {
     registryId: string;
     handleNew(): void;
     handlePersist(): void;
-    chooseRegistry(): void;
 }
 
 const EntityRegistrationForm = (props: FormProps): any => {
 
-    const { classes, registryId, handleNew, handlePersist, chooseRegistry } = props;
+    const { classes, registryId, handleNew, handlePersist } = props;
 
     return (
         <React.Fragment>
@@ -36,7 +35,6 @@ const EntityRegistrationForm = (props: FormProps): any => {
                     registryId={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist}
-                    chooseRegistry={chooseRegistry} 
                 />
             </Typography>
             <div className={classes.registrationform}>
@@ -50,7 +48,6 @@ const EntityRegistrationForm = (props: FormProps): any => {
                     registryId={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist}
-                    chooseRegistry={chooseRegistry}
                 />
             </Typography>
         </React.Fragment>

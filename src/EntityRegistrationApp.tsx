@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import Header from './Header';
-import { Grid, Tabs, Tab } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import EntityRegistrationForm from './EntityRegistrationForm';
 import EntityDataPresentation from './EntityDataPresentation';
-import Search from './Search';
 import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
-import { findRegistryIdentifierInPath, writeEntity } from './utils';
+import { writeEntity } from './utils';
 
 const styles = createStyles({
     container: {
@@ -20,24 +19,20 @@ export interface DataProps extends WithStyles<typeof styles> {
     registryId: string;    
     user: string;
     data: object;
-    registries: string;
-    setRegistryId(registryId: string): void;
-    setAuthorised(authorised: string): void;
-    chooseRegistry(): void;
+    setAuthorised(authorised: boolean): void;
     newEntity(registryName: string): void;
     apiKey: string;
 }
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, registryId, setAuthorised, chooseRegistry, user, data, setRegistryId, registries, newEntity, apiKey } = props;
+    const { classes, registryId, setAuthorised, user, data, newEntity, apiKey } = props;
     
     const handleNew = (): void => {
         newEntity(registryId);
     }
 
     const [ spinner, setSpinner] = useState(false);
-    const [ tabValue, setTabValue] = useState(0);
 
     const handlePersist = (): void => {
         setSpinner(true);
@@ -46,23 +41,12 @@ const EntityRegistrationApp = (props: DataProps) => {
         })
     }
 
-    const registryName = findRegistryIdentifierInPath();
-    
-    if(Boolean(registryName) && JSON.parse(registries).includes(registryName)){
-        setRegistryId(registryName);
-    }
-
-    const handleChange = (event: any, newValue: any) => {
-        setTabValue(newValue);
-      }
-
     return (
         <div>
             <Header 
                 spinner={spinner} 
                 user={user} 
                 setAuthorised={setAuthorised}
-                chooseRegistry={chooseRegistry}
             />
             
             <Grid container justify={'center'} spacing={8} className={classes.container}>
@@ -71,7 +55,6 @@ const EntityRegistrationApp = (props: DataProps) => {
                         registryId={registryId}
                         handleNew={handleNew}
                         handlePersist={handlePersist}
-                        chooseRegistry={chooseRegistry}
                     />
                 </Grid>
                 <Grid item sm={9}>

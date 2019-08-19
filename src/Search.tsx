@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import SearchHeader from './SearchHeader';
+import Header from './Header';
 import SearchResults from './SearchResults';
 import { ResultType } from './SearchResults';
 
@@ -9,6 +10,9 @@ const styles = createStyles({
 });
 
 export interface SearchProps extends WithStyles<typeof styles> {
+    user: string;
+    setAuthorised(authorised: boolean): void;
+    registryName: string;
 }
 
 let testData: object[] = [
@@ -39,6 +43,8 @@ const EMPTY_SEARCH_RESULTS: ResultType[] = new Array<ResultType>();
 
 const Search = (props: SearchProps): any => {
     
+    const { user,  setAuthorised, registryName } = props;
+    
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
     const search = (searchValue: string): ResultType[] => {
@@ -50,9 +56,16 @@ const Search = (props: SearchProps): any => {
         return (searchResults as ResultType[]);
     }
     
+    const spinner = false;
+    
     return (
         <div>
-            <SearchHeader search={search} />
+            <Header 
+                spinner={spinner} 
+                user={user} 
+                setAuthorised={setAuthorised}
+            />
+            <SearchHeader search={search} registryName={registryName}/>
             <SearchResults searchResults={searchResults} />
         </div>
     );

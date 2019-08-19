@@ -8,7 +8,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Box from '@material-ui/core/Box';
 
@@ -78,9 +78,9 @@ const ResultPresentation = (props: ResultProps): any => {
                     <InputLabel shrink>{key}</InputLabel> 
                     {(Array.isArray(value)) ? 
                         (value as any[]).map((element: string) => {
-                            return (<Typography><Link href={element}>{element}</Link></Typography>);
+                            return (<Typography><Link to={"?query=" + element}>{element}</Link></Typography>);
                         }) : 
-                        <Typography><Link href={value}>{value}</Link></Typography>
+                        <Typography><Link to={"?query=" + value}>{value}</Link></Typography>
                     }
                 </Typography>;
     };

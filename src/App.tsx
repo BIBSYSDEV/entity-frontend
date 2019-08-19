@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component  } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
@@ -9,6 +9,7 @@ import RegistryPresentation from './RegistryPresentation';
 import ChangePassword from './ChangePassword';
 import Amplify from '@aws-amplify/core';
 import config from './config';
+import Search from './Search';
 import { EMPTY, REGISTRY_ID, API_KEY, AUTHORISED, REGISTRIES, USER } from './constants';
 
 const styles = createStyles({
@@ -53,17 +54,17 @@ Amplify.configure(config);
 const App = (props: AppProps): any => {
 
     const { newEntity, setRegistryName, storeApiKey } = props;
-    const [registryId, setRegistryId] = useState(sessionStorage.getItem(REGISTRY_ID) || EMPTY);
-    useEffect((): void => {
-        setRegistryName(registryId);
-    }, [registryId])
+//    const [registryId, setRegistryId] = useState(sessionStorage.getItem(REGISTRY_ID) || EMPTY);
+//    useEffect((): void => {
+//        setRegistryName(registryId);
+//    }, [registryId])
 
     const [apiKey, setApiKey] = useState(sessionStorage.getItem(API_KEY) || EMPTY);
     useEffect((): void => {
         storeApiKey(apiKey);
-    }, [registryId])
+    }, [apiKey])
 
-    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem(AUTHORISED) || EMPTY);
+    const [isAuthorised, setIsAuthorised] = useState(sessionStorage.getItem(AUTHORISED) || EMPTY);
 
     useEffect((): void => {
         sessionStorage.setItem('authorised', isAuthorised);
@@ -80,144 +81,89 @@ const App = (props: AppProps): any => {
         sessionStorage.setItem('user', user);
     }, [user])
 
-    const chooseRegistry = (): void => {
-        setRegistryId(EMPTY);
+    const setAuthorised = (isAuthorised: boolean) => {
+        if (isAuthorised) {
+            setIsAuthorised('true');
+        } else {
+            setIsAuthorised('false');
+            setUser(EMPTY);
+        }
     }
-
-//    const loginPage = 
-//        <Login 
-//            setAuthorised={setAuthorised} 
-//            setUser={setUser}
-//            user={EMPTY}
-//            setChangePassword={setChangePassword} 
-//            setRegistries={setRegistries}
-//            chooseRegistry={chooseRegistry}
-//        />;
-//    
-//    const changePasswordPage = 
-//        <ChangePassword
-//            user={user}
-//            setChangePassword={setChangePassword}
-//            setAuthorised={setAuthorised}
-//            chooseRegistry={chooseRegistry}
-//        />;
-//    
-//    const registryPresentationPage = 
-//        <RegistryPresentation 
-//            setRegistryId={setRegistryId}
-//            user={user}
-//            setChangePassword={setChangePassword}
-//            registries={registries}
-//            setAuthorised={setAuthorised}
-//            chooseRegistry={chooseRegistry}
-//            setApiKey={setApiKey}
-//        />;
-//    
-//    const entityRegistrationPage = 
-//        <EntityRegistrationApp 
-//            registryId={registryId}
-//            user={user}
-//            registries={registries}
-//            setRegistryId={setRegistryId} 
-//            setChangePassword={setChangePassword}
-//            setAuthorised={setAuthorised} 
-//            chooseRegistry={chooseRegistry}
-//            newEntity={newEntity}
-//            apiKey={apiKey}
-//        />;
-
+    
     return <Router>
         <div>
             <Switch>
-                <Route path="/login" render={(props: any) => (<Login 
+                <Route path="/login" render={(routeProps: any) => (<Login 
                     setAuthorised={setAuthorised} 
                     setUser={setUser}
                     user={EMPTY}
                     setRegistries={setRegistries}
-                    chooseRegistry={chooseRegistry}
-                    location={props.location}
+                    location={routeProps.location}
                 />)}/>
-                <Route path="/ChangePassword" render={(props:any) => 
-                        isAuthorised ? (
+                <Route path="/ChangePassword" render={(routeProps:any) =>
+                    isAuthorised ? (
                             <ChangePassword
                                 user={user}
                                 setAuthorised={setAuthorised}
-                                chooseRegistry={chooseRegistry}
-                                location={props.location}
+                                history={routeProps.history}
                             />
                         ) : (
-                            <Redirect to={{pathname: "/Login", state: {from: props.location}}} />
+                            <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
                         )
                     }/>
-                <Route exact path="/" render={(props:any) => 
+                <Route exact path="/" render={(routeProps:any) => 
                         isAuthorised ? (
                             <RegistryPresentation 
-                                setRegistryId={setRegistryId}
                                 user={user}
                                 registries={registries}
                                 setAuthorised={setAuthorised}
-                                chooseRegistry={chooseRegistry}
                                 setApiKey={setApiKey}
                             />
                         ) : (
-                            <Redirect to={{pathname: "/Login", state: {from: props.location}}} />
+                            <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
                         )
                     }/>
-                <Route path="/:registryName" render={(props:any) => 
+                <Route path="/:registryName/Search" render={(routeProps:any) => 
+                        isAuthorised ? (
+                            <Search
+                                user={user}
+                                setAuthorised={setAuthorised}
+                                registryName={routeProps.match.params.registryName}
+                            />
+                        ) : (
+                            <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
+                        )
+                    }/>
+                <Route path="/:registryName/:entityId" render={(routeProps:any) => 
                         isAuthorised ? (
                             <EntityRegistrationApp 
-                                registryId={registryId}
+                                registryId={routeProps.match.params.registryName}
                                 user={user}
-                                registries={registries}
-                                setRegistryId={setRegistryId} 
                                 setAuthorised={setAuthorised} 
-                                chooseRegistry={chooseRegistry}
                                 newEntity={newEntity}
                                 apiKey={apiKey}
                             />
                         ) : (
-                            <Redirect to={{pathname: "/Login", state: {from: props.location}}} />
+                            <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
                         )
                     }/>
-                <Route path="/:registryName/search" render={(props:any) => 
-                        isAuthorised ? (
-                            <div>Search</div>
-                        ) : (
-                            <Redirect to={{pathname: "/Login", state: {from: props.location}}} />
-                        )
-                    }/>
-                <Route path="/:registryName/:entityId" render={(props:any) => 
+                <Route path="/:registryName" render={(routeProps:any) => 
                         isAuthorised ? (
                             <EntityRegistrationApp 
-                                registryId={registryId}
+                                registryId={routeProps.match.params.registryName}
                                 user={user}
-                                registries={registries}
-                                setRegistryId={setRegistryId} 
                                 setAuthorised={setAuthorised} 
-                                chooseRegistry={chooseRegistry}
                                 newEntity={newEntity}
                                 apiKey={apiKey}
                             />
                         ) : (
-                            <Redirect to={{pathname: "/Login", state: {from: props.location}}} />
+                            <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
                         )
                     }/>
             </Switch>
         </div>
     </Router>
     
-//    let pageSelected = loginPage;
-//
-//    if(changePassword) {
-//        pageSelected = changePasswordPage;
-//    }else {
-//        if(Boolean(isAuthorised)) {
-//            pageSelected = (!Boolean(registryId)) ?
-//                registryPresentationPage :
-//                entityRegistrationPage;
-//        }
-//    }
-//    return pageSelected;
 }
 
 export default withStyles(styles)(App);

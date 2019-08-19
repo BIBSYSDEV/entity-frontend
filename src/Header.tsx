@@ -31,26 +31,20 @@ const styles = createStyles({
 export interface HeaderProps extends WithStyles<typeof styles> {
     spinner: boolean;
     user: string;
-    setAuthorised(authorised: string): void;
-    chooseRegistry(): void; 
+    setAuthorised(authorised: boolean): void;
 }
 
 const Header = (props: HeaderProps): any => {
-    const { classes, spinner, user, setAuthorised, chooseRegistry } = props;
+    const { classes, spinner, user, setAuthorised } = props;
 
     const handleLogout = (): void => {
-        setAuthorised(EMPTY);
-        chooseRegistry();
-    }
-
-    const applyChangePassword = (history: any, event: any): void => {
-        history.push("/ChangePassword");
+        setAuthorised(false);
     }
 
     const ChangePasswordButton = withRouter(
             ({history}: any) => (
                     Boolean(user) ?
-                    <Button onClick={(event: any) => applyChangePassword(history, event)}>Change Password</Button>
+                    <Button onClick={() => history.push("/ChangePassword")}>Change Password</Button>
                     : <div />
                     )); 
  

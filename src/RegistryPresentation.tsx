@@ -13,16 +13,14 @@ const styles = createStyles({
 
 export interface DataProps extends WithStyles<typeof styles> {
     user: string;
-    setRegistryId(registryId: string): void;
     registries: string;
-    setAuthorised(authorised: string): void;
-    chooseRegistry(): void;
+    setAuthorised(authorised: boolean): void;
     setApiKey(apiKey: string): void;
 }
 
 const RegistryPresentation = (props: DataProps): any => {
 
-    const { classes, setRegistryId, user, registries, setAuthorised, chooseRegistry, setApiKey } = props;
+    const { classes, user, registries, setAuthorised, setApiKey } = props;
 
     return (
         <div>
@@ -30,7 +28,6 @@ const RegistryPresentation = (props: DataProps): any => {
                 spinner={false} 
                 user={user} 
                 setAuthorised={setAuthorised}
-                chooseRegistry={chooseRegistry}
             />
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
