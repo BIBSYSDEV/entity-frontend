@@ -43,11 +43,10 @@ const styles = createStyles({
 export interface LoginProps extends WithStyles<typeof styles> {
     user: string;
     setAuthorised(input: string): void;
-    setChangePassword(input: boolean): void;
     setUser(input: string): void;
     setRegistries(input: string): void;
     chooseRegistry(): void;
-    location: string;
+    location: any;
 }
 
 const Login = (props: LoginProps): any => {
@@ -57,7 +56,7 @@ const Login = (props: LoginProps): any => {
     const [errorMessage, setErrorMessageDisplay] = useState(EMPTY);
     const [spinner, setSpinning] = useState(false);
     
-    const { classes, setAuthorised, setUser, user, setChangePassword, setRegistries, chooseRegistry, location } = props;
+    const { classes, setAuthorised, setUser, user, setRegistries, chooseRegistry, location } = props;
     
     var isAuthorised = false;
     
@@ -85,12 +84,13 @@ const Login = (props: LoginProps): any => {
                 .then((user): void => {
                     setRegistries(JSON.stringify(registries));
                     if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-                        setChangePassword(true);
                         setPassword(password);
+                        history.push("/ChangePassword");
                     }
                 });
             setAuthorised('true');
-            history.push(location.toLowerCase() === "/login" ? "/" : location);
+            const from = location.state.from.pathname;
+            history.push(from.toLowerCase() === "/login" ? "/" : from);
             setUser(userInput);
         } catch (e) {
             setErrorMessageDisplay(e.message);
@@ -120,7 +120,6 @@ const Login = (props: LoginProps): any => {
             <Header 
                 spinner={spinner} 
                 user={user} 
-                setChangePassword={setChangePassword}
                 setAuthorised={setAuthorised}
                 chooseRegistry={chooseRegistry}
             />

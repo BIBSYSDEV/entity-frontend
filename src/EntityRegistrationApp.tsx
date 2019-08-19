@@ -22,7 +22,6 @@ export interface DataProps extends WithStyles<typeof styles> {
     data: object;
     registries: string;
     setRegistryId(registryId: string): void;
-    setChangePassword(changePassword: boolean): void;
     setAuthorised(authorised: string): void;
     chooseRegistry(): void;
     newEntity(registryName: string): void;
@@ -31,7 +30,7 @@ export interface DataProps extends WithStyles<typeof styles> {
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId, registries, newEntity, apiKey } = props;
+    const { classes, registryId, setAuthorised, chooseRegistry, user, data, setRegistryId, registries, newEntity, apiKey } = props;
     
     const handleNew = (): void => {
         newEntity(registryId);
@@ -62,17 +61,10 @@ const EntityRegistrationApp = (props: DataProps) => {
             <Header 
                 spinner={spinner} 
                 user={user} 
-                setChangePassword={setChangePassword}
                 setAuthorised={setAuthorised}
                 chooseRegistry={chooseRegistry}
             />
             
-            <Tabs value={tabValue} onChange={handleChange}>
-                <Tab label='Search' />
-                <Tab label='Edit' />
-            </Tabs>
-            {tabValue === 0 && <Search />}
-            {tabValue === 1 &&
             <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm

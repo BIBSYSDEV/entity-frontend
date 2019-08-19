@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { NavLink } from 'react-router-dom';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import Button from "@material-ui/core/Button";
@@ -11,7 +12,6 @@ const styles = createStyles({
 });
 
 export interface DataProps extends WithStyles<typeof styles> {
-    setRegistryId(registryId: string): void;
     registries: string;
     setApiKey(apiKey: string): void;
 }
@@ -19,19 +19,12 @@ export interface DataProps extends WithStyles<typeof styles> {
 
 const RegistryList = (props: DataProps): any => {
 
-    const { setRegistryId, registries, setApiKey } = props;
-
-    const setRegistryIdentifier: any = (id: string): void => {
-        if(Boolean(id)){
-            setRegistryId(id);
-            fetchApiKey(id, setApiKey);
-        }
-    };
+    const { registries, setApiKey } = props;
 
     const renderListItems = (): object => {
         return JSON.parse(registries).map((registry: string): object =>
             <li key={registry}>
-                <Button onClick = {(): void => setRegistryIdentifier(registry)}>{registry}</Button>
+                <Button onClick={() => fetchApiKey(registry, setApiKey)}><NavLink to={registry} style={{textDecoration: 'none'}}>{registry}</NavLink></Button>
             </li>); 
     };
 

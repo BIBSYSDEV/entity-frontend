@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
@@ -30,27 +31,28 @@ const styles = createStyles({
 export interface HeaderProps extends WithStyles<typeof styles> {
     spinner: boolean;
     user: string;
-    setChangePassword(changePassword: boolean): void;
     setAuthorised(authorised: string): void;
     chooseRegistry(): void; 
 }
 
 const Header = (props: HeaderProps): any => {
-    const { classes, spinner, user,setChangePassword, setAuthorised, chooseRegistry } = props;
+    const { classes, spinner, user, setAuthorised, chooseRegistry } = props;
 
     const handleLogout = (): void => {
         setAuthorised(EMPTY);
         chooseRegistry();
     }
 
-    const applyChangePassword = (): void => {
-        setChangePassword(true);
+    const applyChangePassword = (history: any, event: any): void => {
+        history.push("/ChangePassword");
     }
 
-    const showChangePasswordButton = (): any => {
-        const buttonRender = (Boolean(user)) ? <Button onClick={applyChangePassword}>Change Password</Button> : EMPTY; 
-        return  (buttonRender);
-    }
+    const ChangePasswordButton = withRouter(
+            ({history}: any) => (
+                    Boolean(user) ?
+                    <Button onClick={(event: any) => applyChangePassword(history, event)}>Change Password</Button>
+                    : <div />
+                    )); 
  
     const showLogoutButton = (): any => {
         const buttonRender = (Boolean(user)) ? <Button onClick={handleLogout} color="inherit">Logout</Button> : EMPTY; 
@@ -70,7 +72,7 @@ const Header = (props: HeaderProps): any => {
                     </Typography>
                     <Typography variant="h6">
                         {user}
-                        {showChangePasswordButton()} 
+                        <ChangePasswordButton/> 
                         {showLogoutButton()} 
                     </Typography>
                 </Toolbar>

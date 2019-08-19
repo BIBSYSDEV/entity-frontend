@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,9 +39,9 @@ const styles = createStyles({
 
 export interface ChangePasswordProps extends WithStyles<typeof styles> {
     user: string;
-    setChangePassword(changePassword: boolean): void;
     setAuthorised(authorised: string): void;
     chooseRegistry(): void;
+    location: any;
 }
 
 const ChangePassword = (props: ChangePasswordProps): any => {
@@ -50,7 +51,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     const [repeatPassword, setRepeatPassword] = useState(EMPTY);
     const [errorMessage, setErrorMessage] = useState(EMPTY);
 
-    const { classes, user, setChangePassword, setAuthorised, chooseRegistry } = props;
+    const { classes, user, setAuthorised, chooseRegistry, location } = props;
 
     const validateNewPassword = (newPassword: string): boolean => {
         return newPassword.length > 12;
@@ -72,7 +73,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
         setRepeatPassword(event.target.value);
     }
 
-    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>): Promise<any> => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>, history: any): Promise<any> => {
         event.preventDefault();
 
         try {
@@ -90,7 +91,6 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                         // at this time the user is logged in if no MFA required
                         Auth.currentAuthenticatedUser()
                         .then(user => {
-                            setChangePassword(false);
                             return Auth.changePassword(user, oldPassword, newPassword);
                         })
                         .then((data) => {
@@ -106,7 +106,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 } else {
                     Auth.currentAuthenticatedUser()
                     .then(user => {
-                        setChangePassword(false);
+                        goBack(history);
                         return Auth.changePassword(user, oldPassword, newPassword);
                     })
                     .then((data) => {
@@ -119,24 +119,49 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 console.log(e);
             });
 
-            setChangePassword(false);
+            goBack(history);
         } catch (e) {
             setErrorMessage(e.message);
         }
     }
 
-    const handleCancel = (): void => {
-        setChangePassword(false);
-    }
-
+    const goBack = (history: any) => history.push(location.state.from.location);
+    
     const spinner = true;
 
+    const SubmitButton = withRouter(
+            ({history}: any) => (
+                    Boolean(user) ?
+                    <Button 
+                        type='submit'
+                        fullWidth
+                        variant='contained'
+                        color='primary'
+                        className={classes.submit}
+                        disabled={!validateForm()}
+                        onClick={(event: any) => handleSubmit(event, history)}>Change Password</Button>
+                    : <div />
+                    ));
+    
+    const CancelButton = withRouter(
+            ({history}: any) => (
+                    Boolean(user) ?
+                    <Button 
+                        type='submit'
+                        fullWidth
+                        variant='contained'
+                        color='primary'
+                        className={classes.submit}
+                        onClick={goBack(history)}>Cancel</Button>
+                    : <div />
+                    )); 
+
+    
     return (
         <div>
             <Header 
                 spinner={spinner} 
                 user={user} 
-                setChangePassword={setChangePassword} 
                 setAuthorised={setAuthorised}
                 chooseRegistry={chooseRegistry}
             />
@@ -181,27 +206,8 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                             id='repeatPassword'
                             onChange={handleRepeatPasswordChange}
                         />
-                        <Button
-                            type='submit'
-                            fullWidth
-                            variant='contained'
-                            color='primary'
-                            className={classes.submit}
-                            disabled={!validateForm()}
-                            onClick={handleSubmit}
-                        >
-                            Change password
-                        </Button>
-                        <Button
-                            type='submit'
-                            fullWidth
-                            variant='contained'
-                            color='primary'
-                            className={classes.submit}
-                            onClick={handleCancel}
-                        >
-                            Cancel
-                        </Button>
+                        <SubmitButton/>
+                        <CancelButton />
                     </form>
                 </div>
                 <div>

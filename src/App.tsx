@@ -79,11 +79,6 @@ const App = (props: AppProps): any => {
     useEffect((): void => {
         sessionStorage.setItem('user', user);
     }, [user])
-    
-
-
-    
-    const [changePassword, setChangePassword] = useState(false);
 
     const chooseRegistry = (): void => {
         setRegistryId(EMPTY);
@@ -138,7 +133,6 @@ const App = (props: AppProps): any => {
                     setAuthorised={setAuthorised} 
                     setUser={setUser}
                     user={EMPTY}
-                    setChangePassword={setChangePassword} 
                     setRegistries={setRegistries}
                     chooseRegistry={chooseRegistry}
                     location={props.location}
@@ -147,20 +141,19 @@ const App = (props: AppProps): any => {
                         isAuthorised ? (
                             <ChangePassword
                                 user={user}
-                                setChangePassword={setChangePassword}
                                 setAuthorised={setAuthorised}
                                 chooseRegistry={chooseRegistry}
+                                location={props.location}
                             />
                         ) : (
                             <Redirect to={{pathname: "/Login", state: {from: props.location}}} />
                         )
                     }/>
-                <Route path="/" render={(props:any) => 
+                <Route exact path="/" render={(props:any) => 
                         isAuthorised ? (
                             <RegistryPresentation 
                                 setRegistryId={setRegistryId}
                                 user={user}
-                                setChangePassword={setChangePassword}
                                 registries={registries}
                                 setAuthorised={setAuthorised}
                                 chooseRegistry={chooseRegistry}
@@ -177,7 +170,6 @@ const App = (props: AppProps): any => {
                                 user={user}
                                 registries={registries}
                                 setRegistryId={setRegistryId} 
-                                setChangePassword={setChangePassword}
                                 setAuthorised={setAuthorised} 
                                 chooseRegistry={chooseRegistry}
                                 newEntity={newEntity}
@@ -201,7 +193,6 @@ const App = (props: AppProps): any => {
                                 user={user}
                                 registries={registries}
                                 setRegistryId={setRegistryId} 
-                                setChangePassword={setChangePassword}
                                 setAuthorised={setAuthorised} 
                                 chooseRegistry={chooseRegistry}
                                 newEntity={newEntity}
