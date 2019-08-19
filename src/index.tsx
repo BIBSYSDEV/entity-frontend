@@ -13,8 +13,6 @@ import config from './config';
 import AWS from 'aws-sdk';
 import awsmobile from './aws-exports';
 import { initialiseStore, createRegistryUri } from './utils';
-import { findEntityIdentifierInPath, findRegistryIdentifierInPath, readEntity, fetchApiKey } from './utils';
-import { EMPTY } from './constants';
 
 let data: any = {
 };
@@ -46,20 +44,9 @@ const initState: JsonFormsState = {
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
 
-const getApiKey = (): string => {
-    return Boolean(sessionStorage.getItem('apiKey')) ? sessionStorage.getItem('apiKey') as string : EMPTY;
-}
-
 const setApiKey = (apiKey: string): void => { 
     sessionStorage.setItem('apiKey', apiKey);
 }
-
-const setRegistryName = (registryName: string): void => { 
-    sessionStorage.setItem('registryId', registryName);
-}
-
-const registryName = findRegistryIdentifierInPath();
-const entityId = findEntityIdentifierInPath();
 
 const initStore = (body: any) => {
     initialiseStore(store.dispatch, body, schema, uischema);
@@ -67,13 +54,10 @@ const initStore = (body: any) => {
 
 const newEntity = (registryName: string): void => {
     (data as any) = { inScheme: createRegistryUri(registryName) }; // Correct uri in here
-    initialiseStore(store.dispatch, data, schema, uischema);
+    initStore(data);
 }
 
-if(!Boolean(entityId)){
-    console.log('init with no data');
-    initialiseStore(store.dispatch, data, schema, uischema);
-}
+initialiseStore(store.dispatch, data, schema, uischema);
 
 ReactDOM.render(
     <Provider store={store}>
@@ -81,7 +65,6 @@ ReactDOM.render(
             newEntity={newEntity}
             data={data}
             storeApiKey={setApiKey}
-            setRegistryName={setRegistryName}
             initStore={initStore}
         />
     </Provider>,

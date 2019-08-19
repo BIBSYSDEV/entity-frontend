@@ -70,8 +70,6 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
             body: entity
     }
     
-    console.log(entityId);
-    
     if(Boolean(entityId)){
         const id = entityId.split('/').pop();
         bodyObject.id = id;

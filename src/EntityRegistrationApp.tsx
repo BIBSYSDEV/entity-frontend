@@ -24,17 +24,19 @@ export interface DataProps extends WithStyles<typeof styles> {
     apiKey: string;
     entityId: string;
     initStore(body: any): any;
+    history: any;
 }
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore } = props;
+    const { classes, registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore, history } = props;
     
     const handleNew = (): void => {
         newEntity(registryId);
+        history.push("/" + registryId);
     }
 
-    if(Boolean(entityId)){
+    if (Boolean(entityId)) {
         readEntity(registryId, entityId, sessionStorage.getItem('apiKey') as string).then((entityData: any) => {
             initStore(entityData.body);
         });
