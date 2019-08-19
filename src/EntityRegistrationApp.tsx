@@ -7,7 +7,7 @@ import EntityRegistrationForm from './EntityRegistrationForm';
 import EntityDataPresentation from './EntityDataPresentation';
 import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
-import { writeEntity } from './utils';
+import { writeEntity, readEntity } from './utils';
 
 const styles = createStyles({
     container: {
@@ -22,16 +22,24 @@ export interface DataProps extends WithStyles<typeof styles> {
     setAuthorised(authorised: boolean): void;
     newEntity(registryName: string): void;
     apiKey: string;
+    entityId: string;
+    initStore(body: any): any;
 }
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, registryId, setAuthorised, user, data, newEntity, apiKey } = props;
+    const { classes, registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore } = props;
     
     const handleNew = (): void => {
         newEntity(registryId);
     }
 
+    if(Boolean(entityId)){
+        readEntity(registryId, entityId, sessionStorage.getItem('apiKey') as string).then((entityData: any) => {
+            initStore(entityData.body);
+        });
+    }
+    
     const [ spinner, setSpinner] = useState(false);
 
     const handlePersist = (): void => {

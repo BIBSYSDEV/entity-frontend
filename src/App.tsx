@@ -47,13 +47,14 @@ export interface AppProps {
     data: any;
     setRegistryName(registryName: string): void;
     storeApiKey(apiKey: string): void;
+    initStore(body: any): any;
 } 
 
 Amplify.configure(config);
 
 const App = (props: AppProps): any => {
 
-    const { newEntity, setRegistryName, storeApiKey } = props;
+    const { newEntity, setRegistryName, storeApiKey, initStore } = props;
 //    const [registryId, setRegistryId] = useState(sessionStorage.getItem(REGISTRY_ID) || EMPTY);
 //    useEffect((): void => {
 //        setRegistryName(registryId);
@@ -142,6 +143,8 @@ const App = (props: AppProps): any => {
                                 setAuthorised={setAuthorised} 
                                 newEntity={newEntity}
                                 apiKey={apiKey}
+                                entityId={routeProps.match.params.entityId}
+                                initStore={initStore}
                             />
                         ) : (
                             <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
@@ -155,6 +158,8 @@ const App = (props: AppProps): any => {
                                 setAuthorised={setAuthorised} 
                                 newEntity={newEntity}
                                 apiKey={apiKey}
+                                entityId={EMPTY}
+                                initStore={initStore}
                             />
                         ) : (
                             <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />

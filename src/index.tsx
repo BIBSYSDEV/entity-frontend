@@ -61,16 +61,8 @@ const setRegistryName = (registryName: string): void => {
 const registryName = findRegistryIdentifierInPath();
 const entityId = findEntityIdentifierInPath();
 
-if(Boolean(registryName)){
-    
-    fetchApiKey(registryName, setApiKey);
-    setRegistryName(registryName);
-    
-    if(Boolean(entityId)){
-        readEntity(registryName, entityId, getApiKey()).then((entityData) => {
-            initialiseStore(store.dispatch, entityData.body, schema, uischema);
-        });
-    }
+const initStore = (body: any) => {
+    initialiseStore(store.dispatch, body, schema, uischema);
 }
 
 const newEntity = (registryName: string): void => {
@@ -90,6 +82,7 @@ ReactDOM.render(
             data={data}
             storeApiKey={setApiKey}
             setRegistryName={setRegistryName}
+            initStore={initStore}
         />
     </Provider>,
     document.getElementById('root')
