@@ -94,10 +94,10 @@ const ResultPresentation = (props: ResultProps): any => {
     
     const renderText = (key: string, value: any): any => {
         
-        if(Array.isArray(value)){
+        if (Array.isArray(value)) {
             let index = 0;
             return value.map((element: any) => {
-                if(index > 0) {
+                if (index > 0) {
                     key = '';
                 }
                 index++;
@@ -109,8 +109,8 @@ const ResultPresentation = (props: ResultProps): any => {
     };
     
     const renderAttribute = (key: string, attribute: any): string => {
-        if(Boolean(resultPresentationConfig.visibleAttributes[key])){
-            if(resultPresentationConfig.visibleAttributes[key].type === 'link'){
+        if (Boolean(resultPresentationConfig.visibleAttributes[key])) {
+            if (resultPresentationConfig.visibleAttributes[key].type === 'link') {
                 return renderLink(resultPresentationConfig.visibleAttributes[key].label, attribute);
             } else {
                 return renderText(resultPresentationConfig.visibleAttributes[key].label, attribute);

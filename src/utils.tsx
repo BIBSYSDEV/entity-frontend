@@ -50,7 +50,7 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
         body: entity
     }
     
-    if(Boolean(entityId)){
+    if (Boolean(entityId)) {
         const id = entityId.split('/').pop();
         bodyObject.id = id;
         return await API.put('entity', "/registry/" + registryName + "/entity/" + id, {
