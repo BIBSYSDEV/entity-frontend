@@ -48,13 +48,9 @@ const Search = (props: SearchProps): any => {
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
     const search = (searchValue: string): ResultType[] => {
-        if (searchValue.startsWith('identifier=')) {
-            setSearchResults((testData as ResultType[]));
-        }
+        setSearchResults((testData as ResultType[]));
         return (searchResults as ResultType[]);
     }
-
-    
     
     const spinner = false;
     
