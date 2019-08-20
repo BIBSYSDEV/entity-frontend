@@ -94,7 +94,6 @@ const App = (props: AppProps): any => {
                     setUser={setUser}
                     user={EMPTY}
                     setRegistries={setRegistries}
-                    location={routeProps.location}
                 />)}/>
                 <Route exact path="/" render={(routeProps:any) => 
                         isAuthorised ? (

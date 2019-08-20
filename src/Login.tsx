@@ -45,7 +45,6 @@ export interface LoginProps extends WithStyles<typeof styles> {
     setAuthorised(input: boolean): void;
     setUser(input: string): void;
     setRegistries(input: string): void;
-    location: any;
 }
 
 const Login = (props: LoginProps): any => {
