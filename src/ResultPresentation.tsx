@@ -115,7 +115,7 @@ const ResultPresentation = (props: ResultProps): any => {
             } else {
                 return renderText(resultPresentationConfig.visibleAttributes[key].label, attribute);
             }
-        } else{
+        } else {
             return '';
         }
     };
