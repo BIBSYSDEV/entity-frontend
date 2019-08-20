@@ -73,7 +73,6 @@ const EntityRegistrationApp = (props: DataProps) => {
                     />                                    
                 </Grid>
             </Grid>
-            }
         </div>
     );
 

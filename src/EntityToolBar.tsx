@@ -28,9 +28,9 @@ const EntityToolBar = (props: AppProps): any => {
     const { classes, registryId, handleNew, handlePersist } = props;
 
     const SearchButton = withRouter(
-            ({history}: any) => (
-                    <Button onClick={() => history.push("/" + registryId + "/Search")}>Search</Button>
-                    )); 
+        ({history}: any) => (
+            <Button onClick={() => history.push("/" + registryId + "/Search")}>Search</Button>
+        )); 
     
     return (
         <div className={classes.toolBar}>

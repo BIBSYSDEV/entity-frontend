@@ -42,11 +42,11 @@ const Header = (props: HeaderProps): any => {
     }
 
     const ChangePasswordButton = withRouter(
-            ({history}: any) => (
-                    Boolean(user) ?
-                    <Button onClick={() => history.push("/ChangePassword")}>Change Password</Button>
-                    : <div />
-                    )); 
+        ({history}: any) => (
+            Boolean(user) ?
+                <Button onClick={() => history.push("/ChangePassword")}>Change Password</Button>
+                : <div />
+        )); 
  
     const showLogoutButton = (): any => {
         const buttonRender = (Boolean(user)) ? <Button onClick={handleLogout} color="inherit">Logout</Button> : EMPTY; 

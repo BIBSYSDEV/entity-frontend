@@ -83,44 +83,44 @@ const ChangePassword = (props: ChangePasswordProps): any => {
             setErrorMessage(EMPTY)
             
             Auth.signIn(user, oldPassword)
-            .then(userObject => {
-                if (userObject.challengeName === 'NEW_PASSWORD_REQUIRED') {
-                    Auth.completeNewPassword(
-                        userObject,        // the Cognito User Object
-                        newPassword,       // the new password
-                        // OPTIONAL, the required attributes
-                        {}
-                    ).then(userData => {
-                        // at this time the user is logged in if no MFA required
-                        Auth.currentAuthenticatedUser()
-                        .then(user => {
-                            return Auth.changePassword(user, oldPassword, newPassword);
-                        })
-                        .then((data) => {
-                        })
-                        .catch((err) => {
-                            setErrorMessage(err);
+                .then(userObject => {
+                    if (userObject.challengeName === 'NEW_PASSWORD_REQUIRED') {
+                        Auth.completeNewPassword(
+                            userObject,        // the Cognito User Object
+                            newPassword,       // the new password
+                            // OPTIONAL, the required attributes
+                            {}
+                        ).then(userData => {
+                            // at this time the user is logged in if no MFA required
+                            Auth.currentAuthenticatedUser()
+                                .then(user => {
+                                    return Auth.changePassword(user, oldPassword, newPassword);
+                                })
+                                .then((data) => {
+                                })
+                                .catch((err) => {
+                                    setErrorMessage(err);
+                                });
+                            console.log(userData);
+                        }).catch(e => {
+                            console.log(e);
+                            setErrorMessage(e)
                         });
-                        console.log(userData);
-                    }).catch(e => {
-                      console.log(e);
-                      setErrorMessage(e)
-                    });
-                } else {
-                    Auth.currentAuthenticatedUser()
-                    .then(user => {
-                        history.goBack();
-                        return Auth.changePassword(user, oldPassword, newPassword);
-                    })
-                    .then((data) => {
-                    })
-                    .catch((err) => {
-                        setErrorMessage(err);
-                    });
-                }
-            }).catch(e => {
-                console.log(e);
-            });
+                    } else {
+                        Auth.currentAuthenticatedUser()
+                            .then(user => {
+                                history.goBack();
+                                return Auth.changePassword(user, oldPassword, newPassword);
+                            })
+                            .then((data) => {
+                            })
+                            .catch((err) => {
+                                setErrorMessage(err);
+                            });
+                    }
+                }).catch(e => {
+                    console.log(e);
+                });
 
             history.goBack();
         } catch (e) {
@@ -131,22 +131,22 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     const spinner = true;
 
     const SubmitButton = withRouter(
-            ({history}: any) => (
-                    Boolean(user) ?
-                    <Button 
-                        type='submit'
-                        fullWidth
-                        variant='contained'
-                        color='primary'
-                        className={classes.submit}
-                        disabled={!validateForm()}
-                        onClick={(event: any) => handleSubmit(event, history)}>Change Password</Button>
-                    : <div />
-                    ));
+        ({history}: any) => (
+            Boolean(user) ?
+                <Button 
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                    className={classes.submit}
+                    disabled={!validateForm()}
+                    onClick={(event: any) => handleSubmit(event, history)}>Change Password</Button>
+                : <div />
+        ));
     
     const CancelButton = () =>  
-            (
-                Boolean(user) ?
+        (
+            Boolean(user) ?
                 <Button 
                     fullWidth
                     variant='contained'
@@ -154,7 +154,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                     className={classes.submit}
                     onClick={() => history.goBack()}>Cancel</Button>
                 : <div />
-            ); 
+        ); 
 
     
     return (

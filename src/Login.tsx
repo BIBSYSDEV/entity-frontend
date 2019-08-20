@@ -95,19 +95,18 @@ const Login = (props: LoginProps): any => {
     };
 
     const AuthButton = withRouter(
-            ({history}: any) => (<Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-                disabled={!validateForm()}
-                onClick={(event: any) => {
-                    handleSubmit(event, history);
-                }}
-            >Sign In</Button>)
-
-        );
+        ({history}: any) => (<Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            color='primary'
+            className={classes.submit}
+            disabled={!validateForm()}
+            onClick={(event: any) => {
+                handleSubmit(event, history);
+            }}
+        >Sign In</Button>)
+    );
 
     
     return (

@@ -40,9 +40,9 @@ const SearchHeader = (props: SearchHeaderProps): any => {
     };
     
     const EditButton = withRouter(
-            ({history}: any) =>
-                <Button onClick={() => history.push("/" + registryName)}>Edit</Button>
-            );
+        ({history}: any) =>
+            <Button onClick={() => history.push("/" + registryName)}>Edit</Button>
+        );
     
     return (<div className={classes.toolBar}>
         <AppBar position="static" color="default">
