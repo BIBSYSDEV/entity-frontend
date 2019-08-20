@@ -54,7 +54,7 @@ const Login = (props: LoginProps): any => {
     const [errorMessage, setErrorMessageDisplay] = useState(EMPTY);
     const [spinner, setSpinning] = useState(false);
     
-    const { classes, setAuthorised, setUser, user, setRegistries, location } = props;
+    const { classes, setAuthorised, setUser, user, setRegistries } = props;
     
     const validateForm = (): any => {
         return Boolean(userInput) && Boolean(password);
