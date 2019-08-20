@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
 import Button from "@material-ui/core/Button";
@@ -24,7 +24,7 @@ const RegistryList = (props: DataProps): any => {
     const renderListItems = (): object => {
         return JSON.parse(registries).map((registry: string): object =>
             <li key={registry}>
-                <Button onClick={() => fetchApiKey(registry, setApiKey)}><NavLink to={registry} style={{textDecoration: 'none'}}>{registry}</NavLink></Button>
+        <Link to={registry} style={{textDecoration: 'none'}}><Button onClick={() => fetchApiKey(registry, setApiKey)}>{registry}</Button></Link>
             </li>); 
     };
 
