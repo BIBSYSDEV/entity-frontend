@@ -8,10 +8,10 @@ import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { Link } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import InputLabel from '@material-ui/core/InputLabel';
 import Box from '@material-ui/core/Box';
-
+import { LINK } from './constants';
 const styles = createStyles({
     root: {
         width: '100%',
@@ -62,10 +62,11 @@ const resultPresentationConfig: any = {
 
 export interface ResultProps extends WithStyles<typeof styles> {
     result: ResultType;
+    registryName: string;
 }
 
 const ResultPresentation = (props: ResultProps): any => {
-    const { classes, result } = props;
+    const { classes, result, registryName } = props;
 
     const [open, setOpen] = useState(false);
 
@@ -74,13 +75,13 @@ const ResultPresentation = (props: ResultProps): any => {
     };
     
     const renderLink = (key: string, value: any): any => {
-        return  <Typography>
+        return <Typography>
             <InputLabel shrink>{key}</InputLabel> 
             {(Array.isArray(value)) ? 
                 (value as any[]).map((element: string) => {
-                    return (<Typography><Link to={"?query=" + element}>{element}</Link></Typography>);
+                    return (<Typography><Link href={"/" + registryName + "/Search/" + element}>{element}</Link></Typography>);
                 }) : 
-                <Typography><Link to={"?query=" + value}>{value}</Link></Typography>
+                <Typography><Link href={value}>{value}</Link></Typography>
             }
         </Typography>;
     };
@@ -110,7 +111,7 @@ const ResultPresentation = (props: ResultProps): any => {
     
     const renderAttribute = (key: string, attribute: any): string => {
         if (Boolean(resultPresentationConfig.visibleAttributes[key])) {
-            if (resultPresentationConfig.visibleAttributes[key].type === 'link') {
+            if (resultPresentationConfig.visibleAttributes[key].type === LINK) {
                 return renderLink(resultPresentationConfig.visibleAttributes[key].label, attribute);
             } else {
                 return renderText(resultPresentationConfig.visibleAttributes[key].label, attribute);

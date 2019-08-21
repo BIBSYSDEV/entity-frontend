@@ -33,7 +33,6 @@ Amplify.configure({
     }
 });
 
-
 const initState: JsonFormsState = {
     jsonforms: {
         cells: materialCells,

@@ -15,6 +15,7 @@ const styles = createStyles({
 
 export interface SearchResultProps extends WithStyles<typeof styles> {
     searchResults: ResultType[];
+    registryName: string;
 }
 
 export interface ResultType {
@@ -23,14 +24,14 @@ export interface ResultType {
 
 const SearchResults = (props: SearchResultProps): any => {
 
-    const { searchResults } = props;
+    const { searchResults, registryName } = props;
 
     
     const renderSearchResults = () => {
         const presentation = searchResults.map((result: ResultType) => {
             return (<List       
                 component="nav" key={result.id}
-                aria-labelledby="nested-list-subheader"><ResultPresentation result={result} />
+                aria-labelledby="nested-list-subheader"><ResultPresentation result={result} registryName={registryName}/>
             </List>) 
         });
         

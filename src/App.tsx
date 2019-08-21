@@ -118,12 +118,25 @@ const App = (props: AppProps): any => {
                         <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
                     )
                 }/>
-                <Route path="/:registryName/Search" render={(routeProps: any) => 
+                <Route exact path="/:registryName/Search" render={(routeProps: any) => 
                     isAuthorised ? (
                         <Search
                             user={user}
                             setAuthorised={setAuthorised}
                             registryName={routeProps.match.params.registryName}
+                            entityId={EMPTY}
+                        />
+                    ) : (
+                        <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
+                    )
+                }/>
+                <Route path="/:registryName/Search/:entityId" render={(routeProps: any) => 
+                    isAuthorised ? (
+                        <Search
+                            user={user}
+                            setAuthorised={setAuthorised}
+                            registryName={routeProps.match.params.registryName}
+                            entityId={routeProps.match.params.entityId}
                         />
                     ) : (
                         <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
