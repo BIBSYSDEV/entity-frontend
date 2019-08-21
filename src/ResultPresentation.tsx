@@ -6,7 +6,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Box from '@material-ui/core/Box';
 import { LINK } from './constants';
@@ -48,10 +48,11 @@ const resultPresentationConfig: any = {
 export interface ResultProps {
     result: ResultType;
     registryName: string;
+    isOpen: boolean;
 }
 
 const ResultPresentation = (props: ResultProps): any => {
-    const { result, registryName } = props;
+    const { result, registryName, isOpen } = props;
 
     const [open, setOpen] = useState(false);
 
@@ -64,9 +65,9 @@ const ResultPresentation = (props: ResultProps): any => {
             <InputLabel shrink>{key}</InputLabel> 
             {(Array.isArray(value)) ? 
                 (value as any[]).map((element: string) => {
-                    return (<Typography><Link href={"/".concat(registryName, "/Search/", element)}>{element}</Link></Typography>);
+                    return (<Typography><Link to={"/".concat(registryName, "/Search/", element)}>{element}</Link></Typography>);
                 }) : 
-                <Typography><Link href={"/".concat(registryName, "/Search/", value)}>{value}</Link></Typography>
+                <Typography><Link to={"/".concat(registryName, "/Search/", value)}>{value}</Link></Typography>
             }
         </Typography>;
     };
@@ -115,7 +116,7 @@ const ResultPresentation = (props: ResultProps): any => {
         <ListItem  button onClick={handleClick} key={result.id}>
             <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={(result as any).identifier} />
         </ListItem>
-        <Collapse in={open} timeout='auto' unmountOnExit>
+        <Collapse in={open||isOpen} timeout='auto' unmountOnExit>
             <Card>
                 <CardContent>
                     {attributes}

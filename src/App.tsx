@@ -98,7 +98,7 @@ const App = (props: AppProps): any => {
                         <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
                     )
                 }/>
-                <Route path="/:registryName/Search/:entityId" render={(routeProps: any) => 
+                <Route exact path="/:registryName/Search/:entityId" render={(routeProps: any) => 
                     isAuthorised ? (
                         <Search
                             user={user}

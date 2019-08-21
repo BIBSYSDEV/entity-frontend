@@ -46,14 +46,11 @@ const Search = (props: SearchProps): any => {
     const findSingleEntity = (entityId: string): ResultType[] => {
         var result: ResultType[] = [];
         for (var index = 0; index < testData.length; index++) {
-            console.log(testData[index]);
             if ((testData[index] as ResultType).id === entityId) {
                 result.push(testData[index] as ResultType);
                 break;
             }
         }
-
-        console.log(result);
         
         return result;
     }
@@ -61,7 +58,6 @@ const Search = (props: SearchProps): any => {
     const search = (searchValue: string): ResultType[] => {
         
         if (Boolean(entityId)) {
-            console.log(entityId);
             return findSingleEntity(entityId);
         } else {
             setSearchResults((testData as ResultType[]));
@@ -69,9 +65,8 @@ const Search = (props: SearchProps): any => {
         }
     }
     
-    
     const spinner = false;
-    
+
     return (
         <div>
             <Header 
@@ -84,7 +79,7 @@ const Search = (props: SearchProps): any => {
                 registryName={registryName}
             />
             <SearchResults 
-                searchResults={searchResults} 
+                searchResults={Boolean(entityId) ? findSingleEntity(entityId) : searchResults} 
                 registryName={registryName}
             />
         </div>

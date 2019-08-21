@@ -44,7 +44,6 @@ const Login = (props: LoginProps): any => {
         event.preventDefault();
 
         setSpinning(true);
-        console.log(history)
         setErrorMessageDisplay(EMPTY);
         try {
             let registries = await fetchRegistries();
