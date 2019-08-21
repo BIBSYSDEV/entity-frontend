@@ -5,39 +5,11 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
 import { EMPTY } from './constants';
 
-const styles = createStyles({
-    body: {
-        backgroundColor: 'white',
-    },
-    paper: {
-        marginTop: '1em',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: '0.1em',
-        backgroundColor: 'red',
-    },
-    form: {
-        width: '100%', 
-        marginTop: '0.1em',
-    },
-    submit: {
-        margin: '0.1em',
-    },
-    error: {
-        color: 'red',
-    }
-});
-
-export interface ChangePasswordProps extends WithStyles<typeof styles> {
+export interface ChangePasswordProps {
     user: string;
     setAuthorised(authorised: boolean): void;
     history: any;
@@ -50,7 +22,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     const [repeatPassword, setRepeatPassword] = useState(EMPTY);
     const [errorMessage, setErrorMessage] = useState(EMPTY);
 
-    const { classes, user, setAuthorised, history } = props;
+    const { user, setAuthorised, history } = props;
 
     console.log(history);
     
@@ -138,7 +110,6 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                     fullWidth
                     variant='contained'
                     color='primary'
-                    className={classes.submit}
                     disabled={!validateForm()}
                     onClick={(event: any) => handleSubmit(event, history)}>Change Password</Button>
                 : <div />
@@ -151,7 +122,6 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                     fullWidth
                     variant='contained'
                     color='primary'
-                    className={classes.submit}
                     onClick={() => history.goBack()}>Cancel</Button>
                 : <div />
         ); 
@@ -166,11 +136,11 @@ const ChangePassword = (props: ChangePasswordProps): any => {
             />
             <Container component='main' maxWidth='xs'>
                 <CssBaseline />
-                <div className={classes.paper}>
+                <div>
                     <Typography variant='h5'>
                         Change password
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form noValidate>
                         <TextField
                             variant='outlined'
                             margin='normal'
@@ -210,7 +180,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                     </form>
                 </div>
                 <div>
-                    <Typography className={classes.error}>
+                    <Typography>
                         {errorMessage}
                     </Typography>
                 </div> 
@@ -220,4 +190,4 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     );
 }
 
-export default withStyles(styles)(ChangePassword);
+export default ChangePassword;

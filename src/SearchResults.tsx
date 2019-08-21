@@ -1,19 +1,8 @@
 import React from 'react';
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
 import ResultPresentation from './ResultPresentation';
 import List from '@material-ui/core/List';
 
-const styles = createStyles({
-    toolBar: {
-        flexGrow: 1,
-    },
-    grow: {
-        flexGrow: 1,
-    },
-});
-
-export interface SearchResultProps extends WithStyles<typeof styles> {
+export interface SearchResultProps {
     searchResults: ResultType[];
     registryName: string;
 }
@@ -42,4 +31,4 @@ const SearchResults = (props: SearchResultProps): any => {
     return (Boolean(searchResults) && (searchResults as ResultType[]).length > 0) ? renderSearchResults() : '';
 }
 
-export default withStyles(styles)(SearchResults);
+export default SearchResults;

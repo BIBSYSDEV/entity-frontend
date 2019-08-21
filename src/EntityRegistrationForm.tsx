@@ -1,8 +1,6 @@
 import React from 'react';
 import { JsonForms } from '@jsonforms/react';
 import Typography from "@material-ui/core/Typography";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
 import EntityToolBar from './EntityToolBar';
 
 const styles = createStyles({
@@ -15,7 +13,7 @@ const styles = createStyles({
     },
 });
 
-export interface FormProps extends WithStyles<typeof styles> {
+export interface FormProps {
     registryId: string;
     handleNew(): void;
     handlePersist(): void;
@@ -23,13 +21,12 @@ export interface FormProps extends WithStyles<typeof styles> {
 
 const EntityRegistrationForm = (props: FormProps): any => {
 
-    const { classes, registryId, handleNew, handlePersist } = props;
+    const { registryId, handleNew, handlePersist } = props;
 
     return (
         <React.Fragment>
             <Typography
                 variant={'h1'}
-                className={classes.title}
             >
                 <EntityToolBar 
                     registryId={registryId} 
@@ -37,12 +34,11 @@ const EntityRegistrationForm = (props: FormProps): any => {
                     handlePersist={handlePersist}
                 />
             </Typography>
-            <div className={classes.registrationform}>
+            <div>
                 <JsonForms/>
             </div>
             <Typography
                 variant={'h1'}
-                className={classes.title}
             >
                 <EntityToolBar 
                     registryId={registryId} 
@@ -56,4 +52,4 @@ const EntityRegistrationForm = (props: FormProps): any => {
 
 }
 
-export default withStyles(styles)(EntityRegistrationForm);
+export default EntityRegistrationForm;

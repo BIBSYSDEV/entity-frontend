@@ -1,7 +1,5 @@
 import React, { useState, useEffect  } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import withStyles from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
 import './App.css';
 import Login from './Login';
 import EntityRegistrationApp from './EntityRegistrationApp';
@@ -11,36 +9,6 @@ import Amplify from '@aws-amplify/core';
 import config from './config';
 import Search from './Search';
 import { EMPTY, API_KEY, AUTHORISED, REGISTRIES, USER } from './constants';
-
-const styles = createStyles({
-    toolBar: {
-        flexGrow: 1,
-    },
-    container: {
-        padding: '1em'
-    },
-    title: {
-        textAlign: 'center',
-        padding: '0.25em'
-    },
-    dataContent: {
-        display: 'flex',
-        justifyContent: 'center',
-        borderRadius: '0.25em',
-        backgroundColor: '#cecece',
-    },
-    demoform: {
-        margin: 'auto'
-    },
-    grow: {
-        flexGrow: 1,
-    },
-    toolBarTitle: {
-        padding: '0 30px',
-        margin: '1em',
-    }
-
-});
 
 export interface AppProps {
     newEntity(registryName: string): void;
@@ -180,5 +148,5 @@ const App = (props: AppProps): any => {
     
 }
 
-export default withStyles(styles)(App);
+export default App;
 

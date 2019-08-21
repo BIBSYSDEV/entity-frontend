@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
 import Header from './Header';
 import { Grid } from '@material-ui/core';
 import EntityRegistrationForm from './EntityRegistrationForm';
@@ -15,7 +13,7 @@ const styles = createStyles({
     },
 });
 
-export interface DataProps extends WithStyles<typeof styles> {
+export interface DataProps {
     registryId: string;    
     user: string;
     data: object;
@@ -29,7 +27,7 @@ export interface DataProps extends WithStyles<typeof styles> {
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore, history } = props;
+    const { registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore, history } = props;
     
     const handleNew = (): void => {
         newEntity(registryId);
@@ -59,7 +57,7 @@ const EntityRegistrationApp = (props: DataProps) => {
                 setAuthorised={setAuthorised}
             />
             
-            <Grid container justify={'center'} spacing={8} className={classes.container}>
+            <Grid container justify={'center'} spacing={8}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm
                         registryId={registryId}
@@ -82,4 +80,4 @@ const mapStateToProps = (state: JsonFormsState) => {
     return { data: getData(state) }
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(EntityRegistrationApp));
+export default connect(mapStateToProps)(EntityRegistrationApp);

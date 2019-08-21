@@ -7,40 +7,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
 import { Container } from '@material-ui/core';
 import Header from './Header';
 import { fetchRegistries } from './utils';
 import { EMPTY } from './constants';
 
-const styles = createStyles({
-    body: {
-        backgroundColor: 'white',
-    },
-    paper: {
-        marginTop: '1em',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: '0.1em',
-        backgroundColor: 'red',
-    },
-    form: {
-        width: '100%', 
-        marginTop: '0.1em',
-    },
-    submit: {
-        margin: '0.1em',
-    },
-    error: {
-        color: 'red',
-    }
-});
-
-export interface LoginProps extends WithStyles<typeof styles> {
+export interface LoginProps {
     user: string;
     setAuthorised(input: boolean): void;
     setUser(input: string): void;
@@ -54,7 +26,7 @@ const Login = (props: LoginProps): any => {
     const [errorMessage, setErrorMessageDisplay] = useState(EMPTY);
     const [spinner, setSpinning] = useState(false);
     
-    const { classes, setAuthorised, setUser, user, setRegistries } = props;
+    const { setAuthorised, setUser, user, setRegistries } = props;
     
     const validateForm = (): any => {
         return Boolean(userInput) && Boolean(password);
@@ -100,7 +72,6 @@ const Login = (props: LoginProps): any => {
             fullWidth
             variant='contained'
             color='primary'
-            className={classes.submit}
             disabled={!validateForm()}
             onClick={(event: any) => {
                 handleSubmit(event, history);
@@ -118,14 +89,14 @@ const Login = (props: LoginProps): any => {
             />
             <Container component='main' maxWidth='xs'>
                 <CssBaseline />
-                <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
+                <div>
+                    <Avatar>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography variant='h5'>
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form noValidate>
                         <TextField
                             variant='outlined'
                             margin='normal'
@@ -156,7 +127,7 @@ const Login = (props: LoginProps): any => {
                     </form>
                 </div>
                 <div>
-                    <Typography className={classes.error}>
+                    <Typography>
                         {errorMessage}
                     </Typography>
                 </div> 
@@ -166,4 +137,4 @@ const Login = (props: LoginProps): any => {
     );
 }
 
-export default withStyles(styles)(Login);
+export default Login;

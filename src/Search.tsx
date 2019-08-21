@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
 import SearchHeader from './SearchHeader';
 import Header from './Header';
 import SearchResults from './SearchResults';
 import { ResultType } from './SearchResults';
 
-const styles = createStyles({
-});
-
-export interface SearchProps extends WithStyles<typeof styles> {
+export interface SearchProps {
     user: string;
     setAuthorised(authorised: boolean): void;
     registryName: string;
@@ -58,9 +53,6 @@ const Search = (props: SearchProps): any => {
         }
     }
     
-    console.log("entityId = " + entityId);
-    console.log(testData[0]);
-    
     const findSingleEntity = (entityId: string): ResultType[] => {
         var result: ResultType[] = [];
         for (var index = 0; index < testData.length; index++) {
@@ -96,4 +88,4 @@ const Search = (props: SearchProps): any => {
 }
 
 
-export default withStyles(styles)(Search);
+export default Search;
