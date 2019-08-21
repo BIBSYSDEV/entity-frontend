@@ -77,3 +77,19 @@ export const createRegistryUri = (registryName: string) => {
     return "http://unit.no/entitydata#" + registryName.toLowerCase();
 }
 
+export const getEntity = async (entityId: string, registryName: string) => {
+    const path = "/registry/".concat(registryName).concat("/entity/").concat(entityId);
+    await API.get('entity', path, {}).then((data): void => {
+        return data;
+    });
+}
+
+export const doSearch = async (query: string, registryName: string) => {
+    const path = "/registry/".concat(registryName).concat("/search?query=").concat(query);
+    var searchResult: any[] = [];
+    await API.get('entity', path, {}).then((data): void => {
+        searchResult = data;
+    });
+    return searchResult;
+    
+}

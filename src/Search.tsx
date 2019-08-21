@@ -3,6 +3,7 @@ import SearchHeader from './SearchHeader';
 import Header from './Header';
 import SearchResults from './SearchResults';
 import { ResultType } from './SearchResults';
+import { doSearch } from './utils';
 
 export interface SearchProps {
     user: string;
@@ -44,6 +45,7 @@ const Search = (props: SearchProps): any => {
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
     const findSingleEntity = (entityId: string): ResultType[] => {
+        
         var result: ResultType[] = [];
         for (var index = 0; index < testData.length; index++) {
             if ((testData[index] as ResultType).id === entityId) {
