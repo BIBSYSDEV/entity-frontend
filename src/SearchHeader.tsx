@@ -24,14 +24,24 @@ const SearchHeader = (props: SearchHeaderProps): any => {
     }
     
     const searchThis = () => {
-        console.log(searchValue);
         search(searchValue);
     };
     
+    const SearchButton = withRouter(
+        ({history}: any) =>
+            <Button                    
+                onClick={() => {
+                    searchThis();
+                    history.push("/".concat(registryName, "/Search"));
+                }}
+                color="inherit"
+            >Search</Button>
+    );
+
     const EditButton = withRouter(
         ({history}: any) =>
-            <Button onClick={() => history.push("/" + registryName)}>Edit</Button>
-        );
+            <Button onClick={() => history.push("/".concat(registryName))}>Edit</Button>
+    );
     
     return (<div>
         <AppBar position="static" color="default">
@@ -51,10 +61,7 @@ const SearchHeader = (props: SearchHeaderProps): any => {
                     autoFocus
                     onChange={handleSearchValueChange}
                 />
-                <Button 
-                    onClick={searchThis} 
-                    color="inherit"
-                >Search</Button>
+                <SearchButton/>
             </Toolbar>
         </AppBar>
     </div>);

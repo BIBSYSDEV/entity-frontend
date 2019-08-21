@@ -115,8 +115,8 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 : <div />
         ));
     
-    const CancelButton = () =>  
-        (
+    const CancelButton = withRouter(
+        ({history}: any) => (
             Boolean(user) ?
                 <Button 
                     fullWidth
@@ -124,7 +124,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                     color='primary'
                     onClick={() => history.goBack()}>Cancel</Button>
                 : <div />
-        ); 
+        )); 
 
     
     return (

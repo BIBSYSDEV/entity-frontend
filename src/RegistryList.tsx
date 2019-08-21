@@ -3,12 +3,6 @@ import { Link } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import { fetchApiKey } from './utils';
 
-const styles = createStyles({
-    container: {
-        padding: '1em'
-    },
-});
-
 export interface DataProps {
     registries: string;
     setApiKey(apiKey: string): void;
@@ -22,7 +16,7 @@ const RegistryList = (props: DataProps): any => {
     const renderListItems = (): object => {
         return JSON.parse(registries).map((registry: string): object =>
             <li key={registry}>
-        <Link to={registry} style={{textDecoration: 'none'}}><Button onClick={() => fetchApiKey(registry, setApiKey)}>{registry}</Button></Link>
+                <Link to={registry} style={{textDecoration: 'none'}}><Button onClick={() => fetchApiKey(registry, setApiKey)}>{registry}</Button></Link>
             </li>); 
     };
 

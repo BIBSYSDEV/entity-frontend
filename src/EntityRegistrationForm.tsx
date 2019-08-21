@@ -3,16 +3,6 @@ import { JsonForms } from '@jsonforms/react';
 import Typography from "@material-ui/core/Typography";
 import EntityToolBar from './EntityToolBar';
 
-const styles = createStyles({
-    title: {
-        textAlign: 'center',
-        padding: '0.25em'
-    },
-    registrationform: {
-        margin: 'auto'
-    },
-});
-
 export interface FormProps {
     registryId: string;
     handleNew(): void;

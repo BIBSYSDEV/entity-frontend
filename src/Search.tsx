@@ -43,16 +43,6 @@ const Search = (props: SearchProps): any => {
     
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
-    const search = (searchValue: string): ResultType[] => {
-        
-        if (Boolean(entityId)) {
-            return findSingleEntity(entityId);
-        } else {
-            setSearchResults((testData as ResultType[]));
-            return (searchResults as ResultType[]);
-        }
-    }
-    
     const findSingleEntity = (entityId: string): ResultType[] => {
         var result: ResultType[] = [];
         for (var index = 0; index < testData.length; index++) {
@@ -62,9 +52,23 @@ const Search = (props: SearchProps): any => {
                 break;
             }
         }
+
+        console.log(result);
         
         return result;
     }
+
+    const search = (searchValue: string): ResultType[] => {
+        
+        if (Boolean(entityId)) {
+            console.log(entityId);
+            return findSingleEntity(entityId);
+        } else {
+            setSearchResults((testData as ResultType[]));
+            return (searchResults as ResultType[]);
+        }
+    }
+    
     
     const spinner = false;
     

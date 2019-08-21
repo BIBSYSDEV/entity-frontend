@@ -7,12 +7,6 @@ import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
 import { writeEntity, readEntity } from './utils';
 
-const styles = createStyles({
-    container: {
-        padding: '1em'
-    },
-});
-
 export interface DataProps {
     registryId: string;    
     user: string;
