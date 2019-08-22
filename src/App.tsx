@@ -1,13 +1,14 @@
-import { connect } from 'react-redux';
-import React from 'react';
-import Grid from "@material-ui/core/Grid";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import React, { useState, useEffect } from 'react';
+import withStyles from "@material-ui/core/styles/withStyles";
 import createStyles from "@material-ui/core/styles/createStyles";
-import {getData, JsonFormsState} from '@jsonforms/core';
 import './App.css';
-import Header from "./Header";
-import EntityRegistrationForm from './EntityRegistrationForm';
-import EntityDataPresentation from './EntityDataPresentation';
+import Login from './Login';
+import EntityRegistrationApp from './EntityRegistrationApp';
+import RegistryPresentation from './RegistryPresentation';
+import ChangePassword from './ChangePassword';
+import Amplify from '@aws-amplify/core';
+import config from './config';
+import { EMPTY, REGISTRY_ID, API_KEY, AUTHORISED, REGISTRIES, USER } from './constants';
 
 const styles = createStyles({
     toolBar: {
@@ -39,49 +40,109 @@ const styles = createStyles({
 
 });
 
-export interface AppProps extends WithStyles<typeof styles> {
-    dataAsString: string;
-    registryId: string;
-}
+export interface AppProps {
+    newEntity(registryName: string): void;
+    data: any;
+    setRegistryName(registryName: string): void;
+    storeApiKey(apiKey: string): void;
+} 
 
-const App = (props: AppProps) => {
+Amplify.configure(config);
+
+const App = (props: AppProps): any => {
+
+    const { newEntity, setRegistryName, storeApiKey } = props;
+    const [registryId, setRegistryId] = useState(sessionStorage.getItem(REGISTRY_ID) || EMPTY);
+    useEffect((): void => {
+        setRegistryName(registryId);
+    }, [registryId])
+
+    const [apiKey, setApiKey] = useState(sessionStorage.getItem(API_KEY) || EMPTY);
+    useEffect((): void => {
+        storeApiKey(apiKey);
+    }, [registryId])
+
+    const [isAuthorised, setAuthorised] = useState(sessionStorage.getItem(AUTHORISED) || EMPTY);
+
+    useEffect((): void => {
+        sessionStorage.setItem('authorised', isAuthorised);
+    }, [isAuthorised])
+
+    const [registries, setRegistries] = useState(sessionStorage.getItem(REGISTRIES) || EMPTY);
+    useEffect((): void => {
+        sessionStorage.setItem('registries', registries);
+    }, [registries])
+
+    const [user, setUser] = useState(sessionStorage.getItem(USER) as string || EMPTY);
+
+    useEffect((): void => {
+        sessionStorage.setItem('user', user);
+    }, [user])
     
-    const { classes, dataAsString, registryId } = props;
+
+
     
-    const handleNew = () => { 
-        console.log('Nytt emneord'); 
+    const [changePassword, setChangePassword] = useState(false);
+
+    const chooseRegistry = (): void => {
+        setRegistryId(EMPTY);
     }
 
-    const handlePersist = () => {
-        const { dataAsString, registryId } = props;
-        console.log('registry: ' + registryId);
-        console.log(dataAsString);
-    }
+    const loginPage = 
+        <Login 
+            setAuthorised={setAuthorised} 
+            setUser={setUser}
+            user={EMPTY}
+            setChangePassword={setChangePassword} 
+            setRegistries={setRegistries}
+            chooseRegistry={chooseRegistry}
+        />;
     
-    return (
-        <div>
-            <Header />
-            <Grid container justify={'center'} spacing={16} className={classes.container}>
-                <Grid item sm={9}>
-                    <EntityRegistrationForm
-                        registryId={registryId}
-                        handleNew={handleNew}
-                        handlePersist={handlePersist}
-                    />
-                </Grid>
-                <Grid item sm={9}>
-                    <EntityDataPresentation
-                        dataAsString={dataAsString}
-                    />                                    
-                </Grid>
-            </Grid>
-        </div>
-    );
+    const changePasswordPage = 
+        <ChangePassword
+            user={user}
+            setChangePassword={setChangePassword}
+            setAuthorised={setAuthorised}
+            chooseRegistry={chooseRegistry}
+        />;
+    
+    const registryPresentationPage = 
+        <RegistryPresentation 
+            setRegistryId={setRegistryId}
+            user={user}
+            setChangePassword={setChangePassword}
+            registries={registries}
+            setAuthorised={setAuthorised}
+            chooseRegistry={chooseRegistry}
+            setApiKey={setApiKey}
+        />;
+    
+    const entityRegistrationPage =
+        <EntityRegistrationApp 
+            registryId={registryId}
+            user={user}
+            registries={registries}
+            setRegistryId={setRegistryId} 
+            setChangePassword={setChangePassword}
+            setAuthorised={setAuthorised} 
+            chooseRegistry={chooseRegistry}
+            newEntity={newEntity}
+            apiKey={apiKey}
+        />;
+    
+    let pageSelected = loginPage;
+
+    if (changePassword) {
+        pageSelected = changePasswordPage;
+    } else {
+        if(Boolean(isAuthorised)) {
+            pageSelected = (!Boolean(registryId)) ?
+                registryPresentationPage :
+                entityRegistrationPage;
+        }
+    }
+    return (pageSelected)
 }
 
-const mapStateToProps = (state: JsonFormsState) => {
-    return { dataAsString: JSON.stringify(getData(state), null, 2) }
-};
-
-export default connect(mapStateToProps)(withStyles(styles)(App));
+export default withStyles(styles)(App);
 

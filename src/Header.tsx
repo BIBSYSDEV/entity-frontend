@@ -1,12 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import createStyles from "@material-ui/core/styles/createStyles";
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import logo from './Unit ikon farge.png';
+import { Button } from '@material-ui/core';
+import { EMPTY } from './constants';
 
-const styles = {
+const styles = createStyles({
     root: {
         flexGrow: 1,
     },
@@ -14,30 +16,68 @@ const styles = {
         padding: '0 30px',
         margin: '1em',
         marginLeft: '10em',
+    },
+    logoStill: {
+        height: '80px',
+        animation: '',
+    },
+    logoSpin: {
+        height: '80px',
+        animation: 'App-logo-spin infinite 4s linear',
+    },
+});
+
+export interface HeaderProps extends WithStyles<typeof styles> {
+    spinner: boolean;
+    user: string;
+    setChangePassword(changePassword: boolean): void;
+    setAuthorised(authorised: string): void;
+    chooseRegistry(): void; 
+}
+
+const Header = (props: HeaderProps): any => {
+    const { classes, spinner, user,setChangePassword, setAuthorised, chooseRegistry } = props;
+
+    const handleLogout = (): void => {
+        setAuthorised(EMPTY);
+        chooseRegistry();
     }
-};
 
+    const applyChangePassword = (): void => {
+        setChangePassword(true);
+    }
 
-const Header = (props: any) => {
-    const { classes } = props;
-
+    const showChangePasswordButton = (): any => {
+        const buttonRender = (Boolean(user)) ? <Button onClick={applyChangePassword}>Change Password</Button> : EMPTY; 
+        return  (buttonRender);
+    }
+ 
+    const showLogoutButton = (): any => {
+        const buttonRender = (Boolean(user)) ? <Button onClick={handleLogout} color="inherit">Logout</Button> : EMPTY; 
+        return  (buttonRender);
+    }
+    
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Toolbar variant="dense">
-                    <img src={logo} className="App-logo" alt="logo"/>
+                    {spinner ? 
+                        <img src={logo} className={classes.logoSpin} alt="logo"/> : 
+                        <img src={logo} className={classes.logoStill} alt="logo"/> 
+                    } 
                     <Typography className={classes.title} variant="h4" color="inherit" align="center">
-            Emneregister demo
+                        Emneregister demo
+                    </Typography>
+                    <Typography variant="h6">
+                        {user}
+                        {showChangePasswordButton()} 
+                        {showLogoutButton()} 
                     </Typography>
                 </Toolbar>
             </AppBar>
         </div>
     );
 }
-
-Header.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(Header);
 

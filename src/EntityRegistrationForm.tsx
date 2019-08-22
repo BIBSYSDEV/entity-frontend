@@ -17,37 +17,40 @@ const styles = createStyles({
 
 export interface FormProps extends WithStyles<typeof styles> {
     registryId: string;
-    handleNew: any;
-    handlePersist: any;
+    handleNew(): void;
+    handlePersist(): void;
+    chooseRegistry(): void;
 }
 
-const EntityRegistrationForm = (props: FormProps) => {
+const EntityRegistrationForm = (props: FormProps): any => {
 
-    const { classes, registryId, handleNew, handlePersist } = props;
+    const { classes, registryId, handleNew, handlePersist, chooseRegistry } = props;
 
     return (
         <React.Fragment>
             <Typography
-                variant={'display1'}
+                variant={'h1'}
                 className={classes.title}
             >
                 <EntityToolBar 
                     registryId={registryId} 
                     handleNew={handleNew}
-                    handlePersist={handlePersist} 
+                    handlePersist={handlePersist}
+                    chooseRegistry={chooseRegistry} 
                 />
             </Typography>
             <div className={classes.registrationform}>
                 <JsonForms/>
             </div>
             <Typography
-                variant={'display1'}
+                variant={'h1'}
                 className={classes.title}
             >
                 <EntityToolBar 
                     registryId={registryId} 
                     handleNew={handleNew}
-                    handlePersist={handlePersist} 
+                    handlePersist={handlePersist}
+                    chooseRegistry={chooseRegistry}
                 />
             </Typography>
         </React.Fragment>

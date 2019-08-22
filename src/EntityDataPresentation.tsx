@@ -30,7 +30,7 @@ export interface DataProps extends WithStyles<typeof styles> {
     dataAsString: string;    
 }
 
-const EntityDataPresentation = (props: DataProps) => {
+const EntityDataPresentation = (props: DataProps): any => {
 
     const { classes, dataAsString } = props;
 
@@ -41,7 +41,7 @@ const EntityDataPresentation = (props: DataProps) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-                <Typography variant={'display1'} className={classes.title}>Data</Typography>
+                <Typography variant={'h4'} className={classes.title}>Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <div className={classes.dataContent}>
