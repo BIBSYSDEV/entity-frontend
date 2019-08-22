@@ -6,4 +6,3 @@ export const REGISTRY_ID = 'registryId';
 export const AUTHORISED = 'authorised';
 export const REGISTRIES = 'registries';
 export const USER = 'user';
-export const LINK = 'link';
