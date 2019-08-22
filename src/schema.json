@@ -1,89 +1,195 @@
 {
-  "type": "object",
-  "properties": {
-      "@context": {
-          "type": "string"
-      },
-    "identifier": {
-      "type": "string"
-    },
-    "preferredLabel": {
-      "type": "array", 
-      "items": {
-        "type": "object",
-        "properties": {
-            "value": {
-                "type": "string"
-            },
-            "lang": {
-                "type": "string",
-                "enum": [
-                    "NO",
-                    "EN"
-                ]
-            }
-        }
-      }
-    },
-    "alternativeLabel": {
-      "type": "array", 
-      "items": {
-        "type": "object",
-        "properties": {
-            "value": {
-                "type": "string"
-            },
-            "lang": {
-                "type": "string",
-                "enum": [
-                    "NO",
-                    "EN"
-                ]
-            }
-        }
-      }
-    },
-    "narrower": {
-      "type": "array", 
-      "items": {
-        "type": "string"
-      }
-    },
-    "broader": {
-      "type": "string"
-    },
-    "related": {
-      "type": "array", 
-      "items": {
-          "type": "string"
-      }
-    },
-    "definition": {
-      "type": "string"
-    },
-    "inScheme": {
-      "type": "string"
-    },
-    "seeAlso": {
-      "type": "array", 
-      "items": {
-        "type": "string"
-      }
-    },
-    "recurrence": {
-      "type": "string",
-      "enum": [
-        "Never",
-        "Daily",
-        "Weekly",
-        "Monthly"
-      ]
-    },
-    "recurrence_interval": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "preferredLabel", "alternativeLabel", "inScheme"
-  ]
+	"type": "object",
+	"properties": {
+		"identifier": {
+			"label": "identifier",
+			"title": "https://unit.no/entitydata#identifier",
+			"type": "string",
+			"required": ["true"]
+		},
+		"inScheme": {
+			"label": "inScheme",
+			"title": "https://unit.no/entitydata#inScheme",
+			"type": "string",
+			"required": ["false"]
+		},
+		"created": {
+			"label": "created",
+			"title": "https://unit.no/entitydata#created",
+			"type": "string",
+			"format": "date",
+			"required": ["false"]
+		},
+		"narrower": {
+			"label": "narrower",
+			"title": "https://unit.no/entitydata#narrower",
+			"type": "string",
+			"required": ["false"]
+		},
+		"alternativeLabel": {
+			"label": "alternativeLabel",
+			"title": "https://unit.no/entitydata#alternativeLabel",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"lang": {
+						"type": "string",
+						"enum": [
+							"en",
+							"nb",
+							"nn"
+						]
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["false"]
+		},
+		"type": {
+			"label": "type",
+			"title": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+			"type": "string",
+			"required": ["false"]
+		},
+		"editorialNote": {
+			"label": "editorialNote",
+			"title": "https://unit.no/entitydata#editorialNote",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"lang": {
+						"type": "string",
+						"enum": [
+							"en",
+							"nb",
+							"nn"
+						]
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["false"]
+		},
+		"related": {
+			"label": "related",
+			"title": "https://unit.no/entitydata#related",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["false"]
+		},
+		"preferredLabel": {
+			"label": "preferredLabel",
+			"title": "https://unit.no/entitydata#preferredLabel",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"lang": {
+						"type": "string",
+						"enum": [
+							"en",
+							"nb",
+							"nn"
+						]
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["true"]
+		},
+		"localIdentifier": {
+			"label": "localIdentifier",
+			"title": "https://unit.no/entitydata#localIdentifier",
+			"type": "object",
+
+			"properties": {
+				"value": {
+					"pattern": "^AUTID[0-9]+$",
+					"type": "string"
+				}
+			},
+			"required": ["false"]
+		},
+		"modified": {
+			"label": "modified",
+			"title": "https://unit.no/entitydata#modified",
+			"type": "string",
+			"format": "date",
+			"required": ["true"]
+		},
+		"definition": {
+			"label": "definition",
+			"title": "https://unit.no/entitydata#definition",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"lang": {
+						"type": "string",
+						"enum": [
+							"en",
+							"nb",
+							"nn"
+						]
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["false"]
+		},
+		"broader": {
+			"label": "broader",
+			"title": "https://unit.no/entitydata#broader",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"value": {
+						"type": "string",
+						"format": "uri"
+					}
+				}
+			},
+			"required": ["false"]
+		},
+		"scopeNote": {
+			"label": "scopeNote",
+			"title": "https://unit.no/entitydata#scopeNote",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"lang": {
+						"type": "string",
+						"enum": [
+							"en",
+							"nb",
+							"nn"
+						]
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["false"]
+		}
+	}
 }

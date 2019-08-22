@@ -2,56 +2,95 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import { combineReducers, createStore, Reducer, AnyAction } from 'redux';
 import { Provider } from 'react-redux';
 import schema from './schema.json';
 import uischema from './uischema.json';
-import { Actions, jsonformsReducer, JsonFormsState } from '@jsonforms/core';
+import { jsonformsReducer, JsonFormsState } from '@jsonforms/core';
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
+import Amplify from 'aws-amplify';
+import config from './config';
+import AWS from 'aws-sdk';
+import awsmobile from './aws-exports';
+import { initialiseStore, createRegistryUri } from './utils';
+import { findEntityIdentifierInPath, findRegistryIdentifierInPath, readEntity, fetchApiKey } from './utils';
+import { EMPTY, API_KEY, REGISTRY_ID } from './constants';
 
-const data = {
-    "@context": "something",
-    identifier: "12345",
-    preferredLabel: [
-        {
-            value: "prefLabel",
-            lang: "EN",
-        }
-    ],
-    alternativeLabel: [
-        {
-            value: "altLabel",
-            lang: "EN",
-        }
-    ],
-    related: ["related"],
-    definition: "definition",
-    seeAlso: ["seeAlso"],
+let data: any = {
 };
+
+AWS.config.update({region: config.cognito.REGION});
+
+Amplify.configure(awsmobile);
+
+Amplify.configure({
+    API: {
+        endpoints: [
+            {
+                name: "entity",
+                endpoint: config.apiGateway.URL,
+                region: config.apiGateway.REGION
+            },
+        ]
+    }
+});
+
 
 const initState: JsonFormsState = {
     jsonforms: {
-      cells: materialCells,
-      renderers: materialRenderers
+        cells: materialCells,
+        renderers: materialRenderers
     }
-  }
-
-const search = window.location.search;
-const params = new URLSearchParams(search);
-const identifier = params.get('identifier');
-const path = window.location.pathname.substring(1).split("/");
+}
 
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
 
-store.dispatch(Actions.init(data, schema, uischema));
+const getApiKey = (): string => {
+    return Boolean(sessionStorage.getItem('apiKey')) ? sessionStorage.getItem('apiKey') as string : EMPTY;
+}
 
+const setApiKey = (apiKey: string): void => { 
+    sessionStorage.setItem(API_KEY, apiKey);
+}
+
+const setRegistryName = (registryName: string): void => { 
+    sessionStorage.setItem(, registryName);
+}
+
+const registryName = findRegistryIdentifierInPath();
+const entityId = findEntityIdentifierInPath();
+
+if (Boolean(registryName)) {
+    
+    fetchApiKey(registryName, setApiKey);
+    setRegistryName(registryName);
+    
+    if (Boolean(entityId)) {
+        readEntity(registryName, entityId, getApiKey()).then((entityData) => {
+            initialiseStore(store.dispatch, entityData.body, schema, uischema);
+        });
+    }
+}
+
+const newEntity = (registryName: string): void => {
+    (data as any) = { inScheme: createRegistryUri(registryName) }; // Correct uri in here
+    initialiseStore(store.dispatch, data, schema, uischema);
+}
+
+if(!Boolean(entityId)){
+    console.log('init with no data');
+    initialiseStore(store.dispatch, data, schema, uischema);
+}
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App registry={path[0]}/>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <App 
+            newEntity={newEntity}
+            data={data}
+            storeApiKey={setApiKey}
+            setRegistryName={setRegistryName}
+        />
+    </Provider>,
+    document.getElementById('root')
 );
-registerServiceWorker();
