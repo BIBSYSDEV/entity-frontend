@@ -1,17 +1,9 @@
 import React, { useRef } from 'react';
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
+import { Link } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import { fetchApiKey } from './utils';
 
-const styles = createStyles({
-    container: {
-        padding: '1em'
-    },
-});
-
-export interface DataProps extends WithStyles<typeof styles> {
-    setRegistryId(registryId: string): void;
+export interface DataProps {
     registries: string;
     setApiKey(apiKey: string): void;
 }
@@ -19,19 +11,12 @@ export interface DataProps extends WithStyles<typeof styles> {
 
 const RegistryList = (props: DataProps): any => {
 
-    const { setRegistryId, registries, setApiKey } = props;
-
-    const setRegistryIdentifier: any = (id: string): void => {
-        if(Boolean(id)){
-            setRegistryId(id);
-            fetchApiKey(id, setApiKey);
-        }
-    };
+    const { registries, setApiKey } = props;
 
     const renderListItems = (): object => {
         return JSON.parse(registries).map((registry: string): object =>
             <li key={registry}>
-                <Button onClick = {(): void => setRegistryIdentifier(registry)}>{registry}</Button>
+                <Link to={registry} style={{textDecoration: 'none'}}><Button onClick={() => fetchApiKey(registry, setApiKey)}>{registry}</Button></Link>
             </li>); 
     };
 
@@ -42,4 +27,4 @@ const RegistryList = (props: DataProps): any => {
     );
 }
 
-export default withStyles(styles)(RegistryList);
+export default RegistryList;

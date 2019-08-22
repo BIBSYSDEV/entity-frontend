@@ -1,21 +1,10 @@
 import React from 'react';
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
 import ResultPresentation from './ResultPresentation';
 import List from '@material-ui/core/List';
-import { EMPTY } from './constants';
 
-const styles = createStyles({
-    toolBar: {
-        flexGrow: 1,
-    },
-    grow: {
-        flexGrow: 1,
-    },
-});
-
-export interface SearchResultProps extends WithStyles<typeof styles> {
+export interface SearchResultProps {
     searchResults: ResultType[];
+    registryName: string;
 }
 
 export interface ResultType {
@@ -24,15 +13,14 @@ export interface ResultType {
 
 const SearchResults = (props: SearchResultProps): any => {
 
-    const { searchResults } = props;
+    const { searchResults, registryName } = props;
 
     
     const renderSearchResults = () => {
         const presentation = searchResults.map((result: ResultType) => {
-            return (<List 
-                key={result.id}
-                component="nav"
-                aria-labelledby="nested-list-subheader"><ResultPresentation result={result} />
+            return (<List       
+                component="nav" key={result.id}
+                aria-labelledby="nested-list-subheader"><ResultPresentation result={result} registryName={registryName}/>
             </List>) 
         });
         
@@ -40,7 +28,7 @@ const SearchResults = (props: SearchResultProps): any => {
                 
     }
     
-    return (Boolean(searchResults) && (searchResults as ResultType[]).length > 0) ? renderSearchResults() : EMPTY;
+    return (Boolean(searchResults) && (searchResults as ResultType[]).length > 0) ? renderSearchResults() : '';
 }
 
-export default withStyles(styles)(SearchResults);
+export default SearchResults;

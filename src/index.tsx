@@ -13,8 +13,6 @@ import config from './config';
 import AWS from 'aws-sdk';
 import awsmobile from './aws-exports';
 import { initialiseStore, createRegistryUri } from './utils';
-import { findEntityIdentifierInPath, findRegistryIdentifierInPath, readEntity, fetchApiKey } from './utils';
-import { EMPTY, API_KEY, REGISTRY_ID } from './constants';
 
 let data: any = {
 };
@@ -35,7 +33,6 @@ Amplify.configure({
     }
 });
 
-
 const initState: JsonFormsState = {
     jsonforms: {
         cells: materialCells,
@@ -46,42 +43,20 @@ const initState: JsonFormsState = {
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
 
-const getApiKey = (): string => {
-    return Boolean(sessionStorage.getItem('apiKey')) ? sessionStorage.getItem('apiKey') as string : EMPTY;
-}
-
 const setApiKey = (apiKey: string): void => { 
-    sessionStorage.setItem(API_KEY, apiKey);
+    sessionStorage.setItem('apiKey', apiKey);
 }
 
-const setRegistryName = (registryName: string): void => { 
-    sessionStorage.setItem(, registryName);
-}
-
-const registryName = findRegistryIdentifierInPath();
-const entityId = findEntityIdentifierInPath();
-
-if (Boolean(registryName)) {
-    
-    fetchApiKey(registryName, setApiKey);
-    setRegistryName(registryName);
-    
-    if (Boolean(entityId)) {
-        readEntity(registryName, entityId, getApiKey()).then((entityData) => {
-            initialiseStore(store.dispatch, entityData.body, schema, uischema);
-        });
-    }
+const initStore = (body: any) => {
+    initialiseStore(store.dispatch, body, schema, uischema);
 }
 
 const newEntity = (registryName: string): void => {
     (data as any) = { inScheme: createRegistryUri(registryName) }; // Correct uri in here
-    initialiseStore(store.dispatch, data, schema, uischema);
+    initStore(data);
 }
 
-if(!Boolean(entityId)){
-    console.log('init with no data');
-    initialiseStore(store.dispatch, data, schema, uischema);
-}
+initialiseStore(store.dispatch, data, schema, uischema);
 
 ReactDOM.render(
     <Provider store={store}>
@@ -89,7 +64,7 @@ ReactDOM.render(
             newEntity={newEntity}
             data={data}
             storeApiKey={setApiKey}
-            setRegistryName={setRegistryName}
+            initStore={initStore}
         />
     </Provider>,
     document.getElementById('root')

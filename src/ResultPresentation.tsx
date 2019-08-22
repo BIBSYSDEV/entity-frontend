@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
 import { ResultType } from './SearchResults';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,21 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Link from '@material-ui/core/Link';
 import InputLabel from '@material-ui/core/InputLabel';
 import Box from '@material-ui/core/Box';
-import { FIRST_ELEMENT } from './constants';
-
-const styles = createStyles({
-    root: {
-        width: '100%',
-        maxWidth: 360,
-    },
-    container: {
-        padding: '1em'
-    },
-    card: {
-        minWidth: 275,
-        maxWidth: 800,
-    },
-});
+import { LINK } from './constants';
 
 const resultPresentationConfig: any = {
     title: ['preferredLabel', 'alternativeLabel', 'id'],
@@ -61,12 +45,13 @@ const resultPresentationConfig: any = {
     },
 };
 
-export interface ResultProps extends WithStyles<typeof styles> {
+export interface ResultProps {
     result: ResultType;
+    registryName: string;
 }
 
 const ResultPresentation = (props: ResultProps): any => {
-    const { classes, result } = props;
+    const { result, registryName } = props;
 
     const [open, setOpen] = useState(false);
 
@@ -75,15 +60,15 @@ const ResultPresentation = (props: ResultProps): any => {
     };
     
     const renderLink = (key: string, value: any): any => {
-        return (<Typography>
+        return <Typography>
             <InputLabel shrink>{key}</InputLabel> 
             {(Array.isArray(value)) ? 
                 (value as any[]).map((element: string) => {
-                    return (<Typography><Link href={element}>{element}</Link></Typography>);
+                    return (<Typography><Link href={"/".concat(registryName, "/Search/", element)}>{element}</Link></Typography>);
                 }) : 
-                <Typography><Link href={value}>{value}</Link></Typography>
+                <Typography><Link href={"/".concat(registryName, "/Search/", value)}>{value}</Link></Typography>
             }
-        </Typography>);
+        </Typography>;
     };
 
     const renderSingleLine = (key: string, value: any): any => {
@@ -95,10 +80,10 @@ const ResultPresentation = (props: ResultProps): any => {
     
     const renderText = (key: string, value: any): any => {
         
-        if(Array.isArray(value)){
+        if (Array.isArray(value)) {
             let index = 0;
             return value.map((element: any) => {
-                if(index > 0) {
+                if (index > 0) {
                     key = '';
                 }
                 index++;
@@ -111,7 +96,7 @@ const ResultPresentation = (props: ResultProps): any => {
     
     const renderAttribute = (key: string, attribute: any): string => {
         if (Boolean(resultPresentationConfig.visibleAttributes[key])) {
-            if (resultPresentationConfig.visibleAttributes[key].type === 'link') {
+            if (resultPresentationConfig.visibleAttributes[key].type === LINK) {
                 return renderLink(resultPresentationConfig.visibleAttributes[key].label, attribute);
             } else {
                 return renderText(resultPresentationConfig.visibleAttributes[key].label, attribute);
@@ -128,18 +113,16 @@ const ResultPresentation = (props: ResultProps): any => {
 
     return (<Box>
         <ListItem  button onClick={handleClick} key={result.id}>
-            <ListItemText primary={(result as any)['preferredLabel'][FIRST_ELEMENT]['value']} secondary={(result as any).identifier} />
+            <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={(result as any).identifier} />
         </ListItem>
         <Collapse in={open} timeout='auto' unmountOnExit>
-            <Card className={classes.card}>
+            <Card>
                 <CardContent>
                     {attributes}
                 </CardContent>
             </Card>
         </Collapse>
     </Box>);
-    
-//    return ();
 }
 
-export default withStyles(styles)(ResultPresentation);
+export default ResultPresentation;

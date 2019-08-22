@@ -1,29 +1,21 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import Typography from "@material-ui/core/Typography";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import createStyles from "@material-ui/core/styles/createStyles";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { EMPTY } from './constants';
+import RegistryButton from './RegistryButton';
 
-const styles = createStyles({
-    toolBar: {
-        flexGrow: 1,
-    },
-    grow: {
-        flexGrow: 1,
-    },
-});
-
-export interface SearchHeaderProps extends WithStyles<typeof styles> {
+export interface SearchHeaderProps {
     search(searchValue: string): object[];
+    registryName: string;
 }
 
 const SearchHeader = (props: SearchHeaderProps): any => {
     
-    const { classes, search } = props;
+    const { search, registryName } = props;
     
     const [searchValue, setSearchValue] = useState(EMPTY);
     
@@ -32,16 +24,33 @@ const SearchHeader = (props: SearchHeaderProps): any => {
     }
     
     const searchThis = () => {
-        console.log(searchValue);
         search(searchValue);
     };
     
-    return (<div className={classes.toolBar}>
+    const SearchButton = withRouter(
+        ({history}: any) =>
+            <Button                    
+                onClick={() => {
+                    searchThis();
+                    history.push("/".concat(registryName, "/Search"));
+                }}
+                color="inherit"
+            >Search</Button>
+    );
+
+    const EditButton = withRouter(
+        ({history}: any) =>
+            <Button onClick={() => history.push("/".concat(registryName))}>Edit</Button>
+    );
+    
+    return (<div>
         <AppBar position="static" color="default">
             <Toolbar variant="dense">
-                <Typography className={classes.grow} variant="h6" color="inherit" align="left">
-                Search
+                <Typography variant="h6" color="inherit" align="left">
+                Search ({registryName})
                 </Typography>
+                <EditButton />
+                <RegistryButton />
                 <TextField
                     variant='outlined'
                     margin='normal'
@@ -52,10 +61,10 @@ const SearchHeader = (props: SearchHeaderProps): any => {
                     autoFocus
                     onChange={handleSearchValueChange}
                 />
-                <Button onClick={searchThis} color="inherit">Search</Button>
+                <SearchButton/>
             </Toolbar>
         </AppBar>
     </div>);
 }
 
-export default withStyles(styles)(SearchHeader); 
+export default SearchHeader; 
