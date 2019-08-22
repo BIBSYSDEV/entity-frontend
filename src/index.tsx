@@ -14,7 +14,7 @@ import AWS from 'aws-sdk';
 import awsmobile from './aws-exports';
 import { initialiseStore, createRegistryUri } from './utils';
 import { findEntityIdentifierInPath, findRegistryIdentifierInPath, readEntity, fetchApiKey } from './utils';
-import { EMPTY, API_KEY, REGISTRY_ID } from './constants';
+import { EMPTY, API_KEY, REGISTRY_NAME } from './constants';
 
 let data: any = {
 };
@@ -55,7 +55,7 @@ const setApiKey = (apiKey: string): void => {
 }
 
 const setRegistryName = (registryName: string): void => { 
-    sessionStorage.setItem(, registryName);
+    sessionStorage.setItem(REGISTRY_NAME, registryName);
 }
 
 const registryName = findRegistryIdentifierInPath();
