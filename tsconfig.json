@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "allowJs": true,
     "lib": ["es2015", "dom"],
     "skipLibCheck": false,
@@ -13,8 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
-		"noImplicitAny": true
+    "jsx": "preserve"
   },
   "include": [
     "src"
