@@ -24,8 +24,6 @@ const ChangePassword = (props: ChangePasswordProps): any => {
 
     const { user, setAuthorised, history } = props;
 
-    console.log(history);
-    
     const validateNewPassword = (newPassword: string): boolean => {
         return newPassword.length > 12;
     }
@@ -49,8 +47,6 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>, history: any): Promise<any> => {
         event.preventDefault();
 
-        console.log('handleSubmit');
-        
         try {
             setErrorMessage(EMPTY)
             
@@ -73,7 +69,6 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                                 .catch((err) => {
                                     setErrorMessage(err);
                                 });
-                            console.log(userData);
                         }).catch(e => {
                             console.log(e);
                             setErrorMessage(e)
@@ -111,7 +106,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                     variant='contained'
                     color='primary'
                     disabled={!validateForm()}
-                    onClick={(event: any) => handleSubmit(event, history)}>Change Password</Button>
+                    onClick={(event: any): Promise<any> => handleSubmit(event, history)}>Change Password</Button>
                 : <div />
         ));
     
@@ -122,7 +117,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                     fullWidth
                     variant='contained'
                     color='primary'
-                    onClick={() => history.goBack()}>Cancel</Button>
+                    onClick={(): void => history.goBack()}>Cancel</Button>
                 : <div />
         )); 
 

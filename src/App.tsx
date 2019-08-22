@@ -26,30 +26,30 @@ const App = (props: AppProps): any => {
     const [apiKey, setApiKey] = useState(sessionStorage.getItem(API_KEY) || EMPTY);
     useEffect((): void => {
         storeApiKey(apiKey);
-    }, [apiKey])
+    }, [apiKey]);
 
     const [isAuthorised, setIsAuthorised] = useState(sessionStorage.getItem(AUTHORISED) || EMPTY);
 
     useEffect((): void => {
         sessionStorage.setItem('authorised', isAuthorised);
-    }, [isAuthorised])
+    }, [isAuthorised]);
 
     const [registries, setRegistries] = useState(sessionStorage.getItem(REGISTRIES) || EMPTY);
     useEffect((): void => {
         sessionStorage.setItem('registries', registries);
-    }, [registries])
+    }, [registries]);
 
     const [user, setUser] = useState(sessionStorage.getItem(USER) as string || EMPTY);
 
     useEffect((): void => {
         sessionStorage.setItem('user', user);
-    }, [user])
+    }, [user]);
 
-    const setAuthorised = (isAuthorised: boolean) => {
+    const setAuthorised = (isAuthorised: boolean): void => {
         if (isAuthorised) {
             setIsAuthorised('true');
         } else {
-            setIsAuthorised('');
+            setIsAuthorised(EMPTY);
             setUser(EMPTY);
         }
     }

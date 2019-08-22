@@ -18,7 +18,6 @@ export const fetchRegistries = async () => {
 
 export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) => void): void => {
     Auth.currentCredentials().then((credentials): any => {
-        console.log(credentials);
         const options: object = {
             apiVersion: '2017-10-17',
             credentials: Auth.essentialCredentials(credentials),
@@ -28,7 +27,6 @@ export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) =>
             SecretId: 'entity_frontend',
             VersionStage: 'AWSCURRENT'
         }, (err, data): void => {
-            console.log(data.SecretString);
             setApiKey(JSON.parse(data.SecretString as string)[registryName]);
         });
     });

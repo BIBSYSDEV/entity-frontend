@@ -29,7 +29,7 @@ const EntityRegistrationApp = (props: DataProps) => {
     }
 
     if (Boolean(entityId)) {
-        readEntity(registryId, entityId, sessionStorage.getItem('apiKey') as string).then((entityData: any) => {
+        readEntity(registryId, entityId, sessionStorage.getItem('apiKey') as string).then((entityData: any): void => {
             initStore(entityData.body);
         });
     }
