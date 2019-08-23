@@ -38,7 +38,7 @@ const EntityRegistrationApp = (props: DataProps) => {
 
     const handlePersist = (): void => {
         setSpinner(true);
-        writeEntity(registryId, (data as any)['@id'], apiKey, data).then(() => {
+        writeEntity(registryId, entityId, apiKey, data).then(() => {
             setSpinner(false);
         })
     }

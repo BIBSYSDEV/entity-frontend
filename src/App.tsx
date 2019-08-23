@@ -80,7 +80,6 @@ const App = (props: AppProps): any => {
                         <ChangePassword
                             user={user}
                             setAuthorised={setAuthorised}
-                            history={routeProps.history}
                         />
                     ) : (
                         <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />

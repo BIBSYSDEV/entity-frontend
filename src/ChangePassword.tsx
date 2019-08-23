@@ -12,7 +12,6 @@ import { EMPTY } from './constants';
 export interface ChangePasswordProps {
     user: string;
     setAuthorised(authorised: boolean): void;
-    history: any;
 }
 
 const ChangePassword = (props: ChangePasswordProps): any => {
@@ -22,7 +21,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     const [repeatPassword, setRepeatPassword] = useState(EMPTY);
     const [errorMessage, setErrorMessage] = useState(EMPTY);
 
-    const { user, setAuthorised, history } = props;
+    const { user, setAuthorised } = props;
 
     const validateNewPassword = (newPassword: string): boolean => {
         return newPassword.length > 12;

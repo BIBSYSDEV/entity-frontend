@@ -2,7 +2,6 @@ import { API, Auth } from 'aws-amplify';
 import SecretsManager from 'aws-sdk/clients/secretsmanager';
 import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
-import uuidv4 from 'uuid';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];
@@ -46,22 +45,16 @@ export const readEntity = async (registryName: string, entityId: string, apiKey:
 export const writeEntity = async (registryName: string, entityId: string, apiKey: string, entity: any)  => {
     
     entity.modified = new Date().toDateString();
-    const bodyObject: any = {
-        body: entity
-    }
     
     if (Boolean(entityId)) {
-        const id = entityId.split('/').pop();
-        bodyObject.id = id;
-        return await API.put('entity', "/registry/" + registryName + "/entity/" + id, {
+        return await API.put('entity', "/registry/" + registryName + "/entity/" + entityId, {
             headers: {'api-key': apiKey}, 
-            body:  bodyObject 
+            body:  entity 
         });
     } else {
-        bodyObject.id = uuidv4();
         return await API.post('entity', "/registry/" + registryName + "/entity/", {
             headers: {'api-key': apiKey}, 
-            body:  bodyObject 
+            body:  entity
         });
     }
 }
