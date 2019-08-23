@@ -3,7 +3,6 @@ import SearchHeader from './SearchHeader';
 import Header from './Header';
 import SearchResults from './SearchResults';
 import { ResultType } from './SearchResults';
-import { doSearch } from './utils';
 
 export interface SearchProps {
     user: string;
@@ -45,7 +44,6 @@ const Search = (props: SearchProps): any => {
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
     const findSingleEntity = (entityId: string): ResultType[] => {
-        
         var result: ResultType[] = [];
         for (var index = 0; index < testData.length; index++) {
             if ((testData[index] as ResultType).id === entityId) {
@@ -53,6 +51,8 @@ const Search = (props: SearchProps): any => {
                 break;
             }
         }
+
+        console.log(result);
         
         return result;
     }
@@ -67,8 +67,9 @@ const Search = (props: SearchProps): any => {
         }
     }
     
+    
     const spinner = false;
-
+    
     return (
         <div>
             <Header 
@@ -81,7 +82,7 @@ const Search = (props: SearchProps): any => {
                 registryName={registryName}
             />
             <SearchResults 
-                searchResults={Boolean(entityId) ? findSingleEntity(entityId) : searchResults} 
+                searchResults={searchResults} 
                 registryName={registryName}
             />
         </div>

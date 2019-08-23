@@ -1,46 +1,60 @@
 import React, { useState } from 'react';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
 import Header from './Header';
-import { Grid } from '@material-ui/core';
+import { Grid, Tabs, Tab } from '@material-ui/core';
 import EntityRegistrationForm from './EntityRegistrationForm';
 import EntityDataPresentation from './EntityDataPresentation';
+import Search from './Search';
 import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
-import { writeEntity, readEntity } from './utils';
+import { findRegistryIdentifierInPath, writeEntity } from './utils';
 
-export interface DataProps {
+const styles = createStyles({
+    container: {
+        padding: '1em'
+    },
+});
+
+export interface DataProps extends WithStyles<typeof styles> {
     registryId: string;    
     user: string;
     data: object;
-    setAuthorised(authorised: boolean): void;
+    registries: string;
+    setRegistryId(registryId: string): void;
+    setChangePassword(changePassword: boolean): void;
+    setAuthorised(authorised: string): void;
+    chooseRegistry(): void;
     newEntity(registryName: string): void;
     apiKey: string;
-    entityId: string;
-    initStore(body: any): any;
-    history: any;
 }
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore, history } = props;
+    const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId, registries, newEntity, apiKey } = props;
     
     const handleNew = (): void => {
         newEntity(registryId);
-        history.push("/" + registryId);
     }
 
-    if (Boolean(entityId)) {
-        readEntity(registryId, entityId, sessionStorage.getItem('apiKey') as string).then((entityData: any) => {
-            initStore(entityData.body);
-        });
-    }
-    
     const [ spinner, setSpinner] = useState(false);
+    const [ tabValue, setTabValue] = useState(0);
 
     const handlePersist = (): void => {
         setSpinner(true);
-        writeEntity(registryId, entityId, apiKey, data).then(() => {
+        writeEntity(registryId, , apiKey, data).then(() => {
             setSpinner(false);
         })
+    }
+
+    const registryName = findRegistryIdentifierInPath();
+    
+    if(Boolean(registryName) && JSON.parse(registries).includes(registryName)){
+        setRegistryId(registryName);
+    }
+
+    const handleChange = (event: any, newValue: any) => {
+        setTabValue(newValue);
     }
 
     return (
@@ -48,15 +62,24 @@ const EntityRegistrationApp = (props: DataProps) => {
             <Header 
                 spinner={spinner} 
                 user={user} 
+                setChangePassword={setChangePassword}
                 setAuthorised={setAuthorised}
+                chooseRegistry={chooseRegistry}
             />
             
-            <Grid container justify={'center'} spacing={8}>
+            <Tabs value={tabValue} onChange={handleChange}>
+                <Tab label='Search' />
+                <Tab label='Edit' />
+            </Tabs>
+            {tabValue === 0 && <Search />}
+            {tabValue === 1 &&
+            <Grid container justify={'center'} spacing={8} className={classes.container}>
                 <Grid item sm={9}>
                     <EntityRegistrationForm
                         registryId={registryId}
                         handleNew={handleNew}
                         handlePersist={handlePersist}
+                        chooseRegistry={chooseRegistry}
                     />
                 </Grid>
                 <Grid item sm={9}>
@@ -65,6 +88,7 @@ const EntityRegistrationApp = (props: DataProps) => {
                     />                                    
                 </Grid>
             </Grid>
+            }
         </div>
     );
 
@@ -74,4 +98,4 @@ const mapStateToProps = (state: JsonFormsState) => {
     return { data: getData(state) }
 };
 
-export default connect(mapStateToProps)(EntityRegistrationApp);
+export default connect(mapStateToProps)(withStyles(styles)(EntityRegistrationApp));

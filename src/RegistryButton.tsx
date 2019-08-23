@@ -6,5 +6,4 @@ const RegistryButton = withRouter(
     ({history}: any) => (
         <Button onClick={() => history.push("/")}>Registry</Button>
     )); 
-
-export default RegistryButton;
+    

@@ -25,7 +25,6 @@ const SearchResults = (props: SearchResultProps): any => {
         });
         
         return (<ul>{presentation}</ul>);
-                
     }
     
     return (Boolean(searchResults) && (searchResults as ResultType[]).length > 0) ? renderSearchResults() : '';
