@@ -66,17 +66,8 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
     
     entity.modified = new Date().toDateString();
     
-<<<<<<< HEAD
     if (Boolean(entityId)) {
         return await API.put('entity', "/registry/" + registryName + "/entity/" + entityId, {
-=======
-    console.log(entityId);
-    
-    if(Boolean(entityId)){
-        const id = entityId.split('/').pop();
-        bodyObject.id = id;
-        return await API.put('entity', "/registry/" + registryName + "/entity/" + id, {
->>>>>>> refs/heads/develop
             headers: {'api-key': apiKey}, 
             body:  entity 
         });

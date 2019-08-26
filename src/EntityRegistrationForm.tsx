@@ -6,12 +6,13 @@ import EntityToolBar from './EntityToolBar';
 export interface FormProps {
     registryId: string;
     handleNew(): void;
-    handlePersist(): void;
+    handlePersist(entityId: string): void;
+    entityId: string;
 }
 
 const EntityRegistrationForm = (props: FormProps): any => {
 
-    const { registryId, handleNew, handlePersist } = props;
+    const { registryId, handleNew, handlePersist, entityId } = props;
 
     return (
         <React.Fragment>
@@ -22,6 +23,7 @@ const EntityRegistrationForm = (props: FormProps): any => {
                     registryId={registryId} 
                     handleNew={handleNew}
                     handlePersist={handlePersist}
+                    entityId={entityId}
                 />
             </Typography>
             <div>

@@ -9,12 +9,13 @@ import RegistryButton from './RegistryButton';
 export interface AppProps {
     registryId: string;
     handleNew(): void;
-    handlePersist(): void;
+    handlePersist(entityId: string): void;
+    entityId: string
 }
 
 const EntityToolBar = (props: AppProps): any => {
     
-    const { registryId, handleNew, handlePersist } = props;
+    const { registryId, handleNew, handlePersist, entityId } = props;
 
     const SearchButton = withRouter(
         ({history}: any) => (
@@ -29,7 +30,7 @@ const EntityToolBar = (props: AppProps): any => {
                     Emneord ({registryId})
                     </Typography>
                     <Button onClick={handleNew} color="inherit">New</Button>
-                    <Button onClick={handlePersist} color="inherit">Save</Button>
+                    <Button onClick={handlePersist(entitiyId)} color="inherit">Save</Button>
                     <RegistryButton />
                     <SearchButton />
                 </Toolbar>

@@ -10,28 +10,24 @@ import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
 import { findRegistryIdentifierInPath, writeEntity } from './utils';
 
-const styles = createStyles({
-    container: {
-        padding: '1em'
-    },
-});
-
-export interface DataProps extends WithStyles<typeof styles> {
+export interface DataProps {
     registryId: string;    
     user: string;
     data: object;
     registries: string;
     setRegistryId(registryId: string): void;
     setChangePassword(changePassword: boolean): void;
-    setAuthorised(authorised: string): void;
+    setAuthorised(authorised: boolean): void;
     chooseRegistry(): void;
     newEntity(registryName: string): void;
     apiKey: string;
+    entityId: string;
+    history: any;
 }
 
 const EntityRegistrationApp = (props: DataProps) => {
 
-    const { classes, registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId, registries, newEntity, apiKey } = props;
+    const { registryId, setAuthorised, chooseRegistry, user, setChangePassword, data, setRegistryId, registries, newEntity, apiKey, entityId, history } = props;
     
     const handleNew = (): void => {
         newEntity(registryId);
@@ -40,9 +36,9 @@ const EntityRegistrationApp = (props: DataProps) => {
     const [ spinner, setSpinner] = useState(false);
     const [ tabValue, setTabValue] = useState(0);
 
-    const handlePersist = (): void => {
+    const handlePersist = (entityId: string): void => {
         setSpinner(true);
-        writeEntity(registryId, , apiKey, data).then(() => {
+        writeEntity(registryId, entityId, apiKey, data).then(() => {
             setSpinner(false);
         })
     }
@@ -73,13 +69,14 @@ const EntityRegistrationApp = (props: DataProps) => {
             </Tabs>
             {tabValue === 0 && <Search />}
             {tabValue === 1 &&
-            <Grid container justify={'center'} spacing={8} className={classes.container}>
+            <Grid container justify={'center'} spacing={8} >
                 <Grid item sm={9}>
                     <EntityRegistrationForm
                         registryId={registryId}
                         handleNew={handleNew}
                         handlePersist={handlePersist}
                         chooseRegistry={chooseRegistry}
+                        entityId={entityId}
                     />
                 </Grid>
                 <Grid item sm={9}>
@@ -98,4 +95,4 @@ const mapStateToProps = (state: JsonFormsState) => {
     return { data: getData(state) }
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(EntityRegistrationApp));
+export default connect(mapStateToProps)(EntityRegistrationApp);

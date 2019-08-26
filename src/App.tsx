@@ -14,14 +14,13 @@ export interface AppProps {
     newEntity(registryName: string): void;
     data: any;
     storeApiKey(apiKey: string): void;
-    initStore(body: any): any;
 } 
 
 Amplify.configure(config);
 
 const App = (props: AppProps): any => {
 
-    const { newEntity, storeApiKey, initStore } = props;
+    const { newEntity, storeApiKey } = props;
 
     const [apiKey, setApiKey] = useState(sessionStorage.getItem(API_KEY) || EMPTY);
     useEffect((): void => {
@@ -118,7 +117,6 @@ const App = (props: AppProps): any => {
                             newEntity={newEntity}
                             apiKey={apiKey}
                             entityId={EMPTY}
-                            initStore={initStore}
                             history={routeProps.history}
                         />
                     ) : (
@@ -134,7 +132,6 @@ const App = (props: AppProps): any => {
                             newEntity={newEntity}
                             apiKey={apiKey}
                             entityId={routeProps.match.params.entityId}
-                            initStore={initStore}
                             history={routeProps.history}
                         />
                     ) : (

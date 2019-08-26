@@ -75,12 +75,16 @@ if (Boolean(registryName)) {
 
 const newEntity = (registryName: string): void => {
     (data as any) = { inScheme: createRegistryUri(registryName) }; // Correct uri in here
-    initialiseStore(store.dispatch, data, schema, uischema);
+    initStore(data);
+}
+
+const initStore = (body: any) => {
+    initialiseStore(store.dispatch, body, schema, uischema);
 }
 
 if(!Boolean(entityId)){
     console.log('init with no data');
-    initialiseStore(store.dispatch, data, schema, uischema);
+    initStore(data);
 }
 
 ReactDOM.render(
@@ -90,6 +94,7 @@ ReactDOM.render(
             data={data}
             storeApiKey={setApiKey}
             setRegistryName={setRegistryName}
+            initStore={initStore}
         />
     </Provider>,
     document.getElementById('root')

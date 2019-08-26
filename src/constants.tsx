@@ -7,3 +7,4 @@ export const AUTHORISED = 'authorised';
 export const REGISTRIES = 'registries';
 export const USER = 'user';
 export const LINK = 'link';
+export const REGISTRY_NAME = 'registryName';
