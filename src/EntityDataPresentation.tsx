@@ -5,7 +5,13 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const EntityDataPresentation = ({ dataAsString }): any => {
+export interface DataProps {
+    dataAsString: string;    
+}
+
+const EntityDataPresentation = (props: DataProps): any => {
+
+    const { dataAsString } = props;
 
     return (
         <ExpansionPanel>

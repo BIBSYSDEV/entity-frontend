@@ -45,7 +45,13 @@ const resultPresentationConfig: any = {
     },
 };
 
-const ResultPresentation = ({ result, registryName }): any => {
+export interface ResultProps {
+    result: ResultType;
+    registryName: string;
+}
+
+const ResultPresentation = (props: ResultProps): any => {
+    const { result, registryName } = props;
 
     const [open, setOpen] = useState(false);
 
@@ -57,9 +63,11 @@ const ResultPresentation = ({ result, registryName }): any => {
         return <Typography>
             <InputLabel shrink>{key}</InputLabel> 
             {(Array.isArray(value)) ? 
-                (value as any[]).map((element: string) => {
-                    return (<Typography><Link href={"/".concat(registryName, "/Search/", element)}>{element}</Link></Typography>);
-                }) : 
+                (value as any[]).map((element: string) => <Typography><Link href={"/".concat(registryName, "/Search/", element)}>{element}</Link></Typography>) 
+                :
+                value === Object(value) ?
+                <Typography><Link href={"/".concat(registryName, "/Search/", value['@value'])}>{value['@valule']}</Link></Typography>
+                :
                 <Typography><Link href={"/".concat(registryName, "/Search/", value)}>{value}</Link></Typography>
             }
         </Typography>;
@@ -68,7 +76,8 @@ const ResultPresentation = ({ result, registryName }): any => {
     const renderSingleLine = (key: string, value: any): any => {
         return (<Typography>
             <InputLabel shrink>{key}</InputLabel> 
-            <Typography>{(Boolean(value.value) ? value.value + " (" + value.lang + ")" : value)}</Typography>
+            <Typography>{(Boolean(value['@value']) ? value['@value'] + " (" + value['@language'] + ")" : value)}
+            </Typography>
         </Typography>);
     }
     
@@ -100,14 +109,14 @@ const ResultPresentation = ({ result, registryName }): any => {
         }
     };
     
-    const attributes = Object.keys(result).map((key: string) => {
-        const attribute = (result as any)[key];
+    const attributes = Object.keys((result as any)['body']).map((key: string) => {
+        const attribute = (result as any)['body'][key];
         return (renderAttribute(key, attribute)); 
     });
 
     return (<Box>
         <ListItem  button onClick={handleClick} key={result.id}>
-            <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={(result as any).identifier} />
+            <ListItemText primary={(result as any)['body']['preferredLabel']['@value']} secondary={(result as any).identifier} />
         </ListItem>
         <Collapse in={open} timeout='auto' unmountOnExit>
             <Card>

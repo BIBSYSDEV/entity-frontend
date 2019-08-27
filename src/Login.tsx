@@ -12,12 +12,21 @@ import Header from './Header';
 import { fetchRegistries } from './utils';
 import { EMPTY } from './constants';
 
-const Login = ({ setAuthorised, setUser, user, setRegistries }): any => {
+export interface LoginProps {
+    user: string;
+    setAuthorised(input: boolean): void;
+    setUser(input: string): void;
+    setRegistries(input: string): void;
+}
+
+const Login = (props: LoginProps): any => {
 
     const [password, setPassword] = useState(EMPTY);
     const [userInput, setUserInput] = useState(EMPTY);
     const [errorMessage, setErrorMessageDisplay] = useState(EMPTY);
     const [spinner, setSpinning] = useState(false);
+    
+    const { setAuthorised, setUser, user, setRegistries } = props;
     
     const validateForm = (): any => {
         return Boolean(userInput) && Boolean(password);

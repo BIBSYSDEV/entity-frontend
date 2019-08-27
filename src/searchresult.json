@@ -1,0 +1,147 @@
+{
+	"status": {
+		"rid": "hIrBkM0tr08KCYe6",
+		"time-ms": 27
+	},
+	"hits": {
+		"found": 3688,
+		"start": 0,
+		"hit": [{
+			"id": "5926046b-d1bf-4c80-b7c8-637b32799713",
+			"fields": {
+				"presentation_json": "{\"id\":\"5926046b-d1bf-4c80-b7c8-637b32799713\",\"created\":\"2019-08-13T09:53:32.351Z\",\"modified\":\"2019-08-13T09:53:32.351Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c08569\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c08566\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME08569\",\"modified\":\"2009-10-22\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Kultus og riter\"},\"@context\":{\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"modified": "2019-08-13T09:53:32.351Z",
+				"localidentifier": ["HUME08569"],
+				"broader": ["http://data.ub.uio.no/humord/c08566"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"5926046b-d1bf-4c80-b7c8-637b32799713\",\"created\":\"2019-08-13T09:53:32.351Z\",\"modified\":\"2019-08-13T09:53:32.351Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c08569\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c08566\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME08569*%*\",\"modified\":\"2009-10-22\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Kultus og riter\"},\"@context\":{\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}, {
+			"id": "592c22ad-e641-451d-9c8b-e018ab14ba80",
+			"fields": {
+				"presentation_json": "{\"id\":\"592c22ad-e641-451d-9c8b-e018ab14ba80\",\"created\":\"2019-08-13T10:07:04.406Z\",\"modified\":\"2019-08-13T10:07:04.406Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c16301\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":{\"@language\":\"nb\",\"@value\":\"Flora (Botanikk)\"},\"broader\":\"http://data.ub.uio.no/humord/c08197\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME16301\",\"modified\":\"1998-05-26\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Planteliv\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"alternativelabel": ["Flora (Botanikk)"],
+				"modified": "2019-08-13T10:07:04.406Z",
+				"localidentifier": ["HUME16301"],
+				"broader": ["http://data.ub.uio.no/humord/c08197"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"592c22ad-e641-451d-9c8b-e018ab14ba80\",\"created\":\"2019-08-13T10:07:04.406Z\",\"modified\":\"2019-08-13T10:07:04.406Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c16301\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":{\"@language\":\"nb\",\"@value\":\"Flora (Botanikk)\"},\"broader\":\"http://data.ub.uio.no/humord/c08197\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME16301*%*\",\"modified\":\"1998-05-26\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Planteliv\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}, {
+			"id": "594159a2-96aa-40a0-b91b-61ce7e8e99f2",
+			"fields": {
+				"presentation_json": "{\"id\":\"594159a2-96aa-40a0-b91b-61ce7e8e99f2\",\"created\":\"2019-08-13T10:10:12.554Z\",\"modified\":\"2019-08-13T10:10:12.554Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c07376\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c07169\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME07376\",\"modified\":\"2009-10-22\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Studenter\"},\"related\":[\"http://data.ub.uio.no/humord/c07216\",\"http://data.ub.uio.no/humord/c07899\",\"http://data.ub.uio.no/humord/c25135\",\"http://data.ub.uio.no/humord/c04614\"],\"@context\":{\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"},\"related\":{\"@id\":\"http://unit.no/entitydata#related\",\"@type\":\"@id\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"}}}}",
+				"modified": "2019-08-13T10:10:12.554Z",
+				"related": ["http://data.ub.uio.no/humord/c07216§§§§http://data.ub.uio.no/humord/c07899§§§§http://data.ub.uio.no/humord/c25135§§§§http://data.ub.uio.no/humord/c04614"],
+				"localidentifier": ["HUME07376"],
+				"broader": ["http://data.ub.uio.no/humord/c07169"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"594159a2-96aa-40a0-b91b-61ce7e8e99f2\",\"created\":\"2019-08-13T10:10:12.554Z\",\"modified\":\"2019-08-13T10:10:12.554Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c07376\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c07169\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME07376*%*\",\"modified\":\"2009-10-22\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Studenter\"},\"related\":[\"http://data.ub.uio.no/humord/c07216\",\"http://data.ub.uio.no/humord/c07899\",\"http://data.ub.uio.no/humord/c25135\",\"http://data.ub.uio.no/humord/c04614\"],\"@context\":{\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"},\"related\":{\"@id\":\"http://unit.no/entitydata#related\",\"@type\":\"@id\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"}}}}"
+			}
+		}, {
+			"id": "596045c7-c26b-47ea-9f57-2b5f6b48a778",
+			"fields": {
+				"presentation_json": "{\"id\":\"596045c7-c26b-47ea-9f57-2b5f6b48a778\",\"created\":\"2019-08-13T10:44:03.859Z\",\"modified\":\"2019-08-13T10:44:03.860Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c16361\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":{\"@language\":\"nb\",\"@value\":\"Bahing språk\"},\"broader\":\"http://data.ub.uio.no/humord/c11952\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME16361\",\"modified\":\"1998-06-11\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Østlig kiranti språk\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"alternativelabel": ["Bahing språk"],
+				"modified": "2019-08-13T10:44:03.86Z",
+				"localidentifier": ["HUME16361"],
+				"broader": ["http://data.ub.uio.no/humord/c11952"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"596045c7-c26b-47ea-9f57-2b5f6b48a778\",\"created\":\"2019-08-13T10:44:03.859Z\",\"modified\":\"2019-08-13T10:44:03.860Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c16361\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":{\"@language\":\"nb\",\"@value\":\"Bahing språk\"},\"broader\":\"http://data.ub.uio.no/humord/c11952\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME16361*%*\",\"modified\":\"1998-06-11\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Østlig kiranti språk\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}, {
+			"id": "597ae28f-02f0-488a-a90d-b73a41b471ac",
+			"fields": {
+				"presentation_json": "{\"id\":\"597ae28f-02f0-488a-a90d-b73a41b471ac\",\"created\":\"2019-08-13T10:23:34.788Z\",\"modified\":\"2019-08-13T10:23:34.788Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c23652\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c25556\",\"editorialNote\":[{\"@language\":\"nb\",\"@value\":\"Funne i Emnesøk for rettsvitenskap. 2011-06-22/bsh\"},{\"@language\":\"nb\",\"@value\":\"Lukket bemerkning: ubo11\"}],\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME23652\",\"modified\":\"2011-10-25\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Telekommunikasjonsrett\"},\"@context\":{\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"editorialNote\":{\"@id\":\"http://unit.no/entitydata#editorialNote\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"modified": "2019-08-13T10:23:34.788Z",
+				"localidentifier": ["HUME23652"],
+				"broader": ["http://data.ub.uio.no/humord/c25556"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"597ae28f-02f0-488a-a90d-b73a41b471ac\",\"created\":\"2019-08-13T10:23:34.788Z\",\"modified\":\"2019-08-13T10:23:34.788Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c23652\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c25556\",\"editorialNote\":[{\"@language\":\"nb\",\"@value\":\"Funne i Emnesøk for rettsvitenskap. 2011-06-22/bsh\"},{\"@language\":\"nb\",\"@value\":\"Lukket bemerkning: ubo11\"}],\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME23652*%*\",\"modified\":\"2011-10-25\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Telekommunikasjonsrett\"},\"@context\":{\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"editorialNote\":{\"@id\":\"http://unit.no/entitydata#editorialNote\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}, {
+			"id": "599e38e0-581e-472d-826a-db240abacd9b",
+			"fields": {
+				"presentation_json": "{\"id\":\"599e38e0-581e-472d-826a-db240abacd9b\",\"created\":\"2019-08-13T09:59:09.139Z\",\"modified\":\"2019-08-13T09:59:09.139Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c14573\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c14572\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME14573\",\"modified\":\"1996-08-16\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Normarc\"},\"@context\":{\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"modified": "2019-08-13T09:59:09.139Z",
+				"localidentifier": ["HUME14573"],
+				"broader": ["http://data.ub.uio.no/humord/c14572"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"599e38e0-581e-472d-826a-db240abacd9b\",\"created\":\"2019-08-13T09:59:09.139Z\",\"modified\":\"2019-08-13T09:59:09.139Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c14573\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c14572\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME14573*%*\",\"modified\":\"1996-08-16\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Normarc\"},\"@context\":{\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}, {
+			"id": "59b6d8d5-d4c8-4607-8bd8-555381453782",
+			"fields": {
+				"presentation_json": "{\"id\":\"59b6d8d5-d4c8-4607-8bd8-555381453782\",\"created\":\"2019-08-13T10:13:33.436Z\",\"modified\":\"2019-08-13T10:13:33.436Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c17418\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":{\"@language\":\"nb\",\"@value\":\"Estetikk (Musikk)\"},\"broader\":[\"http://data.ub.uio.no/humord/c05517\",\"http://data.ub.uio.no/humord/c00594\"],\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME17418\",\"modified\":\"1999-12-16\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Musikkestetikk\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"alternativelabel": ["Estetikk (Musikk)"],
+				"modified": "2019-08-13T10:13:33.436Z",
+				"localidentifier": ["HUME17418"],
+				"broader": ["http://data.ub.uio.no/humord/c00594§§§§http://data.ub.uio.no/humord/c05517"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"59b6d8d5-d4c8-4607-8bd8-555381453782\",\"created\":\"2019-08-13T10:13:33.436Z\",\"modified\":\"2019-08-13T10:13:33.436Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c17418\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":{\"@language\":\"nb\",\"@value\":\"Estetikk (Musikk)\"},\"broader\":[\"http://data.ub.uio.no/humord/c05517\",\"http://data.ub.uio.no/humord/c00594\"],\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME17418*%*\",\"modified\":\"1999-12-16\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Musikkestetikk\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}, {
+			"id": "59bfd2a6-445a-4da7-bf74-d23ea1ccda8f",
+			"fields": {
+				"presentation_json": "{\"id\":\"59bfd2a6-445a-4da7-bf74-d23ea1ccda8f\",\"created\":\"2019-08-13T10:38:05.554Z\",\"modified\":\"2019-08-13T10:38:05.554Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c10155\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":{\"@language\":\"nb\",\"@value\":\"Proto-austronesisk språk\"},\"broader\":\"http://data.ub.uio.no/humord/c15161\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME10155\",\"modified\":\"2009-10-22\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Austronesiske språk\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"alternativelabel": ["Proto-austronesisk språk"],
+				"modified": "2019-08-13T10:38:05.554Z",
+				"localidentifier": ["HUME10155"],
+				"broader": ["http://data.ub.uio.no/humord/c15161"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"59bfd2a6-445a-4da7-bf74-d23ea1ccda8f\",\"created\":\"2019-08-13T10:38:05.554Z\",\"modified\":\"2019-08-13T10:38:05.554Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c10155\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":{\"@language\":\"nb\",\"@value\":\"Proto-austronesisk språk\"},\"broader\":\"http://data.ub.uio.no/humord/c15161\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME10155*%*\",\"modified\":\"2009-10-22\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Austronesiske språk\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}, {
+			"id": "59c735a6-0627-48ce-baa3-4c2c685f0a5b",
+			"fields": {
+				"presentation_json": "{\"id\":\"59c735a6-0627-48ce-baa3-4c2c685f0a5b\",\"created\":\"2019-08-13T10:39:23.204Z\",\"modified\":\"2019-08-13T10:39:23.204Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c21059\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":[{\"@language\":\"nb\",\"@value\":\"La Manche\"},{\"@language\":\"nb\",\"@value\":\"The English Channel\"}],\"broader\":\"http://data.ub.uio.no/humord/c03712\",\"editorialNote\":{\"@language\":\"nb\",\"@value\":\"Lukket bemerkning: ubtø10\"},\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME21059\",\"modified\":\"2010-05-11\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Engelske kanal\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"editorialNote\":{\"@id\":\"http://unit.no/entitydata#editorialNote\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"alternativelabel": ["The English Channel§§§§La Manche"],
+				"modified": "2019-08-13T10:39:23.204Z",
+				"localidentifier": ["HUME21059"],
+				"broader": ["http://data.ub.uio.no/humord/c03712"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"59c735a6-0627-48ce-baa3-4c2c685f0a5b\",\"created\":\"2019-08-13T10:39:23.204Z\",\"modified\":\"2019-08-13T10:39:23.204Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c21059\",\"@type\":\"http://unit.no/entitydata#Concept\",\"alternativeLabel\":[{\"@language\":\"nb\",\"@value\":\"La Manche\"},{\"@language\":\"nb\",\"@value\":\"The English Channel\"}],\"broader\":\"http://data.ub.uio.no/humord/c03712\",\"editorialNote\":{\"@language\":\"nb\",\"@value\":\"Lukket bemerkning: ubtø10\"},\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME21059*%*\",\"modified\":\"2010-05-11\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Engelske kanal\"},\"@context\":{\"alternativeLabel\":{\"@id\":\"http://unit.no/entitydata#alternativeLabel\"},\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"editorialNote\":{\"@id\":\"http://unit.no/entitydata#editorialNote\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}, {
+			"id": "5a01e10c-ba19-4993-a979-228b1dc7dc60",
+			"fields": {
+				"presentation_json": "{\"id\":\"5a01e10c-ba19-4993-a979-228b1dc7dc60\",\"created\":\"2019-08-13T10:27:19.778Z\",\"modified\":\"2019-08-13T10:27:19.778Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c14959\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c05201\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"HUME14959\",\"modified\":\"1997-01-15\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Telt\"},\"@context\":{\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}",
+				"modified": "2019-08-13T10:27:19.778Z",
+				"localidentifier": ["HUME14959"],
+				"broader": ["http://data.ub.uio.no/humord/c05201"],
+				"inscheme": ["http://data.ub.uio.no/humord"],
+				"_score": "1.0"
+			},
+			"highlights": {
+				"presentation_json": "{\"id\":\"5a01e10c-ba19-4993-a979-228b1dc7dc60\",\"created\":\"2019-08-13T10:27:19.778Z\",\"modified\":\"2019-08-13T10:27:19.778Z\",\"body\":{\"@id\":\"http://data.ub.uio.no/humord/c14959\",\"@type\":\"http://unit.no/entitydata#Concept\",\"broader\":\"http://data.ub.uio.no/humord/c05201\",\"inScheme\":\"http://data.ub.uio.no/humord\",\"localIdentifier\":\"*#*HUME14959*%*\",\"modified\":\"1997-01-15\",\"preferredLabel\":{\"@language\":\"nb\",\"@value\":\"Telt\"},\"@context\":{\"broader\":{\"@id\":\"http://unit.no/entitydata#broader\",\"@type\":\"@id\"},\"inScheme\":{\"@id\":\"http://unit.no/entitydata#inScheme\",\"@type\":\"@id\"},\"localIdentifier\":{\"@id\":\"http://unit.no/entitydata#localIdentifier\"},\"modified\":{\"@id\":\"http://unit.no/entitydata#modified\",\"@type\":\"http://www.w3.org/2001/XMLSchema#date\"},\"preferredLabel\":{\"@id\":\"http://unit.no/entitydata#preferredLabel\"}}}}"
+			}
+		}]
+	}
+}

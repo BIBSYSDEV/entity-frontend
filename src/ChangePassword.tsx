@@ -9,13 +9,20 @@ import { Container } from '@material-ui/core';
 import Header from './Header';
 import { EMPTY } from './constants';
 
+export interface ChangePasswordProps {
+    user: string;
+    setAuthorised(authorised: boolean): void;
+    history: any;
+}
 
-const ChangePassword = ({ user , setAuthorised , history  }): any => {
+const ChangePassword = (props: ChangePasswordProps): any => {
 
     const [oldPassword, setOldPassword] = useState(EMPTY);
     const [newPassword, setNewPassword] = useState(EMPTY);
     const [repeatPassword, setRepeatPassword] = useState(EMPTY);
     const [errorMessage, setErrorMessage] = useState(EMPTY);
+
+    const { user, setAuthorised, history } = props;
 
     const validateNewPassword = (newPassword: string): boolean => {
         return newPassword.length > 12;

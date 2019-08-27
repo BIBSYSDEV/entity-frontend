@@ -3,8 +3,18 @@ import SearchHeader from './SearchHeader';
 import Header from './Header';
 import SearchResults from './SearchResults';
 import { ResultType } from './SearchResults';
+import testSearchResult from './searchresult.json';
 
-const testData: object[] = [
+export interface SearchProps {
+    user: string;
+    setAuthorised(authorised: boolean): void;
+    registryName: string;
+    entityId: string;
+}
+
+
+
+let testData: object[] = [
     {id: "HUME00001", preferredLabel: [{ lang:"NB", value: "Humaniora"}], dato: "1994-03-21"},
     {id: "HUME00002", related: "HUME00001", preferredLabel: [{ lang:"NB", value: "Humanistiske fag"}], dato: "2009-10-22"},
     {id: "HUME00003", related: "HUME00001", preferredLabel: [{ lang:"NB", value: "Humanvitenskap"}], dato: "1994-03-21"},
@@ -30,13 +40,17 @@ const testData: object[] = [
 
 const EMPTY_SEARCH_RESULTS: ResultType[] = new Array<ResultType>(); 
 
-const Search = ({ user,  setAuthorised, registryName, entityId }): any => {
+const Search = (props: SearchProps): any => {
+    
+    const { user,  setAuthorised, registryName, entityId } = props;
     
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
+    const testResult: ResultType[] = testSearchResult.hits.hit.map((hit) => JSON.parse(hit.fields.presentation_json));
+
     const findSingleEntity = (entityId: string): ResultType[] => {
         let result: ResultType[] = [];
-        for (let index = 0; index < testData.length; index++) {
+        for (let index = 0; index < testSearchResult.hits.hit.length; index++) {
             if ((testData[index] as ResultType).id === entityId) {
                 result.push(testData[index] as ResultType);
                 break;
@@ -48,10 +62,12 @@ const Search = ({ user,  setAuthorised, registryName, entityId }): any => {
 
     const search = (searchValue: string): ResultType[] => {
         
+        console.log(searchValue);
+
         if (Boolean(entityId)) {
             return findSingleEntity(entityId);
         } else {
-            setSearchResults((testData as ResultType[]));
+            setSearchResults(testResult);
             return (searchResults as ResultType[]);
         }
     }

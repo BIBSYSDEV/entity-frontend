@@ -2,11 +2,18 @@ import React from 'react';
 import ResultPresentation from './ResultPresentation';
 import List from '@material-ui/core/List';
 
+export interface SearchResultProps {
+    searchResults: ResultType[];
+    registryName: string;
+}
+
 export interface ResultType {
     id: string;
 }
 
-const SearchResults = ({ searchResults, registryName }): any => {
+const SearchResults = (props: SearchResultProps): any => {
+
+    const { searchResults, registryName } = props;
 
     const renderSearchResults = () => {
         const presentation = searchResults.map((result: ResultType) => {
@@ -17,7 +24,7 @@ const SearchResults = ({ searchResults, registryName }): any => {
         });
         
         return (<ul>{presentation}</ul>);
-                
+
     }
     
     return (Boolean(searchResults) && (searchResults as ResultType[]).length > 0) ? renderSearchResults() : '';

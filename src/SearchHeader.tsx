@@ -8,7 +8,14 @@ import TextField from '@material-ui/core/TextField';
 import { EMPTY } from './constants';
 import RegistryButton from './RegistryButton';
 
-const SearchHeader = ({ search, registryName }): any => {
+export interface SearchHeaderProps {
+    search(searchValue: string): object[];
+    registryName: string;
+}
+
+const SearchHeader = (props: SearchHeaderProps): any => {
+    
+    const { search, registryName } = props;
     
     const [searchValue, setSearchValue] = useState(EMPTY);
     
