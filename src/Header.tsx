@@ -3,19 +3,12 @@ import { withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import logo from './Unit ikon farge.png';
+import logo from "./ikon.png";
 import { Button } from '@material-ui/core';
 import { EMPTY } from './constants';
 import './Header.css';
 
-export interface HeaderProps {
-    spinner: boolean;
-    user: string;
-    setAuthorised(authorised: boolean): void;
-}
-
-const Header = (props: HeaderProps): any => {
-    const { spinner, user, setAuthorised } = props;
+const Header = ({ spinner, user, setAuthorised }): any => {
 
     const handleLogout = (): void => {
         setAuthorised(false);

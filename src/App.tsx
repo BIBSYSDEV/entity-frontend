@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect, Component  } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Login from './Login';
@@ -10,18 +10,9 @@ import config from './config';
 import Search from './Search';
 import { EMPTY, API_KEY, AUTHORISED, REGISTRIES, USER } from './constants';
 
-export interface AppProps {
-    newEntity(registryName: string): void;
-    data: any;
-    storeApiKey(apiKey: string): void;
-    initStore(body: any): any;
-} 
-
 Amplify.configure(config);
 
-const App = (props: AppProps): any => {
-
-    const { newEntity, storeApiKey, initStore } = props;
+const App = ({ newEntity, storeApiKey, initStore, data }): any => {
 
     const [apiKey, setApiKey] = useState(sessionStorage.getItem(API_KEY) || EMPTY);
     useEffect((): void => {

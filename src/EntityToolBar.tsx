@@ -6,16 +6,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import RegistryButton from './RegistryButton';
 
-export interface AppProps {
-    registryId: string;
-    handleNew(): void;
-    handlePersist(): void;
-}
-
-const EntityToolBar = (props: AppProps): any => {
+const EntityToolBar = ({ registryId, handleNew, handlePersist }): any => {
     
-    const { registryId, handleNew, handlePersist } = props;
-
     const SearchButton = withRouter(
         ({history}: any) => (
             <Button onClick={() => history.push("/" + registryId + "/Search")}>Search</Button>

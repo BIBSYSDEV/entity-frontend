@@ -3,16 +3,7 @@ import Header from './Header';
 import { Grid } from '@material-ui/core';
 import RegistryList from './RegistryList';
 
-export interface DataProps {
-    user: string;
-    registries: string;
-    setAuthorised(authorised: boolean): void;
-    setApiKey(apiKey: string): void;
-}
-
-const RegistryPresentation = (props: DataProps): any => {
-
-    const { user, registries, setAuthorised, setApiKey } = props;
+const RegistryPresentation = ({ user, registries, setAuthorised, setApiKey }): any => {
 
     return (
         <div>

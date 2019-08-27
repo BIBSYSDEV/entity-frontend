@@ -45,13 +45,7 @@ const resultPresentationConfig: any = {
     },
 };
 
-export interface ResultProps {
-    result: ResultType;
-    registryName: string;
-}
-
-const ResultPresentation = (props: ResultProps): any => {
-    const { result, registryName } = props;
+const ResultPresentation = ({ result, registryName }): any => {
 
     const [open, setOpen] = useState(false);
 

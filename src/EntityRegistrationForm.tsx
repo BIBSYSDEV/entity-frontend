@@ -3,15 +3,7 @@ import { JsonForms } from '@jsonforms/react';
 import Typography from "@material-ui/core/Typography";
 import EntityToolBar from './EntityToolBar';
 
-export interface FormProps {
-    registryId: string;
-    handleNew(): void;
-    handlePersist(): void;
-}
-
-const EntityRegistrationForm = (props: FormProps): any => {
-
-    const { registryId, handleNew, handlePersist } = props;
+const EntityRegistrationForm = ({ registryId, handleNew, handlePersist }): any => {
 
     return (
         <React.Fragment>

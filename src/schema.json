@@ -17,7 +17,6 @@
 			"label": "created",
 			"title": "https://unit.no/entitydata#created",
 			"type": "string",
-			"format": "date",
 			"required": ["false"]
 		},
 		"narrower": {
@@ -129,7 +128,6 @@
 			"label": "modified",
 			"title": "https://unit.no/entitydata#modified",
 			"type": "string",
-			"format": "date",
 			"required": ["true"]
 		},
 		"definition": {

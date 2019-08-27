@@ -4,14 +4,7 @@ import Header from './Header';
 import SearchResults from './SearchResults';
 import { ResultType } from './SearchResults';
 
-export interface SearchProps {
-    user: string;
-    setAuthorised(authorised: boolean): void;
-    registryName: string;
-    entityId: string;
-}
-
-let testData: object[] = [
+const testData: object[] = [
     {id: "HUME00001", preferredLabel: [{ lang:"NB", value: "Humaniora"}], dato: "1994-03-21"},
     {id: "HUME00002", related: "HUME00001", preferredLabel: [{ lang:"NB", value: "Humanistiske fag"}], dato: "2009-10-22"},
     {id: "HUME00003", related: "HUME00001", preferredLabel: [{ lang:"NB", value: "Humanvitenskap"}], dato: "1994-03-21"},
@@ -37,15 +30,13 @@ let testData: object[] = [
 
 const EMPTY_SEARCH_RESULTS: ResultType[] = new Array<ResultType>(); 
 
-const Search = (props: SearchProps): any => {
-    
-    const { user,  setAuthorised, registryName, entityId } = props;
+const Search = ({ user,  setAuthorised, registryName, entityId }): any => {
     
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
     const findSingleEntity = (entityId: string): ResultType[] => {
-        var result: ResultType[] = [];
-        for (var index = 0; index < testData.length; index++) {
+        let result: ResultType[] = [];
+        for (let index = 0; index < testData.length; index++) {
             if ((testData[index] as ResultType).id === entityId) {
                 result.push(testData[index] as ResultType);
                 break;
@@ -71,7 +62,7 @@ const Search = (props: SearchProps): any => {
     return (
         <div>
             <Header 
-                spinner={spinner} 
+                spinner={spinner}
                 user={user} 
                 setAuthorised={setAuthorised}
             />

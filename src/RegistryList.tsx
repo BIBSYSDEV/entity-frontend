@@ -3,15 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import { fetchApiKey } from './utils';
 
-export interface DataProps {
-    registries: string;
-    setApiKey(apiKey: string): void;
-}
-
-
-const RegistryList = (props: DataProps): any => {
-
-    const { registries, setApiKey } = props;
+const RegistryList = ({ registries, setApiKey }): any => {
 
     const renderListItems = (): object => {
         return JSON.parse(registries).map((registry: string): object =>

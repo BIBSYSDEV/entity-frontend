@@ -7,22 +7,8 @@ import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
 import { writeEntity, readEntity } from './utils';
 
-export interface DataProps {
-    registryId: string;    
-    user: string;
-    data: object;
-    setAuthorised(authorised: boolean): void;
-    newEntity(registryName: string): void;
-    apiKey: string;
-    entityId: string;
-    initStore(body: any): any;
-    history: any;
-}
+const EntityRegistrationApp = ({ registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore, history }) => {
 
-const EntityRegistrationApp = (props: DataProps) => {
-
-    const { registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore, history } = props;
-    
     const handleNew = (): void => {
         newEntity(registryId);
         history.push("/" + registryId);
@@ -38,7 +24,7 @@ const EntityRegistrationApp = (props: DataProps) => {
 
     const handlePersist = (): void => {
         setSpinner(true);
-        writeEntity(registryId, (data as any)['@id'], apiKey, data).then(() => {
+        writeEntity(registryId, entityId, apiKey, data).then(() => {
             setSpinner(false);
         })
     }
