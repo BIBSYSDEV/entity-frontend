@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { JsonForms } from '@jsonforms/react';
 import Typography from "@material-ui/core/Typography";
 import EntityToolBar from './EntityToolBar';
+import AppStatus from './AppStatus';
 
 export interface FormProps {
     registryId: string;
     handleNew(): void;
     handlePersist(): void;
+    status: string;
 }
 
 const EntityRegistrationForm = (props: FormProps): any => {
 
-    const { registryId, handleNew, handlePersist } = props;
+    const { registryId, handleNew, handlePersist, status } = props;
 
     return (
         <React.Fragment>
@@ -23,6 +25,7 @@ const EntityRegistrationForm = (props: FormProps): any => {
                     handleNew={handleNew}
                     handlePersist={handlePersist}
                 />
+                <AppStatus status={status} />
             </Typography>
             <div>
                 <JsonForms/>

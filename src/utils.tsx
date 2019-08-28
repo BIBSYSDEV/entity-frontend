@@ -3,6 +3,8 @@ import SecretsManager from 'aws-sdk/clients/secretsmanager';
 import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
 import uuidv4 from 'uuid';
+import config from './config'
+import { ApiGatewayManagementApi } from 'aws-sdk';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];
@@ -38,9 +40,12 @@ export const initialiseStore = (dispatch: any, data: any, schema: any, uischema:
 };
 
 export const readEntity = async (registryName: string, entityId: string, apiKey: string) => {
-    const data = await API.get('entity', "/registry/" + registryName + "/entity/" + entityId, {headers: {'api-key': apiKey}});
-    
-    return data;
+    const data = await API.get('entity', `/registry/${registryName}/entity/${entityId}`, {
+        headers: {
+            'Accept': 'application/ld+json'
+        }});
+
+        return data;
 }
 
 export const writeEntity = async (registryName: string, entityId: string, apiKey: string, entity: any)  => {
@@ -53,7 +58,7 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
     if (Boolean(entityId)) {
         const id = entityId.split('/').pop();
         bodyObject.id = id;
-        return await API.put('entity', "/registry/" + registryName + "/entity/" + id, {
+        return await API.put('entity', `/registry/${registryName}/entity/${id}`, {
             headers: {'api-key': apiKey}, 
             body:  bodyObject 
         });
