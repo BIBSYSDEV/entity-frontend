@@ -50,14 +50,15 @@ const Login = (props: LoginProps): any => {
             await Auth.signIn(userInput, password)
                 .then((user): void => {
                     setRegistries(JSON.stringify(registries));
+                    setAuthorised(true);
+                    setUser(userInput);
                     if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
                         setPassword(password);
                         history.push("/ChangePassword");
+                    } else {
+                        history.push("/");
                     }
                 });
-            setAuthorised(true);
-            history.push("/");
-            setUser(userInput);
         } catch (e) {
             setErrorMessageDisplay(e.message);
             setSpinning(false);

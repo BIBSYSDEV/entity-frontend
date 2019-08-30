@@ -63,6 +63,17 @@ const App = (props: AppProps): any => {
                     user={EMPTY}
                     setRegistries={setRegistries}
                 />)}/>
+                <Route path="/ChangePassword" render={(routeProps: any) =>
+                    isAuthorised ? (
+                        <ChangePassword
+                            user={user}
+                            setAuthorised={setAuthorised}
+                            history={routeProps.history}
+                        />
+                    ) : (
+                        <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
+                    )
+                }/>
                 <Route exact path="/" render={(routeProps: any) => 
                     isAuthorised ? (
                         <RegistryPresentation 
@@ -70,17 +81,6 @@ const App = (props: AppProps): any => {
                             registries={registries}
                             setAuthorised={setAuthorised}
                             setApiKey={setApiKey}
-                        />
-                    ) : (
-                        <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
-                    )
-                }/>
-                <Route path="/ChangePassword" render={(routeProps: any) =>
-                    isAuthorised ? (
-                        <ChangePassword
-                            user={user}
-                            setAuthorised={setAuthorised}
-                            history={routeProps.history}
                         />
                     ) : (
                         <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />
