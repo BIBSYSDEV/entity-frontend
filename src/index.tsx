@@ -48,8 +48,6 @@ const setApiKey = (apiKey: string): void => {
 }
 
 const initStore = (body: any) => {
-    console.log('body = ');
-    console.log(body);
     initialiseStore(store.dispatch, body, schema, uischema);
 }
 

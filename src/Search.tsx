@@ -4,6 +4,7 @@ import Header from './Header';
 import SearchResults from './SearchResults';
 import { ResultType } from './SearchResults';
 import testSearchResult from './searchresult.json';
+import { doSearch, readEntity } from './utils';
 
 export interface SearchProps {
     user: string;
@@ -20,28 +21,24 @@ const Search = (props: SearchProps): any => {
     
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
     
-    const testResult: ResultType[] = testSearchResult.hits.hit.map((hit) => JSON.parse(hit.fields.presentation_json));
+//    const testResult: ResultType[] = testSearchResult.map((hit) => JSON.parse(hit.presentation_json));
 
     const findSingleEntity = (entityId: string): ResultType[] => {
         let result: ResultType[] = [];
-        for (let index = 0; index < testSearchResult.hits.hit.length; index++) {
-            if ((testResult[index] as ResultType).id === entityId) {
-                result.push(testResult[index] as ResultType);
-                break;
-            }
-        }
-
+        readEntity(registryName, entityId).then((entity: any) =>result.push(entity));
         return result;
     }
 
     const search = (searchValue: string): ResultType[] => {
-        
-        console.log(searchValue);
 
         if (Boolean(entityId)) {
             return findSingleEntity(entityId);
         } else {
-            setSearchResults(testResult);
+            doSearch(searchValue, registryName).then((response) => {
+                console.log(response);
+                setSearchResults(response);
+                console.log(searchResults);
+            });
             return (searchResults as ResultType[]);
         }
     }

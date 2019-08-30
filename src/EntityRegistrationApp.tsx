@@ -34,8 +34,7 @@ const EntityRegistrationApp = (props: DataProps) => {
     useEffect (() => {
 
         if (Boolean(entityId)) {
-            console.log('reading data')
-            readEntity(registryId, entityId, sessionStorage.getItem('apiKey') as string).then((entityData: any): void => {
+            readEntity(registryId, entityId).then((entityData: any): void => {
                 entityData && initStore(entityData);
                 setStatus(`${entityId} loaded...`);
             });

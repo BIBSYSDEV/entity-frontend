@@ -3,8 +3,6 @@ import SecretsManager from 'aws-sdk/clients/secretsmanager';
 import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
 import uuidv4 from 'uuid';
-import config from './config'
-import { ApiGatewayManagementApi } from 'aws-sdk';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];
@@ -39,7 +37,7 @@ export const initialiseStore = (dispatch: any, data: any, schema: any, uischema:
     dispatch(Actions.init(data, schema, uischema));
 };
 
-export const readEntity = async (registryName: string, entityId: string, apiKey: string) => {
+export const readEntity = async (registryName: string, entityId: string) => {
     const data = await API.get('entity', `/registry/${registryName}/entity/${entityId}`, {
         headers: {
             'Accept': 'application/ld+json'
@@ -81,4 +79,6 @@ export const readSchema = async (registryName: string, apiKey: string) => {
 export const createRegistryUri = (registryName: string) => {
     return "http://unit.no/entitydata#" + registryName.toLowerCase();
 }
+
+export const doSearch = (query: string, registryName: string) => API.get('entity', "/registry/" + registryName + "/search?query=" + query, null);
 
