@@ -132,7 +132,12 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 <CssBaseline />
                 <div>
                     <Typography variant='h5'>
-                        Change password
+                        Change password 
+                    </Typography>
+                </div>
+                <div>
+                    <Typography variant='subtitle2'>
+                        (Password must have a minimum of 12 characters, upper and lower case and at least 1 number)
                     </Typography>
                     <form noValidate>
                         <TextField
