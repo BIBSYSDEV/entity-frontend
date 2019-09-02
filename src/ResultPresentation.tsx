@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouteLink } from 'react-router-dom';
 import { ResultType } from './SearchResults';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -9,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Link from '@material-ui/core/Link';
 import InputLabel from '@material-ui/core/InputLabel';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import { LINK } from './constants';
 
 const resultPresentationConfig: any = {
@@ -33,6 +35,10 @@ const resultPresentationConfig: any = {
         'narrower': {
             type: 'link',
             label: 'Narrower:',
+        },
+        'sameAs': {
+            type: 'link',
+            label: 'Same as:',
         },
         'seeAlso': {
             type: 'link',
@@ -64,7 +70,7 @@ const ResultPresentation = (props: ResultProps): any => {
     const processLink = (value: string) => {
         const linkId = value.split("/").pop();
         if(value.indexOf(namespacePattern) > 0){
-            return "/" + "registryName" + "/Search/" + linkId;
+            return "/" + registryName + "/Search/" + linkId;
         } 
         return value;
     }
@@ -130,8 +136,8 @@ const ResultPresentation = (props: ResultProps): any => {
 
     return (<Box>
         <ListItem  button onClick={handleClick} key={result.id}>
-            {console.log(result)}
             <ListItemText primary={ title() } secondary={id()} />
+            <Button><RouteLink to={"/" + registryName + "/" + result.id.split("/").pop()}>Edit</RouteLink></Button>
         </ListItem>
         <Collapse in={open} timeout='auto' unmountOnExit>
             <Card>

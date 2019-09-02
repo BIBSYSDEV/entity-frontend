@@ -80,12 +80,7 @@
 			"title": "https://unit.no/entitydata#related",
 			"type": "array",
 			"items": {
-				"type": "object",
-				"properties": {
-					"value": {
-						"type": "string"
-					}
-				}
+				"type": "string"
 			},
 			"required": ["false"]
 		},
@@ -115,10 +110,8 @@
 			"label": "localIdentifier",
 			"title": "https://unit.no/entitydata#localIdentifier",
 			"type": "object",
-
 			"properties": {
 				"value": {
-					"pattern": "^AUTID[0-9]+$",
 					"type": "string"
 				}
 			},

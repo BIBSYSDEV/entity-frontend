@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Login from './Login';
@@ -13,7 +13,6 @@ import { EMPTY, API_KEY, AUTHORISED, REGISTRIES, USER } from './constants';
 export interface AppProps {
     newEntity(registryName: string): void;
     data: any;
-    storeApiKey(apiKey: string): void;
     initStore(body: any): any;
 } 
 
@@ -21,15 +20,14 @@ Amplify.configure(config);
 
 const App = (props: AppProps): any => {
 
-    const { newEntity, storeApiKey, initStore } = props;
+    const { newEntity, initStore } = props;
 
     const [apiKey, setApiKey] = useState(sessionStorage.getItem(API_KEY) || EMPTY);
     useEffect((): void => {
-        storeApiKey(apiKey);
+        sessionStorage.setItem('apiKey', apiKey);
     }, [apiKey]);
 
     const [isAuthorised, setIsAuthorised] = useState(sessionStorage.getItem(AUTHORISED) || EMPTY);
-
     useEffect((): void => {
         sessionStorage.setItem('authorised', isAuthorised);
     }, [isAuthorised]);
@@ -68,7 +66,6 @@ const App = (props: AppProps): any => {
                         <ChangePassword
                             user={user}
                             setAuthorised={setAuthorised}
-                            history={routeProps.history}
                         />
                     ) : (
                         <Redirect to={{pathname: "/Login", state: {from: routeProps.location}}} />

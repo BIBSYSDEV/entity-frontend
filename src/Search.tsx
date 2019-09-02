@@ -3,8 +3,9 @@ import SearchHeader from './SearchHeader';
 import Header from './Header';
 import SearchResults from './SearchResults';
 import { ResultType } from './SearchResults';
-import testSearchResult from './searchresult.json';
 import { doSearch, readEntity } from './utils';
+import { EMPTY } from './constants';
+import SearchStatus from './SearchStatus';
 
 export interface SearchProps {
     user: string;
@@ -20,12 +21,12 @@ const Search = (props: SearchProps): any => {
     const { user,  setAuthorised, registryName, entityId } = props;
     
     const [ searchResults, setSearchResults ] = useState(EMPTY_SEARCH_RESULTS); 
+    const [ status, setStatus] = useState(EMPTY);
     
-//    const testResult: ResultType[] = testSearchResult.map((hit) => JSON.parse(hit.presentation_json));
-
     const findSingleEntity = (entityId: string): ResultType[] => {
         let result: ResultType[] = [];
-        readEntity(registryName, entityId).then((entity: any) =>result.push(entity));
+        readEntity(registryName, entityId).then((entity: any) => result.push(entity));
+        setStatus(EMPTY);
         return result;
     }
 
@@ -35,15 +36,17 @@ const Search = (props: SearchProps): any => {
             return findSingleEntity(entityId);
         } else {
             doSearch(searchValue, registryName).then((response) => {
-                console.log(response);
+                if(response.length > 0){
+                    setStatus("Found " + response.length + " entities.");
+                } else {
+                    setStatus("No entities found");
+                }
                 setSearchResults(response);
-                console.log(searchResults);
             });
             return (searchResults as ResultType[]);
         }
     }
-    
-    
+   
     const spinner = false;
     
     return (
@@ -53,6 +56,7 @@ const Search = (props: SearchProps): any => {
                 user={user} 
                 setAuthorised={setAuthorised}
             />
+            <SearchStatus status={status}/>
             <SearchHeader 
                 search={search} 
                 registryName={registryName}
