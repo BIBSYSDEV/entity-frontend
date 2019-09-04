@@ -4,9 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { EMPTY } from './constants';
 import ButtonWithRouter from './components/ButtonWithRouter';
+import SearchField from './components/SearchField';
 
 export interface SearchHeaderProps {
 	search(searchValue: string): object[];
@@ -51,16 +51,7 @@ const SearchHeader = (props: SearchHeaderProps): any => {
 					</Typography>
 					<EditButton />
 					<ButtonWithRouter path="/" label="Registry" />
-					<TextField
-						variant="outlined"
-						margin="normal"
-						name="search"
-						label="Search"
-						type="search"
-						id="search"
-						autoFocus
-						onChange={handleSearchValueChange}
-					/>
+					<SearchField onChange={handleSearchValueChange} />
 					<SearchButton />
 				</Toolbar>
 			</AppBar>
