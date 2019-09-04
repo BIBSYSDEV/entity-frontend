@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
 import { Grid } from '@material-ui/core';
 import EntityRegistrationForm from './EntityRegistrationForm';
 import EntityDataPresentation from './EntityDataPresentation';
@@ -7,79 +6,64 @@ import { JsonFormsState, getData } from '@jsonforms/core';
 import { connect } from 'react-redux';
 import { writeEntity, readEntity } from './utils';
 
-export interface DataProps {
-    registryId: string;    
-    user: string;
-    data: object;
-    setAuthorised(authorised: boolean): void;
-    newEntity(registryName: string): void;
-    apiKey: string;
-    entityId: string;
-    initStore(body: any): any;
-    history: any;
+export interface EntityRegistrationAppProps {
+	user: string;
+	data: object;
+	setAuthorised(authorised: boolean): void;
+	newEntity(registryName: string): void;
+	apiKey: string;
+	initStore(body: any): any;
 }
 
-const EntityRegistrationApp = (props: DataProps) => {
+const EntityRegistrationApp = (props: EntityRegistrationAppProps & any) => {
+	const { data, newEntity, apiKey, initStore, history } = props;
 
-    const { registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore, history } = props;
-    
-    const [status, setStatus] = useState('');
+	const registryName = props.computedMatch.params.registryName;
+	const entityId = props.computedMatch.params.entityId;
 
-    const handleNew = (): void => {
-        newEntity(registryId);
-        history.push(`/${registryId}`);
-        setStatus(`New entity`);
-    }
+	const [status, setStatus] = useState('');
 
-    useEffect (() => {
+	const handleNew = (): void => {
+		newEntity(registryName);
+		history.push(`/${registryName}`);
+		setStatus(`New entity`);
+	};
 
-        if (Boolean(entityId)) {
-            readEntity(registryId, entityId).then((entityData: any): void => {
-                entityData && initStore(entityData);
-                setStatus(`${entityId} loaded...`);
-            });
-        }
-    }, [entityId]);
-    const [ spinner, setSpinner] = useState(false);
+	useEffect(() => {
+		if (entityId) {
+			readEntity(registryName, entityId).then((entityData: any): void => {
+				entityData && initStore(entityData);
+				setStatus(`${entityId} loaded...`);
+			});
+		}
+	}, [entityId, registryName, initStore]);
 
-    const handlePersist = (): void => {
-        setSpinner(true);
-        writeEntity(registryId, entityId, apiKey, data).then(() => {
-            setStatus(`${entityId} saved...`);
-            setSpinner(false);
-        })
-    }
+	const handlePersist = (): void => {
+		writeEntity(registryName, entityId, apiKey, data).then(() => {
+			setStatus(`${entityId} saved...`);
+		});
+	};
 
-    return (
-        <div>
-            <Header 
-                spinner={spinner} 
-                user={user} 
-                setAuthorised={setAuthorised}
-            />
-            
-            <Grid container justify={'center'} spacing={8}>
-                <Grid item sm={9}>
-                    <EntityRegistrationForm
-                        registryId={registryId}
-                        handleNew={handleNew}
-                        handlePersist={handlePersist}
-                        status={status}
-                    />
-                </Grid>
-                <Grid item sm={9}>
-                    <EntityDataPresentation
-                        dataAsString={JSON.stringify(data, null, 2)}
-                    />                                    
-                </Grid>
-            </Grid>
-        </div>
-    );
-
-}
-
-const mapStateToProps = (state: JsonFormsState) => {
-    return { data: getData(state) }
+	return (
+		<div>
+			<Grid container justify={'center'} spacing={8}>
+				<Grid item sm={9}>
+					<EntityRegistrationForm
+						registryId={registryName}
+						handleNew={handleNew}
+						handlePersist={handlePersist}
+						status={status}
+					/>
+				</Grid>
+				<Grid item sm={9}>
+					<EntityDataPresentation dataAsString={JSON.stringify(data, null, 2)} />
+				</Grid>
+			</Grid>
+		</div>
+	);
 };
 
+const mapStateToProps = (state: JsonFormsState) => {
+	return { data: getData(state) };
+};
 export default connect(mapStateToProps)(EntityRegistrationApp);
