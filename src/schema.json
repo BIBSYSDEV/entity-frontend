@@ -17,7 +17,6 @@
 			"label": "created",
 			"title": "https://unit.no/entitydata#created",
 			"type": "string",
-			"format": "date",
 			"required": ["false"]
 		},
 		"narrower": {
@@ -33,7 +32,7 @@
 			"items": {
 				"type": "object",
 				"properties": {
-					"lang": {
+					"language": {
 						"type": "string",
 						"enum": [
 							"en",
@@ -61,7 +60,7 @@
 			"items": {
 				"type": "object",
 				"properties": {
-					"lang": {
+					"language": {
 						"type": "string",
 						"enum": [
 							"en",
@@ -81,12 +80,7 @@
 			"title": "https://unit.no/entitydata#related",
 			"type": "array",
 			"items": {
-				"type": "object",
-				"properties": {
-					"value": {
-						"type": "string"
-					}
-				}
+				"type": "string"
 			},
 			"required": ["false"]
 		},
@@ -97,7 +91,7 @@
 			"items": {
 				"type": "object",
 				"properties": {
-					"lang": {
+					"language": {
 						"type": "string",
 						"enum": [
 							"en",
@@ -116,10 +110,8 @@
 			"label": "localIdentifier",
 			"title": "https://unit.no/entitydata#localIdentifier",
 			"type": "object",
-
 			"properties": {
 				"value": {
-					"pattern": "^AUTID[0-9]+$",
 					"type": "string"
 				}
 			},
@@ -129,7 +121,6 @@
 			"label": "modified",
 			"title": "https://unit.no/entitydata#modified",
 			"type": "string",
-			"format": "date",
 			"required": ["true"]
 		},
 		"definition": {
@@ -139,7 +130,7 @@
 			"items": {
 				"type": "object",
 				"properties": {
-					"lang": {
+					"language": {
 						"type": "string",
 						"enum": [
 							"en",
@@ -159,13 +150,7 @@
 			"title": "https://unit.no/entitydata#broader",
 			"type": "array",
 			"items": {
-				"type": "object",
-				"properties": {
-					"value": {
-						"type": "string",
-						"format": "uri"
-					}
-				}
+				"type": "string"
 			},
 			"required": ["false"]
 		},
@@ -176,7 +161,7 @@
 			"items": {
 				"type": "object",
 				"properties": {
-					"lang": {
+					"language": {
 						"type": "string",
 						"enum": [
 							"en",

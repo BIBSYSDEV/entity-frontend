@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import { Grid } from '@material-ui/core';
 import EntityRegistrationForm from './EntityRegistrationForm';
@@ -23,22 +23,29 @@ const EntityRegistrationApp = (props: DataProps) => {
 
     const { registryId, setAuthorised, user, data, newEntity, apiKey, entityId, initStore, history } = props;
     
+    const [status, setStatus] = useState('');
+
     const handleNew = (): void => {
         newEntity(registryId);
-        history.push("/" + registryId);
+        history.push(`/${registryId}`);
+        setStatus(`New entity`);
     }
 
-    if (Boolean(entityId)) {
-        readEntity(registryId, entityId, sessionStorage.getItem('apiKey') as string).then((entityData: any): void => {
-            initStore(entityData.body);
-        });
-    }
-    
+    useEffect (() => {
+
+        if (Boolean(entityId)) {
+            readEntity(registryId, entityId).then((entityData: any): void => {
+                entityData && initStore(entityData);
+                setStatus(`${entityId} loaded...`);
+            });
+        }
+    }, [entityId]);
     const [ spinner, setSpinner] = useState(false);
 
     const handlePersist = (): void => {
         setSpinner(true);
-        writeEntity(registryId, (data as any)['@id'], apiKey, data).then(() => {
+        writeEntity(registryId, entityId, apiKey, data).then(() => {
+            setStatus(`${entityId} saved...`);
             setSpinner(false);
         })
     }
@@ -57,6 +64,7 @@ const EntityRegistrationApp = (props: DataProps) => {
                         registryId={registryId}
                         handleNew={handleNew}
                         handlePersist={handlePersist}
+                        status={status}
                     />
                 </Grid>
                 <Grid item sm={9}>

@@ -15,7 +15,6 @@ const SearchResults = (props: SearchResultProps): any => {
 
     const { searchResults, registryName } = props;
 
-    
     const renderSearchResults = () => {
         const presentation = searchResults.map((result: ResultType) => {
             return (<List       
@@ -25,7 +24,7 @@ const SearchResults = (props: SearchResultProps): any => {
         });
         
         return (<ul>{presentation}</ul>);
-                
+
     }
     
     return (Boolean(searchResults) && (searchResults as ResultType[]).length > 0) ? renderSearchResults() : '';

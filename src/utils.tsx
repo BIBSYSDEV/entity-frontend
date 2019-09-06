@@ -37,10 +37,13 @@ export const initialiseStore = (dispatch: any, data: any, schema: any, uischema:
     dispatch(Actions.init(data, schema, uischema));
 };
 
-export const readEntity = async (registryName: string, entityId: string, apiKey: string) => {
-    const data = await API.get('entity', "/registry/" + registryName + "/entity/" + entityId, {headers: {'api-key': apiKey}});
-    
-    return data;
+export const readEntity = async (registryName: string, entityId: string) => {
+    const data = await API.get('entity', `/registry/${registryName}/entity/${entityId}`, {
+        headers: {
+            'Accept': 'application/ld+json'
+        }});
+
+        return data;
 }
 
 export const writeEntity = async (registryName: string, entityId: string, apiKey: string, entity: any)  => {
@@ -53,7 +56,7 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
     if (Boolean(entityId)) {
         const id = entityId.split('/').pop();
         bodyObject.id = id;
-        return await API.put('entity', "/registry/" + registryName + "/entity/" + id, {
+        return await API.put('entity', `/registry/${registryName}/entity/${id}`, {
             headers: {'api-key': apiKey}, 
             body:  bodyObject 
         });
@@ -76,4 +79,6 @@ export const readSchema = async (registryName: string, apiKey: string) => {
 export const createRegistryUri = (registryName: string) => {
     return "http://unit.no/entitydata#" + registryName.toLowerCase();
 }
+
+export const doSearch = (query: string, registryName: string) => API.get('entity', "/registry/" + registryName + "/search?query=" + query, null);
 

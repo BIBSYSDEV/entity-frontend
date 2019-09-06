@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouteLink } from 'react-router-dom';
 import { ResultType } from './SearchResults';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -9,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Link from '@material-ui/core/Link';
 import InputLabel from '@material-ui/core/InputLabel';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import { LINK } from './constants';
 
 const resultPresentationConfig: any = {
@@ -34,6 +36,10 @@ const resultPresentationConfig: any = {
             type: 'link',
             label: 'Narrower:',
         },
+        'sameAs': {
+            type: 'link',
+            label: 'Same as:',
+        },
         'seeAlso': {
             type: 'link',
             label: 'See also:',
@@ -58,15 +64,27 @@ const ResultPresentation = (props: ResultProps): any => {
     const handleClick = () => {
         setOpen(!open);
     };
+
+    const namespacePattern = "registry/" + registryName + "/entity";
+
+    const processLink = (value: string) => {
+        const linkId = value.split("/").pop();
+        if(value.indexOf(namespacePattern) > 0){
+            return "/" + registryName + "/Search/" + linkId;
+        } 
+        return value;
+    }
     
     const renderLink = (key: string, value: any): any => {
         return <Typography>
             <InputLabel shrink>{key}</InputLabel> 
             {(Array.isArray(value)) ? 
-                (value as any[]).map((element: string) => {
-                    return (<Typography><Link href={"/".concat(registryName, "/Search/", element)}>{element}</Link></Typography>);
-                }) : 
-                <Typography><Link href={"/".concat(registryName, "/Search/", value)}>{value}</Link></Typography>
+                (value as any[]).map((element: string) => <Typography><Link href={processLink(element)}>{element}</Link></Typography>) 
+                :
+                value === Object(value) ?
+                    <Typography><Link href={"/".concat(registryName, "/Search/", value['value'])}>{value['value']}</Link></Typography>
+                    :
+                    <Typography><Link href={"/".concat(registryName, "/Search/", value)}>{value}</Link></Typography>
             }
         </Typography>;
     };
@@ -74,7 +92,8 @@ const ResultPresentation = (props: ResultProps): any => {
     const renderSingleLine = (key: string, value: any): any => {
         return (<Typography>
             <InputLabel shrink>{key}</InputLabel> 
-            <Typography>{(Boolean(value.value) ? value.value + " (" + value.lang + ")" : value)}</Typography>
+            <Typography>{(Boolean(value['value']) ? value['value'] + " (" + value['language'] + ")" : value)}
+            </Typography>
         </Typography>);
     }
     
@@ -106,14 +125,19 @@ const ResultPresentation = (props: ResultProps): any => {
         }
     };
     
-    const attributes = Object.keys(result).map((key: string) => {
+    const attributes = Object.keys(result as any).map((key: string) => {
         const attribute = (result as any)[key];
         return (renderAttribute(key, attribute)); 
     });
 
+    const title = () => (result as any)['preferredLabel'][0]['value'];
+
+    const id = () => (result.id.split('/').pop());
+
     return (<Box>
         <ListItem  button onClick={handleClick} key={result.id}>
-            <ListItemText primary={(result as any)['preferredLabel'][0]['value']} secondary={(result as any).identifier} />
+            <ListItemText primary={ title() } secondary={id()} />
+            <Button><RouteLink to={"/" + registryName + "/" + result.id.split("/").pop()}>Edit</RouteLink></Button>
         </ListItem>
         <Collapse in={open} timeout='auto' unmountOnExit>
             <Card>

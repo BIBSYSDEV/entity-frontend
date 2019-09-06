@@ -8,7 +8,6 @@ export interface DataProps {
     setApiKey(apiKey: string): void;
 }
 
-
 const RegistryList = (props: DataProps): any => {
 
     const { registries, setApiKey } = props;

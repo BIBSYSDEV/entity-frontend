@@ -12,7 +12,6 @@ import { EMPTY } from './constants';
 export interface ChangePasswordProps {
     user: string;
     setAuthorised(authorised: boolean): void;
-    history: any;
 }
 
 const ChangePassword = (props: ChangePasswordProps): any => {
@@ -22,7 +21,7 @@ const ChangePassword = (props: ChangePasswordProps): any => {
     const [repeatPassword, setRepeatPassword] = useState(EMPTY);
     const [errorMessage, setErrorMessage] = useState(EMPTY);
 
-    const { user, setAuthorised, history } = props;
+    const { user, setAuthorised } = props;
 
     const validateNewPassword = (newPassword: string): boolean => {
         return newPassword.length > 12;
@@ -133,7 +132,12 @@ const ChangePassword = (props: ChangePasswordProps): any => {
                 <CssBaseline />
                 <div>
                     <Typography variant='h5'>
-                        Change password
+                        Change password 
+                    </Typography>
+                </div>
+                <div>
+                    <Typography variant='subtitle2'>
+                        (Password must have a minimum of 12 characters, upper and lower case and at least 1 number)
                     </Typography>
                     <form noValidate>
                         <TextField

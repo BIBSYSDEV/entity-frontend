@@ -43,10 +43,6 @@ const initState: JsonFormsState = {
 const rootReducer: Reducer<JsonFormsState, AnyAction> = combineReducers({ jsonforms: jsonformsReducer() });
 const store = createStore(rootReducer, initState);
 
-const setApiKey = (apiKey: string): void => { 
-    sessionStorage.setItem('apiKey', apiKey);
-}
-
 const initStore = (body: any) => {
     initialiseStore(store.dispatch, body, schema, uischema);
 }
@@ -63,7 +59,6 @@ ReactDOM.render(
         <App 
             newEntity={newEntity}
             data={data}
-            storeApiKey={setApiKey}
             initStore={initStore}
         />
     </Provider>,

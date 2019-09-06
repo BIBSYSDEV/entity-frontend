@@ -7,6 +7,6 @@ export default {
     },
     apiGateway: {
         REGION: "eu-west-1",
-        URL: "https://qpshvtds48.execute-api.eu-west-1.amazonaws.com/final",
+        URL: "https://ozbvft90ha.execute-api.eu-west-1.amazonaws.com/final",
     }
 };
