@@ -4,6 +4,7 @@ import { EMPTY } from './constants';
 import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
 import uuidv4 from 'uuid';
+import config from './config';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];
@@ -81,6 +82,7 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
         });
     } else {
         bodyObject.id = uuidv4();
+        bodyObject.body['@context'] = `${config.apiGateway.URL}/json-ld/context`;
         return await API.post('entity', "/registry/" + registryName + "/entity/", {
             headers: {'api-key': apiKey}, 
             body:  bodyObject 
