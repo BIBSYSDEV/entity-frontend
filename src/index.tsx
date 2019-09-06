@@ -14,11 +14,7 @@ import AWS from 'aws-sdk';
 import awsmobile from './aws-exports';
 import { initialiseStore, createRegistryUri } from './utils';
 import { findEntityIdentifierInPath, findRegistryIdentifierInPath, readEntity, fetchApiKey } from './utils';
-<<<<<<< HEAD
 import { EMPTY, API_KEY, REGISTRY_NAME } from './constants';
-=======
-import { EMPTY, API_KEY, REGISTRY_ID } from './constants';
->>>>>>> branch 'develop' of https://github.com/BIBSYSDEV/entity-frontend.git
 
 let data: any = {
 };
@@ -59,11 +55,7 @@ const setApiKey = (apiKey: string): void => {
 }
 
 const setRegistryName = (registryName: string): void => { 
-<<<<<<< HEAD
     sessionStorage.setItem(REGISTRY_NAME, registryName);
-=======
-    sessionStorage.setItem(, registryName);
->>>>>>> branch 'develop' of https://github.com/BIBSYSDEV/entity-frontend.git
 }
 
 const registryName = findRegistryIdentifierInPath();

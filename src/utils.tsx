@@ -4,11 +4,7 @@ import { EMPTY } from './constants';
 import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
 import uuidv4 from 'uuid';
-<<<<<<< HEAD
 import config from './config';
-=======
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
->>>>>>> branch 'develop' of https://github.com/BIBSYSDEV/entity-frontend.git
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
     return userObject.signInUserSession.accessToken.payload['cognito:groups'];
