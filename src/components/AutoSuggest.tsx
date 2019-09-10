@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Autosuggest, { SuggestionSelectedEventData } from 'react-autosuggest';
 
 import {
@@ -29,10 +29,8 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 	value
 }) => {
 	const classes = useStyles();
-	const [state, setState] = React.useState({
-		single: value || '',
-		popper: ''
-	});
+
+	const [inputText, setInputText] = useState(value || '');
 	const [stateSuggestions, setSuggestions] = React.useState<OptionType[]>([]);
 
 	const handleSuggestionsFetchRequested = ({ value }: any) => {
@@ -50,14 +48,11 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 		setSuggestions([]);
 	};
 
-	const handleChange = (name: keyof typeof state) => (
+	const handleChange = () => (
 		event: React.ChangeEvent<{}>,
 		{ newValue }: Autosuggest.ChangeEvent
 	) => {
-		setState({
-			...state,
-			[name]: newValue
-		});
+		setInputText(newValue);
 	};
 
 	const handleSuggestionSelected = (
@@ -67,6 +62,7 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 		onChange(data.suggestionValue);
 		if (onClick) {
 			onClick(data.suggestionValue);
+			setInputText('');
 		}
 	};
 
@@ -89,8 +85,8 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 					id: 'react-autosuggest-simple',
 					label,
 					placeholder,
-					value: state.single,
-					onChange: handleChange('single')
+					value: inputText,
+					onChange: handleChange()
 				}}
 				theme={{
 					container: classes.container,
