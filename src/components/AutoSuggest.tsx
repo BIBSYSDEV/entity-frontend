@@ -15,10 +15,17 @@ interface AutoSuggestProps {
 	label: string;
 	onChange: (value: string) => void;
 	placeholder?: string;
+	registryName: string;
 	value: string;
 }
 
-const AutoSuggest: React.FC<AutoSuggestProps> = ({ label, onChange, placeholder, value }) => {
+const AutoSuggest: React.FC<AutoSuggestProps> = ({
+	label,
+	onChange,
+	placeholder,
+	registryName,
+	value
+}) => {
 	const classes = useStyles();
 	const [state, setState] = React.useState({
 		single: value || '',
@@ -29,7 +36,7 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({ label, onChange, placeholder,
 	const handleSuggestionsFetchRequested = ({ value }: any) => {
 		onChange(value);
 		if (value.length > 2) {
-			performSearch(value, 'humord').then(data => {
+			performSearch(value, registryName).then(data => {
 				setSuggestions(data);
 			});
 		} else {
