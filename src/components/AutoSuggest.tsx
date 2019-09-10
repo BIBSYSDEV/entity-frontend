@@ -14,6 +14,7 @@ import { Paper } from '@material-ui/core';
 interface AutoSuggestProps {
 	label: string;
 	onChange: (value: string) => void;
+	onClick?: (value: string) => void;
 	placeholder?: string;
 	registryName: string;
 	value: string;
@@ -22,6 +23,7 @@ interface AutoSuggestProps {
 const AutoSuggest: React.FC<AutoSuggestProps> = ({
 	label,
 	onChange,
+	onClick,
 	placeholder,
 	registryName,
 	value
@@ -63,6 +65,9 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 		data: SuggestionSelectedEventData<any>
 	) => {
 		onChange(data.suggestionValue);
+		if (onClick) {
+			onClick(data.suggestionValue);
+		}
 	};
 
 	const autosuggestProps = {

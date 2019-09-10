@@ -4,8 +4,12 @@ import { Actions } from '@jsonforms/core';
 import schema from './schema.json';
 import uuidv4 from 'uuid';
 import config from './config';
-import searchFieldTester from './components/searchFieldTester.js';
-import SearchField from './components/SearchField';
+import Narrower from './components/Narrower';
+import narrowerTester from './components/NarrowerTester';
+import Broader from './components/Broader';
+import broaderTester from './components/BroaderTester';
+import Related from './components/Related';
+import relatedTester from './components/RelatedTester.js';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
 	return userObject.signInUserSession.accessToken.payload['cognito:groups'];
@@ -40,7 +44,9 @@ export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) =>
 
 export const initialiseStore = (dispatch: any, data: any, schema: any, uischema: any) => {
 	dispatch(Actions.init(data, schema, uischema));
-	dispatch(Actions.registerRenderer(searchFieldTester, SearchField));
+	dispatch(Actions.registerRenderer(broaderTester, Broader));
+	dispatch(Actions.registerRenderer(narrowerTester, Narrower));
+	dispatch(Actions.registerRenderer(relatedTester, Related));
 };
 
 export const readEntity = async (registryName: string, entityId: string) => {
