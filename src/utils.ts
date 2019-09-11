@@ -100,3 +100,7 @@ export const createRegistryUri = (registryName: string) => {
 
 export const doSearch = (query: string, registryName: string) =>
 	API.get('entity', '/registry/' + registryName + '/search?query=' + query, null);
+
+export const getUniqueItemsInArray = (array: any) => {
+	return array.filter((item: any, index: number, self: any) => self.indexOf(item) === index);
+};

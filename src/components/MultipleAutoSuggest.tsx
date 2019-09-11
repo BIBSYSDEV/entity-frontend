@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AutoSuggest from './AutoSuggest';
 import ChipLabel from './ChipLabel';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { getUniqueItemsInArray } from '../utils';
 
 interface MultipleAutoSuggestProps {
 	data: any;
@@ -23,6 +24,14 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 		}
 	}, [data]);
 
+	const handleClick = (suggestion: string) => {
+		listOfIds.push(suggestion);
+		setTempLabel('');
+		const listOfUniqueIds = getUniqueItemsInArray(listOfIds);
+		setListOfIds(listOfUniqueIds);
+		handleChange(path, listOfUniqueIds);
+	};
+
 	const handleDelete = (_: any, id: string) => {
 		const newList = listOfIds.filter(item => {
 			return item !== id;
@@ -39,11 +48,7 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 				onChange={(value: string) => {
 					setTempLabel(value);
 				}}
-				onClick={(suggestion: string) => {
-					listOfIds.push(suggestion);
-					setTempLabel('');
-					handleChange(path, listOfIds);
-				}}
+				onClick={handleClick}
 				registryName={registryName}
 				value={tempLabel}
 			/>
