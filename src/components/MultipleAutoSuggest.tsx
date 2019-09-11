@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AutoSuggest from './AutoSuggest';
 import ChipLabel from './ChipLabel';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { getUniqueItemsInArray } from '../utils';
 
 interface MultipleAutoSuggestProps {
@@ -52,40 +51,9 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 				registryName={registryName}
 				value={tempLabel}
 			/>
-			{listOfIds && <LabelList handleDelete={handleDelete} listOfIds={listOfIds} />}
+			{listOfIds && listOfIds.map(id => <ChipLabel id={id} key={id} onDelete={handleDelete} />)}
 		</div>
 	);
 };
 
 export default MultipleAutoSuggest;
-
-interface LabelListProps {
-	handleDelete: (event: any, id: string) => void;
-	listOfIds: string[];
-}
-
-export const LabelList: React.FC<LabelListProps> = ({ handleDelete, listOfIds }) => {
-	const useStyles = makeStyles((theme: Theme) =>
-		createStyles({
-			chip: {
-				margin: theme.spacing(1)
-			}
-		})
-	);
-
-	const classes = useStyles();
-
-	return (
-		<React.Fragment>
-			{listOfIds &&
-				listOfIds.map(id => (
-					<ChipLabel
-						classes={classes}
-						id={id}
-						key={id}
-						onDelete={(event: any) => handleDelete(event, id)}
-					/>
-				))}
-		</React.Fragment>
-	);
-};
