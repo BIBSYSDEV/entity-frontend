@@ -10,7 +10,7 @@ import {
 	performSearch
 } from './ReactAutoSuggestHelper';
 import { Paper } from '@material-ui/core';
-import { EMPTY } from '../constants';
+import { EMPTY, MINIMUM_NUMBER_OF_SEARCH_CHARACTERS } from '../constants';
 
 interface AutoSuggestProps {
 	label: string;
@@ -36,7 +36,7 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 
 	const handleSuggestionsFetchRequested = ({ value }: any) => {
 		onChange(value);
-		if (value.length > 2) {
+		if (value.length >= MINIMUM_NUMBER_OF_SEARCH_CHARACTERS) {
 			performSearch(value, registryName).then(data => {
 				setSuggestions(data);
 			});
