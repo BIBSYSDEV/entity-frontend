@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import ChipLabel from './ChipLabel';
 import { Typography } from '@material-ui/core';
+import { EMPTY } from '../constants';
 
 interface NarrowerProps {
 	data: any;
@@ -20,15 +21,15 @@ const Narrower: React.FC<NarrowerProps & RouteComponentProps<any>> = ({
 }) => {
 	const registryName = match.params.registryName;
 
-	const [tempLabel, setTempLabel] = useState('');
-	const [id, setId] = useState('');
+	const [tempLabel, setTempLabel] = useState(EMPTY);
+	const [id, setId] = useState(EMPTY);
 	const [searchForLabel, setSearchForLabel] = useState(false);
 
 	useEffect(() => {
 		if (data) {
 			setId(data.toString());
 		} else {
-			setId('');
+			setId(EMPTY);
 		}
 	}, [data]);
 
@@ -42,15 +43,15 @@ const Narrower: React.FC<NarrowerProps & RouteComponentProps<any>> = ({
 
 	const handleClick = (id: string) => {
 		setId(id);
-		setTempLabel('');
+		setTempLabel(EMPTY);
 		setSearchForLabel(true);
 		handleChange(path, id);
 	};
 
 	const handleDelete = (_: any) => {
-		setId('');
+		setId(EMPTY);
 		setSearchForLabel(false);
-		handleChange(path, '');
+		handleChange(path, EMPTY);
 	};
 
 	return (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AutoSuggest from './AutoSuggest';
 import ChipLabel from './ChipLabel';
 import { getUniqueItemsInArray } from '../utils';
+import { EMPTY } from '../constants';
 
 interface MultipleAutoSuggestProps {
 	data: any;
@@ -14,7 +15,7 @@ interface MultipleAutoSuggestProps {
 const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 	const { data, handleChange, label, path, registryName } = props;
 
-	const [tempLabel, setTempLabel] = useState('');
+	const [tempLabel, setTempLabel] = useState(EMPTY);
 	const [listOfIds, setListOfIds] = useState<string[]>([]);
 
 	useEffect(() => {
@@ -25,7 +26,7 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 
 	const handleClick = (suggestion: string) => {
 		listOfIds.push(suggestion);
-		setTempLabel('');
+		setTempLabel(EMPTY);
 		const listOfUniqueIds = getUniqueItemsInArray(listOfIds);
 		setListOfIds(listOfUniqueIds);
 		handleChange(path, listOfUniqueIds);

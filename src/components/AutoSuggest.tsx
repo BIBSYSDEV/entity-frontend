@@ -10,6 +10,7 @@ import {
 	performSearch
 } from './ReactAutoSuggestHelper';
 import { Paper } from '@material-ui/core';
+import { EMPTY } from '../constants';
 
 interface AutoSuggestProps {
 	label: string;
@@ -30,7 +31,7 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 }) => {
 	const classes = useStyles();
 
-	const [inputText, setInputText] = useState(value || '');
+	const [inputText, setInputText] = useState(value || EMPTY);
 	const [suggestions, setSuggestions] = React.useState<OptionType[]>([]);
 
 	const handleSuggestionsFetchRequested = ({ value }: any) => {
@@ -62,7 +63,7 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 		onChange(data.suggestion.id);
 		if (onClick) {
 			onClick(data.suggestion.id);
-			setInputText('');
+			setInputText(EMPTY);
 		}
 	};
 
