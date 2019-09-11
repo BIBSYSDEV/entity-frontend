@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Chip from '@material-ui/core/Chip';
+import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
 interface ChipLabelProps {
-	classes: any;
 	id: string;
 	onDelete: (event: any, id: string) => void;
 }
 
-const ChipLabel: React.FC<ChipLabelProps> = ({ classes, id, onDelete }) => {
+const ChipLabel: React.FC<ChipLabelProps> = ({ id, onDelete }) => {
+	const useStyles = makeStyles((theme: Theme) =>
+		createStyles({
+			chip: {
+				margin: theme.spacing(1)
+			}
+		})
+	);
+
+	const classes = useStyles();
+
 	const [label, setLabel] = useState('');
 
 	useEffect(() => {
@@ -27,11 +37,7 @@ const ChipLabel: React.FC<ChipLabelProps> = ({ classes, id, onDelete }) => {
 	};
 
 	return (
-		<Chip
-			className={classes.chip}
-			label={label}
-			onDelete={(event: any) => onDelete(event, id)}
-		/>
+		<Chip className={classes.chip} label={label} onDelete={(event: any) => onDelete(event, id)} />
 	);
 };
 
