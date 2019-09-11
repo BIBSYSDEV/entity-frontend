@@ -65,7 +65,7 @@ export const writeEntity = async (
 	apiKey: string,
 	entity: any
 ) => {
-	entity.modified = new Date().toDateString();
+	entity.modified = new Date().toISOString().split('T')[0];
 	const bodyObject: any = {
 		body: entity
 	};
