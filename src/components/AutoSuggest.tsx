@@ -14,7 +14,7 @@ import { Paper } from '@material-ui/core';
 interface AutoSuggestProps {
 	label: string;
 	onChange: (value: string) => void;
-	onClick?: (value: string) => void;
+	onClick?: (id: string) => void;
 	placeholder?: string;
 	registryName: string;
 	value: string;
@@ -31,7 +31,7 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 	const classes = useStyles();
 
 	const [inputText, setInputText] = useState(value || '');
-	const [stateSuggestions, setSuggestions] = React.useState<OptionType[]>([]);
+	const [suggestions, setSuggestions] = React.useState<OptionType[]>([]);
 
 	const handleSuggestionsFetchRequested = ({ value }: any) => {
 		onChange(value);
@@ -59,16 +59,16 @@ const AutoSuggest: React.FC<AutoSuggestProps> = ({
 		event: React.FormEvent<any>,
 		data: SuggestionSelectedEventData<any>
 	) => {
-		onChange(data.suggestionValue);
+		onChange(data.suggestion.id);
 		if (onClick) {
-			onClick(data.suggestionValue);
+			onClick(data.suggestion.id);
 			setInputText('');
 		}
 	};
 
 	const autosuggestProps = {
 		renderInputComponent,
-		suggestions: stateSuggestions,
+		suggestions,
 		onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
 		onSuggestionsClearRequested: handleSuggestionsClearRequested,
 		onSuggestionSelected: handleSuggestionSelected,

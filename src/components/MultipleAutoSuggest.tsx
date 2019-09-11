@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AutoSuggest from './AutoSuggest';
-import Chip from '@material-ui/core/Chip';
+import ChipLabel from './ChipLabel';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
 interface MultipleAutoSuggestProps {
@@ -15,20 +15,21 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 	const { data, handleChange, label, path, registryName } = props;
 
 	const [tempLabel, setTempLabel] = useState('');
-	const [listOfLabels, setListOfLabels] = useState<string[]>([]);
+	const [listOfIds, setListOfIds] = useState<string[]>([]);
 
 	useEffect(() => {
 		if (data) {
-			setListOfLabels(data);
+			setListOfIds(data);
 		}
 	}, [data]);
 
-	const handleDelete = (event: any, label: string) => {
-		const newList = listOfLabels.filter(item => {
-			return item !== label;
+	const handleDelete = (_: any, id: string) => {
+		const newList = listOfIds.filter(item => {
+			return item !== id;
 		});
 
-		setListOfLabels(newList);
+		setListOfIds(newList);
+		handleChange(path, newList);
 	};
 
 	return (
@@ -38,15 +39,15 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 				onChange={(value: string) => {
 					setTempLabel(value);
 				}}
-				onClick={label => {
-					listOfLabels.push(label);
+				onClick={(suggestion: string) => {
+					listOfIds.push(suggestion);
 					setTempLabel('');
-					handleChange(path, listOfLabels);
+					handleChange(path, listOfIds);
 				}}
 				registryName={registryName}
 				value={tempLabel}
 			/>
-			{listOfLabels && <LabelList handleDelete={handleDelete} listOfLabels={listOfLabels} />}
+			{listOfIds && <LabelList handleDelete={handleDelete} listOfIds={listOfIds} />}
 		</div>
 	);
 };
@@ -54,11 +55,11 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 export default MultipleAutoSuggest;
 
 interface LabelListProps {
-	handleDelete: (event: any, label: string) => void;
-	listOfLabels: string[];
+	handleDelete: (event: any, id: string) => void;
+	listOfIds: string[];
 }
 
-export const LabelList: React.FC<LabelListProps> = ({ handleDelete, listOfLabels }) => {
+export const LabelList: React.FC<LabelListProps> = ({ handleDelete, listOfIds }) => {
 	const useStyles = makeStyles((theme: Theme) =>
 		createStyles({
 			chip: {
@@ -71,13 +72,13 @@ export const LabelList: React.FC<LabelListProps> = ({ handleDelete, listOfLabels
 
 	return (
 		<React.Fragment>
-			{listOfLabels &&
-				listOfLabels.map(label => (
-					<Chip
-						className={classes.chip}
-						label={label}
-						key={label}
-						onDelete={event => handleDelete(event, label)}
+			{listOfIds &&
+				listOfIds.map(id => (
+					<ChipLabel
+						classes={classes}
+						id={id}
+						key={id}
+						onDelete={(event: any) => handleDelete(event, id)}
 					/>
 				))}
 		</React.Fragment>
