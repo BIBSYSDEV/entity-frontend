@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { API } from 'aws-amplify';
+import { getNorwegianLabelFirst } from '../utils';
 
 export interface OptionType {
 	label: string;
@@ -38,9 +39,10 @@ export const performSearch = async (query: string, registryName: string) => {
 		null
 	);
 	const results = response.map((item: any) => {
+		const label = getNorwegianLabelFirst(item.preferredLabel);
 		return {
 			id: item.id,
-			label: item.preferredLabel[0].value
+			label
 		};
 	});
 	return results;

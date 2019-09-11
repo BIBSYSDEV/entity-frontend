@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { EMPTY } from '../constants';
+import { getNorwegianLabelFirst } from '../utils';
 
 interface ChipLabelProps {
 	id: string;
@@ -32,7 +33,7 @@ const ChipLabel: React.FC<ChipLabelProps> = ({ id, onDelete }) => {
 			}
 		}).then(data =>
 			data.json().then(data => {
-				setLabel(data.preferredLabel[0].value || EMPTY);
+				setLabel(getNorwegianLabelFirst(data.preferredLabel) || EMPTY);
 			})
 		);
 	};

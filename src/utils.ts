@@ -10,6 +10,8 @@ import Broader from './components/Broader';
 import broaderTester from './components/BroaderTester';
 import Related from './components/Related';
 import relatedTester from './components/RelatedTester.js';
+import { EMPTY } from './constants';
+import { MultipleLabelType } from './types/form';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
 	return userObject.signInUserSession.accessToken.payload['cognito:groups'];
@@ -103,4 +105,19 @@ export const doSearch = (query: string, registryName: string) =>
 
 export const getUniqueItemsInArray = (array: any) => {
 	return array.filter((item: any, index: number, self: any) => self.indexOf(item) === index);
+};
+
+export const getNorwegianLabelFirst = (listOfLabels: MultipleLabelType[]): string => {
+	let label: string = EMPTY;
+	if (listOfLabels.length > 1) {
+		listOfLabels.forEach((element: MultipleLabelType) => {
+			if (element.language === 'nb') {
+				label = element.value;
+				return;
+			}
+		});
+	} else {
+		label = listOfLabels[0].value;
+	}
+	return label;
 };
