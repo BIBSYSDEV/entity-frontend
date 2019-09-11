@@ -67,7 +67,7 @@ export const writeEntity = async (
 	apiKey: string,
 	entity: any
 ) => {
-	entity.modified = new Date().toISOString().split('T')[0];
+	entity.modified = convertDateToISOString(new Date());
 	const bodyObject: any = {
 		body: entity
 	};
@@ -120,4 +120,8 @@ export const getNorwegianLabelFirst = (listOfLabels: MultipleLabelType[]): strin
 		label = listOfLabels[0].value;
 	}
 	return label;
+};
+
+export const convertDateToISOString = (date: Date) => {
+	return date.toISOString().split('T')[0];
 };
