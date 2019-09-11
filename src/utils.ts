@@ -10,7 +10,7 @@ import Broader from './components/Broader';
 import broaderTester from './components/BroaderTester';
 import Related from './components/Related';
 import relatedTester from './components/RelatedTester.js';
-import { EMPTY } from './constants';
+import { EMPTY, RDFLanguageCodes } from './constants';
 import { MultipleLabelType } from './types/form';
 
 export const fetchCognitoUserGroups = (userObject: any): string[] => {
@@ -109,17 +109,48 @@ export const getUniqueItemsInArray = (array: any) => {
 
 export const getNorwegianLabelFirst = (listOfLabels: MultipleLabelType[]): string => {
 	let label: string = EMPTY;
-	if (listOfLabels.length > 1) {
-		listOfLabels.forEach((element: MultipleLabelType) => {
-			if (element.language === 'nb') {
-				label = element.value;
-				return;
-			}
-		});
+	const firstItemInArray = listOfLabels[0].value;
+
+	if (listOfLabels.length === 1) {
+		label = firstItemInArray;
 	} else {
-		label = listOfLabels[0].value;
+		label =
+			getNorwegianBokmalLabel(listOfLabels) ||
+			getNorwegianNynorskLabel(listOfLabels) ||
+			getEnglishLabel(listOfLabels) ||
+			firstItemInArray;
 	}
 	return label;
+};
+
+export const getNorwegianBokmalLabel = (list: MultipleLabelType[]): string | undefined => {
+	let label: string = EMPTY;
+	list.forEach(element => {
+		if (element.language === RDFLanguageCodes.NORWEGIAN_BOKMAL) {
+			label = element.value;
+		}
+	});
+	return label !== EMPTY ? label : undefined;
+};
+
+export const getNorwegianNynorskLabel = (list: MultipleLabelType[]) => {
+	let label: string = EMPTY;
+	list.forEach(element => {
+		if (element.language === RDFLanguageCodes.NORWEGIAN_NYNORSK) {
+			label = element.value;
+		}
+	});
+	return label !== EMPTY ? label : undefined;
+};
+
+export const getEnglishLabel = (list: MultipleLabelType[]) => {
+	let label: string = EMPTY;
+	list.forEach(element => {
+		if (element.language === RDFLanguageCodes.ENGLISH) {
+			label = element.value;
+		}
+	});
+	return label !== EMPTY ? label : undefined;
 };
 
 export const convertDateToISOString = (date: Date) => {
