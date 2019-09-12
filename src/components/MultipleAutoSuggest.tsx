@@ -25,10 +25,12 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 	}, [data]);
 
 	const handleClick = (suggestion: string) => {
-		listOfIds.push(suggestion);
-		setTempLabel(EMPTY);
-		const listOfUniqueIds = getUniqueItemsInArray(listOfIds);
+		let list = listOfIds;
+		list.push(suggestion);
+		const listOfUniqueIds = getUniqueItemsInArray(list);
+
 		setListOfIds(listOfUniqueIds);
+		setTempLabel(EMPTY);
 		handleChange(path, listOfUniqueIds);
 	};
 
