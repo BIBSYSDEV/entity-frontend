@@ -82,7 +82,7 @@ const ResultPresentation = (props: ResultProps): any => {
                 (value as any[]).map((element: string) => <Typography><Link href={processLink(element)}>{element}</Link></Typography>) 
                 :
                 value === Object(value) ?
-                    <Typography><Link href={"/".concat(registryName, "/Search/", value['value'])}>{value['valule']}</Link></Typography>
+                    <Typography><Link href={"/".concat(registryName, "/Search/", value['value'])}>{value['value']}</Link></Typography>
                     :
                     <Typography><Link href={"/".concat(registryName, "/Search/", value)}>{value}</Link></Typography>
             }

@@ -58,7 +58,13 @@
       {
         "type": "Control",
         "label": "Local Identifier",
-        "scope": "#/properties/localIdentifier"
+        "scope": "#/properties/localIdentifier",
+        "rule": {
+            "effect": "DISABLE",
+            "condition": {
+                "scope": "#/properties/localIdentifier"
+        	}
+    	}
       },
       {
         "type": "Control",
