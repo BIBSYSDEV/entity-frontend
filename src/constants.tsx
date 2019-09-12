@@ -7,3 +7,10 @@ export const AUTHORISED = 'authorised';
 export const REGISTRIES = 'registries';
 export const USER = 'user';
 export const LINK = 'link';
+export const MINIMUM_NUMBER_OF_SEARCH_CHARACTERS = 3;
+
+export enum RDFLanguageCodes {
+	NORWEGIAN_BOKMAL = 'nb',
+	NORWEGIAN_NYNORSK = 'nn',
+	ENGLISH = 'en'
+}

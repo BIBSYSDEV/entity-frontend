@@ -34,11 +34,7 @@
 				"properties": {
 					"language": {
 						"type": "string",
-						"enum": [
-							"en",
-							"nb",
-							"nn"
-						]
+						"enum": ["en", "nb", "nn"]
 					},
 					"value": {
 						"type": "string"
@@ -62,11 +58,7 @@
 				"properties": {
 					"language": {
 						"type": "string",
-						"enum": [
-							"en",
-							"nb",
-							"nn"
-						]
+						"enum": ["en", "nb", "nn"]
 					},
 					"value": {
 						"type": "string"
@@ -93,18 +85,13 @@
 				"properties": {
 					"language": {
 						"type": "string",
-						"enum": [
-							"en",
-							"nb",
-							"nn"
-						]
+						"enum": ["en", "nb", "nn"]
 					},
 					"value": {
 						"type": "string"
 					}
 				}
-			},
-			"required": ["true"]
+			}
 		},
 		"localIdentifier": {
 			"label": "localIdentifier",
@@ -132,11 +119,7 @@
 				"properties": {
 					"language": {
 						"type": "string",
-						"enum": [
-							"en",
-							"nb",
-							"nn"
-						]
+						"enum": ["en", "nb", "nn"]
 					},
 					"value": {
 						"type": "string"
@@ -163,11 +146,7 @@
 				"properties": {
 					"language": {
 						"type": "string",
-						"enum": [
-							"en",
-							"nb",
-							"nn"
-						]
+						"enum": ["en", "nb", "nn"]
 					},
 					"value": {
 						"type": "string"
@@ -176,5 +155,6 @@
 			},
 			"required": ["false"]
 		}
-	}
+	},
+	"required": ["preferredLabel"]
 }
