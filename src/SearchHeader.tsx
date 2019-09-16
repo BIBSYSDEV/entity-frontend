@@ -9,69 +9,69 @@ import { EMPTY } from './constants';
 import RegistryButton from './RegistryButton';
 
 export interface SearchHeaderProps {
-  search(searchValue: string): object[];
-  registryName: string;
+	search(searchValue: string): object[];
+	registryName: string;
 }
 
 const SearchHeader = (props: SearchHeaderProps): any => {
-  const { search, registryName } = props;
+	const { search, registryName } = props;
 
-  const [searchValue, setSearchValue] = useState(EMPTY);
+	const [searchValue, setSearchValue] = useState(EMPTY);
 
-  const handleSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearchValue(event.target.value);
-  };
+	const handleSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+		setSearchValue(event.target.value);
+	};
 
-  const searchThis = () => {
-    search(searchValue);
-  };
+	const searchThis = () => {
+		search(searchValue);
+	};
 
-  const SearchButton = withRouter(({ history }: any) => (
-    <Button
-      onClick={() => {
-        searchThis();
-        history.push('/'.concat(registryName, '/Search'));
-      }}
-      color="inherit">
-      Search
-    </Button>
-  ));
+	const SearchButton = withRouter(({ history }: any) => (
+		<Button
+			onClick={() => {
+				searchThis();
+				history.push('/'.concat(registryName, '/Search'));
+			}}
+			color="inherit">
+			Search
+		</Button>
+	));
 
-  const EditButton = withRouter(({ history }: any) => (
-    <Button onClick={() => history.push('/'.concat(registryName))}>Edit</Button>
-  ));
+	const EditButton = withRouter(({ history }: any) => (
+		<Button onClick={() => history.push('/'.concat(registryName))}>Edit</Button>
+	));
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    search(searchValue);
-  };
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		searchThis();
+	};
 
-  return (
-    <div>
-      <AppBar position="static" color="default">
-        <Toolbar variant="dense">
-          <Typography variant="h6" color="inherit" align="left">
-            Search ({registryName})
-          </Typography>
-          <EditButton />
-          <RegistryButton />
-          <form onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              name="search"
-              label="Search"
-              type="search"
-              id="search"
-              autoFocus
-              onChange={handleSearchValueChange}
-            />
-          </form>
-          <SearchButton />
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+	return (
+		<div>
+			<AppBar position="static" color="default">
+				<Toolbar variant="dense">
+					<Typography variant="h6" color="inherit" align="left">
+						Search ({registryName})
+					</Typography>
+					<EditButton />
+					<RegistryButton />
+					<form onSubmit={handleSubmit}>
+						<TextField
+							variant="outlined"
+							margin="normal"
+							name="search"
+							label="Search"
+							type="search"
+							id="search"
+							autoFocus
+							onChange={handleSearchValueChange}
+						/>
+					</form>
+					<SearchButton />
+				</Toolbar>
+			</AppBar>
+		</div>
+	);
 };
 
 export default SearchHeader;
