@@ -61,18 +61,13 @@ export const readEntity = async (registryName: string, entityId: string) => {
 	return data;
 };
 
-export const writeEntity = async (
-	registryName: string,
-	entityId: string,
-	apiKey: string,
-	entity: any
-) => {
+export const writeEntity = async (registryName: string, entityId: string, apiKey: string, entity: any) => {
 	entity.modified = convertDateToISOString(new Date());
 	const bodyObject: any = {
 		body: entity
 	};
 
-	if (Boolean(entityId)) {
+	if (entityId) {
 		const id = entityId.split('/').pop();
 		bodyObject.id = id;
 		return await API.put('entity', `/registry/${registryName}/entity/${id}`, {
@@ -80,8 +75,10 @@ export const writeEntity = async (
 			body: bodyObject
 		});
 	} else {
-		bodyObject.id = uuidv4();
+		const newId = uuidv4();
+		bodyObject.id = newId;
 		bodyObject.body['@context'] = `${config.apiGateway.URL}/json-ld/context`;
+		bodyObject.body['localIdentifier'] = await createLocalIdentifier(newId);
 		return await API.post('entity', '/registry/' + registryName + '/entity/', {
 			headers: { 'api-key': apiKey },
 			body: bodyObject
@@ -94,6 +91,17 @@ export const readSchema = async (registryName: string, apiKey: string) => {
 	//      transform entitySchema to jsonSchema
 	//      return entitySchema
 	return schema;
+};
+
+const createLocalIdentifier = async (id: string): Promise<string> => {
+	// TODO: replace this url with correct one
+	const localIdentifierCode = await fetch('https://www.mocky.io/v2/5185415ba171ea3a00704eed', {
+		headers: {
+			Accept: 'application/ld+json'
+		}
+	}).then(data => data.json().then(data => (data && data.localIdentifier ? data.localIdentifier : EMPTY)));
+
+	return `${localIdentifierCode}${id}`;
 };
 
 export const createRegistryUri = (registryName: string) => {
