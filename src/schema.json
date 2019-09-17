@@ -19,9 +19,9 @@
 			"type": "string",
 			"required": ["false"]
 		},
-		"narrower": {
-			"label": "narrower",
-			"title": "https://unit.no/entitydata#narrower",
+		"broader": {
+			"label": "broader",
+			"title": "https://unit.no/entitydata#broader",
 			"type": "string",
 			"required": ["false"]
 		},
@@ -123,9 +123,9 @@
 			},
 			"required": ["false"]
 		},
-		"broader": {
-			"label": "broader",
-			"title": "https://unit.no/entitydata#broader",
+		"narrower": {
+			"label": "narrower",
+			"title": "https://unit.no/entitydata#narrower",
 			"type": "array",
 			"items": {
 				"type": "string"
