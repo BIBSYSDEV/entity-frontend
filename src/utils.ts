@@ -78,7 +78,7 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
 		const newId = uuidv4();
 		bodyObject.id = newId;
 		bodyObject.body['@context'] = `${config.apiGateway.URL}/json-ld/context`;
-		bodyObject.body['localIdentifier'] = await createLocalIdentifier(newId);
+		bodyObject.body['localIdentifier'] = await createLocalIdentifier(newId, registryName);
 		return await API.post('entity', '/registry/' + registryName + '/entity/', {
 			headers: { 'api-key': apiKey },
 			body: bodyObject
@@ -93,13 +93,21 @@ export const readSchema = async (registryName: string, apiKey: string) => {
 	return schema;
 };
 
-const createLocalIdentifier = async (id: string): Promise<string> => {
-	// TODO: replace this url with correct one
-	const localIdentifierCode = await fetch('https://www.mocky.io/v2/5185415ba171ea3a00704eed', {
+export const getLocalIdentifierCode = async (registryName: string) => {
+	const data = await API.get('entity', `/registry/concept-schemes/entity/${registryName}`, {
 		headers: {
 			Accept: 'application/ld+json'
 		}
-	}).then(data => data.json().then(data => (data && data.localIdentifier ? data.localIdentifier : EMPTY)));
+	});
+	if (data.localIdentifierCode) {
+		return data.localIdentifierCode;
+	} else {
+		return EMPTY;
+	}
+};
+
+const createLocalIdentifier = async (id: string, registryName: string): Promise<string> => {
+	const localIdentifierCode = await getLocalIdentifierCode(registryName);
 
 	return `${localIdentifierCode}${id}`;
 };
