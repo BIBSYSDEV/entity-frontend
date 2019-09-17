@@ -13,8 +13,8 @@ const ChipLabel: React.FC<ChipLabelProps> = ({ id, onDelete }) => {
 	const useStyles = makeStyles((theme: Theme) =>
 		createStyles({
 			chip: {
-				margin: theme.spacing(1)
-			}
+				margin: theme.spacing(1),
+			},
 		})
 	);
 
@@ -23,14 +23,16 @@ const ChipLabel: React.FC<ChipLabelProps> = ({ id, onDelete }) => {
 	const [label, setLabel] = useState(EMPTY);
 
 	useEffect(() => {
-		getLabelForId(id);
+		if (id) {
+			getLabelForId(id);
+		}
 	}, [id]);
 
 	const getLabelForId = async (id: string) => {
 		return await fetch(id, {
 			headers: {
-				Accept: 'application/ld+json'
-			}
+				Accept: 'application/ld+json',
+			},
 		}).then(data =>
 			data.json().then(data => {
 				setLabel(getNorwegianLabelFirst(data.preferredLabel) || EMPTY);
@@ -38,9 +40,7 @@ const ChipLabel: React.FC<ChipLabelProps> = ({ id, onDelete }) => {
 		);
 	};
 
-	return (
-		<Chip className={classes.chip} label={label} onDelete={(event: any) => onDelete(event, id)} />
-	);
+	return <Chip className={classes.chip} label={label} onDelete={(event: any) => onDelete(event, id)} />;
 };
 
 export default ChipLabel;
