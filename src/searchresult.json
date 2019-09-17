@@ -1,65 +1,71 @@
-[{
-	"id": "https://ozbvft90ha.execute-api.eu-west-1.amazonaws.com/final/registry/humord/entity/5b4e175b-928a-482f-97da-56ebbb869053",
-	"type": "Concept",
-	"broader": ["https://ozbvft90ha.execute-api.eu-west-1.amazonaws.com/final/registry/humord/entity/5b4e175b-928a-482f-97da-56ebbb869053"],
-	"inScheme": "http://data.ub.uio.no/humord",
-	"localIdentifier": "HUME16748",
-	"modified": "1998-10-07",
-	"preferredLabel": [{
-		"language": "nb",
-		"value": "Villach"
-	}],
-	"sameAs": ["http://data.ub.uio.no/humord/c16748"],
-	"@context": {
-		"@vocab": "http://unit.no/entitydata#",
-		"xsd": "http://www.w3.org/2001/XMLSchema#",
-		"id": "@id",
-		"preferredLabel": {
-			"@container": "@set"
-		},
-		"alternativeLabel": {
-			"@container": "@set"
-		},
-		"inScheme": {
-			"@type": "@id"
-		},
-		"broader": {
-			"@type": "@id",
-			"@container": "@set"
-		},
-		"narrower": {
-			"@type": "@id",
-			"@container": "@set"
-		},
-		"related": {
-			"@type": "@id",
-			"@container": "@set"
-		},
-		"seeAlso": {
-			"@type": "@id",
-			"@container": "@set"
-		},
-		"editorialNote": {
-			"@container": "@set"
-		},
-		"scopeNote": {
-			"@container": "@set"
-		},
-		"definition": {
-			"@container": "@set"
-		},
-		"type": "@type",
-		"language": "@language",
-		"value": "@value",
-		"created": {
-			"@type": "xsd:date"
-		},
-		"modified": {
-			"@type": "xsd:date"
-		},
-		"sameAs": {
-			"@type": "@id",
-			"@container": "@set"
+[
+	{
+		"id": "https://ozbvft90ha.execute-api.eu-west-1.amazonaws.com/final/registry/humord/entity/5b4e175b-928a-482f-97da-56ebbb869053",
+		"type": "Concept",
+		"narrower": [
+			"https://ozbvft90ha.execute-api.eu-west-1.amazonaws.com/final/registry/humord/entity/5b4e175b-928a-482f-97da-56ebbb869053"
+		],
+		"inScheme": "http://data.ub.uio.no/humord",
+		"localIdentifier": "HUME16748",
+		"modified": "1998-10-07",
+		"preferredLabel": [
+			{
+				"language": "nb",
+				"value": "Villach"
+			}
+		],
+		"sameAs": ["http://data.ub.uio.no/humord/c16748"],
+		"@context": {
+			"@vocab": "http://unit.no/entitydata#",
+			"xsd": "http://www.w3.org/2001/XMLSchema#",
+			"id": "@id",
+			"preferredLabel": {
+				"@container": "@set"
+			},
+			"alternativeLabel": {
+				"@container": "@set"
+			},
+			"inScheme": {
+				"@type": "@id"
+			},
+			"narrower": {
+				"@type": "@id",
+				"@container": "@set"
+			},
+			"broader": {
+				"@type": "@id",
+				"@container": "@set"
+			},
+			"related": {
+				"@type": "@id",
+				"@container": "@set"
+			},
+			"seeAlso": {
+				"@type": "@id",
+				"@container": "@set"
+			},
+			"editorialNote": {
+				"@container": "@set"
+			},
+			"scopeNote": {
+				"@container": "@set"
+			},
+			"definition": {
+				"@container": "@set"
+			},
+			"type": "@type",
+			"language": "@language",
+			"value": "@value",
+			"created": {
+				"@type": "xsd:date"
+			},
+			"modified": {
+				"@type": "xsd:date"
+			},
+			"sameAs": {
+				"@type": "@id",
+				"@container": "@set"
+			}
 		}
 	}
-}]
+]

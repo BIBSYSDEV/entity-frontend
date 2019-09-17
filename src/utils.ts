@@ -1,13 +1,14 @@
 import { API, Auth } from 'aws-amplify';
 import SecretsManager from 'aws-sdk/clients/secretsmanager';
 import { Actions } from '@jsonforms/core';
-import schema from './schema.json';
 import uuidv4 from 'uuid';
+
+import schema from './schema.json';
 import config from './config';
-import Narrower from './components/Narrower';
-import narrowerTester from './components/NarrowerTester';
 import Broader from './components/Broader';
 import broaderTester from './components/BroaderTester';
+import Narrower from './components/Narrower';
+import narrowerTester from './components/NarrowerTester';
 import Related from './components/Related';
 import relatedTester from './components/RelatedTester.js';
 import { EMPTY, RDFLanguageCodes } from './constants';
@@ -29,13 +30,13 @@ export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) =>
 	Auth.currentCredentials().then((credentials): any => {
 		const options: object = {
 			apiVersion: '2017-10-17',
-			credentials: Auth.essentialCredentials(credentials)
+			credentials: Auth.essentialCredentials(credentials),
 		};
 		const secretsManager = new SecretsManager(options);
 		secretsManager.getSecretValue(
 			{
 				SecretId: 'entity_frontend',
-				VersionStage: 'AWSCURRENT'
+				VersionStage: 'AWSCURRENT',
 			},
 			(err, data): void => {
 				setApiKey(JSON.parse(data.SecretString as string)[registryName]);
@@ -46,30 +47,25 @@ export const fetchApiKey = (registryName: string, setApiKey: (apiKey: string) =>
 
 export const initialiseStore = (dispatch: any, data: any, schema: any, uischema: any) => {
 	dispatch(Actions.init(data, schema, uischema));
-	dispatch(Actions.registerRenderer(broaderTester, Broader));
 	dispatch(Actions.registerRenderer(narrowerTester, Narrower));
+	dispatch(Actions.registerRenderer(broaderTester, Broader));
 	dispatch(Actions.registerRenderer(relatedTester, Related));
 };
 
 export const readEntity = async (registryName: string, entityId: string) => {
 	const data = await API.get('entity', `/registry/${registryName}/entity/${entityId}`, {
 		headers: {
-			Accept: 'application/ld+json'
-		}
+			Accept: 'application/ld+json',
+		},
 	});
 
 	return data;
 };
 
-export const writeEntity = async (
-	registryName: string,
-	entityId: string,
-	apiKey: string,
-	entity: any
-) => {
+export const writeEntity = async (registryName: string, entityId: string, apiKey: string, entity: any) => {
 	entity.modified = convertDateToISOString(new Date());
 	const bodyObject: any = {
-		body: entity
+		body: entity,
 	};
 
 	if (Boolean(entityId)) {
@@ -77,14 +73,14 @@ export const writeEntity = async (
 		bodyObject.id = id;
 		return await API.put('entity', `/registry/${registryName}/entity/${id}`, {
 			headers: { 'api-key': apiKey },
-			body: bodyObject
+			body: bodyObject,
 		});
 	} else {
 		bodyObject.id = uuidv4();
 		bodyObject.body['@context'] = `${config.apiGateway.URL}/json-ld/context`;
 		return await API.post('entity', '/registry/' + registryName + '/entity/', {
 			headers: { 'api-key': apiKey },
-			body: bodyObject
+			body: bodyObject,
 		});
 	}
 };
