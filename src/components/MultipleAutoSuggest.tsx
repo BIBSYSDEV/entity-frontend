@@ -21,8 +21,6 @@ const MultipleAutoSuggest: React.FC<MultipleAutoSuggestProps> = props => {
 	useEffect(() => {
 		if (data) {
 			setListOfIds(data);
-		} else {
-			setListOfIds([]);
 		}
 	}, [data]);
 
