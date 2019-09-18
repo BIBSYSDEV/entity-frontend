@@ -96,13 +96,8 @@
 		"localIdentifier": {
 			"label": "localIdentifier",
 			"title": "https://unit.no/entitydata#localIdentifier",
-			"type": "object",
-			"properties": {
-				"value": {
-					"type": "string"
-				}
-			},
-			"required": ["false"]
+			"type": "string",
+			"required": ["true"]
 		},
 		"modified": {
 			"label": "modified",

@@ -68,7 +68,7 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
 		body: entity,
 	};
 
-	if (Boolean(entityId)) {
+	if (entityId) {
 		const id = entityId.split('/').pop();
 		bodyObject.id = id;
 		return await API.put('entity', `/registry/${registryName}/entity/${id}`, {
@@ -76,8 +76,10 @@ export const writeEntity = async (registryName: string, entityId: string, apiKey
 			body: bodyObject,
 		});
 	} else {
-		bodyObject.id = uuidv4();
+		const newId = uuidv4();
+		bodyObject.id = newId;
 		bodyObject.body['@context'] = `${config.apiGateway.URL}/json-ld/context`;
+		bodyObject.body['localIdentifier'] = await createLocalIdentifier(newId, registryName);
 		return await API.post('entity', '/registry/' + registryName + '/entity/', {
 			headers: { 'api-key': apiKey },
 			body: bodyObject,
@@ -90,6 +92,25 @@ export const readSchema = async (registryName: string, apiKey: string) => {
 	//      transform entitySchema to jsonSchema
 	//      return entitySchema
 	return schema;
+};
+
+export const getLocalIdentifierCode = async (registryName: string) => {
+	const data = await API.get('entity', `/registry/concept-schemes/entity/${registryName}`, {
+		headers: {
+			Accept: 'application/ld+json'
+		}
+	});
+	if (data.localIdentifierCode) {
+		return data.localIdentifierCode;
+	} else {
+		return EMPTY;
+	}
+};
+
+const createLocalIdentifier = async (id: string, registryName: string): Promise<string> => {
+	const localIdentifierCode = await getLocalIdentifierCode(registryName);
+
+	return `${localIdentifierCode}${id}`;
 };
 
 export const createRegistryUri = (registryName: string) => {
