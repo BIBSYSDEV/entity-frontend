@@ -14,49 +14,59 @@
 		},
 		{
 			"type": "VerticalLayout",
-			"label": "Preferred Label",
+			"label": "Foretrukken term",
 			"elements": [
 				{
 					"type": "Control",
-					"label": "Preferred Label",
+					"label": "Foretrukken term",
 					"scope": "#/properties/preferredLabel"
 				}
 			]
 		},
 		{
 			"type": "VerticalLayout",
-			"label": "Alternative label",
+			"label": "Brukt for",
 			"elements": [
 				{
 					"type": "Control",
-					"label": "Alternative label",
+					"label": "Brukt for",
 					"scope": "#/properties/alternativeLabel"
 				}
 			]
 		},
 		{
 			"type": "Control",
-			"label": "Definition",
+			"label": "Bruksområde",
+			"scope": "#/properties/scopeNote"
+		},
+		{
+			"type": "Control",
+			"label": "Definisjon",
 			"scope": "#/properties/definition"
 		},
 		{
 			"type": "Control",
-			"label": "Broader",
+			"label": "Redaksjonell note",
+			"scope": "#/properties/editorialNote"
+		},
+		{
+			"type": "Control",
+			"label": "Overordnet",
 			"scope": "#/properties/broader"
 		},
 		{
 			"type": "Control",
-			"label": "Narrower",
+			"label": "Underordnet",
 			"scope": "#/properties/narrower"
 		},
 		{
 			"type": "Control",
-			"label": "Related",
+			"label": "Se også",
 			"scope": "#/properties/related"
 		},
 		{
 			"type": "Control",
-			"label": "Local Identifier",
+			"label": "Lokal identifikator",
 			"scope": "#/properties/localIdentifier",
 			"rule": {
 				"effect": "DISABLE",
@@ -67,17 +77,7 @@
 		},
 		{
 			"type": "Control",
-			"label": "Editorial Note",
-			"scope": "#/properties/editorialNote"
-		},
-		{
-			"type": "Control",
-			"label": "Scope Note",
-			"scope": "#/properties/scopeNote"
-		},
-		{
-			"type": "Control",
-			"label": "Last modified",
+			"label": "Sist endret",
 			"scope": "#/properties/modified",
 			"rule": {
 				"effect": "DISABLE",
@@ -88,7 +88,7 @@
 		},
 		{
 			"type": "Control",
-			"label": "In scheme",
+			"label": "Vokabular",
 			"scope": "#/properties/inScheme",
 			"rule": {
 				"effect": "DISABLE",
