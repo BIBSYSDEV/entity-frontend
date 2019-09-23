@@ -46,8 +46,18 @@
 		},
 		{
 			"type": "Control",
+			"label": "Kilde",
+			"scope": "#/properties/source"
+		},
+		{
+			"type": "Control",
 			"label": "Redaksjonell note",
 			"scope": "#/properties/editorialNote"
+		},
+		{
+			"type": "Control",
+			"label": "Historikk",
+			"scope": "#/properties/historyNote"
 		},
 		{
 			"type": "Control",
@@ -72,6 +82,17 @@
 				"effect": "DISABLE",
 				"condition": {
 					"scope": "#/properties/localIdentifier"
+				}
+			}
+		},
+		{
+			"type": "Control",
+			"label": "Opprettet",
+			"scope": "#/properties/created",
+			"rule": {
+				"effect": "DISABLE",
+				"condition": {
+					"scope": "#/properties/created"
 				}
 			}
 		},

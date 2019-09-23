@@ -149,6 +149,42 @@
 				}
 			},
 			"required": ["false"]
+		},
+		"historyNote": {
+			"label": "historyNote",
+			"title": "https://unit.no/entitydata#historyNote",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"language": {
+						"type": "string",
+						"enum": ["en", "nb", "nn"]
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["false"]
+		},
+		"source": {
+			"label": "source",
+			"title": "https://unit.no/entitydata#source",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"language": {
+						"type": "string",
+						"enum": ["en", "nb", "nn"]
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["false"]
 		}
 	},
 	"required": ["preferredLabel"]
