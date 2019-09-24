@@ -35,6 +35,17 @@
 			]
 		},
 		{
+			"type": "VerticalLayout",
+			"label": "Skjulte termer",
+			"elements": [
+				{
+					"type": "Control",
+					"label": "Skjulte termer",
+					"scope": "#/properties/hiddenLabel"
+				}
+			]
+		},
+		{
 			"type": "Control",
 			"label": "Bruksområde",
 			"scope": "#/properties/scopeNote"
@@ -73,6 +84,11 @@
 			"type": "Control",
 			"label": "Se også",
 			"scope": "#/properties/related"
+		},
+		{
+			"type": "Control",
+			"label": "Bruk+",
+			"scope": "#/properties/plusUseTerm"
 		},
 		{
 			"type": "Control",

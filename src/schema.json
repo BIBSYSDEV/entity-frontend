@@ -43,6 +43,24 @@
 			},
 			"required": ["false"]
 		},
+		"hiddenLabel": {
+			"label": "hiddenLabel",
+			"title": "https://unit.no/entitydata#hiddenLabel",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"language": {
+						"type": "string",
+						"enum": ["en", "nb", "nn"]
+					},
+					"value": {
+						"type": "string"
+					}
+				}
+			},
+			"required": ["false"]
+		},
 		"type": {
 			"label": "type",
 			"title": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
@@ -126,6 +144,15 @@
 		"narrower": {
 			"label": "narrower",
 			"title": "https://unit.no/entitydata#narrower",
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"required": ["false"]
+		},
+		"plusUseTerm": {
+			"label": "plusUseTerm",
+			"title": "https://unit.no/entitydata#plusUseTerm",
 			"type": "array",
 			"items": {
 				"type": "string"
