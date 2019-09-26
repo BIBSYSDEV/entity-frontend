@@ -22,7 +22,10 @@
 		"broader": {
 			"label": "broader",
 			"title": "https://unit.no/entitydata#broader",
-			"type": "string",
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
 			"required": ["false"]
 		},
 		"alternativeLabel": {
